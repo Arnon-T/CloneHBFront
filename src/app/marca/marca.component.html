@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-5">
+      <form name="form" (ngSubmit)="export(tipo)" #f="ngForm" novalidate enctype="multipart/form-data">
+        <div class="form-group">
+          <h3>Import/Export Marcas</h3>
+          <br>
+        </div>
+
+        <div class="dropdown">
+          <div class="form-group">
+            <select (change)="selectOption($event.target.value)" class="form-control" id="tipo" required>
+              <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                   name="file" (change)="selectFile($event)"
+                   onchange="document.querySelector('#nome-arquivo').textContent = this.files[0].name;">
+            <label class="custom-file-label" id="nome-arquivo" for="inputGroupFile04">Escolher o arquivo</label>
+          </div>
+
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"  type="button" id="inputGroupFileAddon04">Importar</button>
+          </div>
+        </div>
+
+        <div>
+          <p></p>
+          <button class="btn btn-primary" type="submit">Exportar</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
