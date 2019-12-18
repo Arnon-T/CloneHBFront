@@ -14,10 +14,9 @@ export class MarcaService {
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File, tipo: string): Observable<any> {
-    let url = this.signupUrl + 'import-marcas';
+    let url = this.signupUrl + 'fileupload/' + tipo;
     let formdata: FormData = new FormData();
     formdata.append('file', file);
-    formdata.append('tipo', tipo);
 
     return this.http.post(url, formdata);
   }
@@ -28,5 +27,10 @@ export class MarcaService {
     return this.http.get(url);
   }
 
+  selectAllMarcas(tipo: string): Observable<any> {
+  let url = this.signupUrl + 'allByTipo/' + tipo;
+
+  return this.http.get(url);
+  }
 
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col-md-5">
-      <form name="form" (ngSubmit)="export(tipo)" #f="ngForm" novalidate enctype="multipart/form-data">
+      <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
         <div class="form-group">
           <h3>Import/Export Marcas</h3>
           <br>
@@ -25,18 +25,50 @@
           </div>
 
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary"  type="button" id="inputGroupFileAddon04">Importar</button>
+            <button class="btn btn-outline-secondary" id="inputGroupFileAddon04">Importar</button>
           </div>
-        </div>
-
-        <div>
-          <p></p>
-          <button class="btn btn-primary" type="submit">Exportar</button>
         </div>
 
       </form>
 
+      <div>
+        <p></p>
+        <a class="btn btn-primary" href="http://192.168.33.214:8080/api/marcas/export-marcas/{{tipo}}" type="button">Exportar</a>
+      </div>
+
     </div>
+
   </div>
 
+  <div>
+    <button class="btn btn-primary" type="submit"
+            (click)="selectAllMarcas(tipo)" >Listar
+      <span class="glyphicon glyphicon-search"></span>
+    </button>
+  </div>
+
+  <div id="lista" class="row">
+    <div class="table-responsive col-md-12">
+
+      <table class="table col-md-12">
+        <thead>
+        <tr>
+          <th class="col-md-1">ID</th>
+          <th class="col-md-2">Marca</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let marca of listaMarcas | async">
+
+          <td>{{marca.id}}</td>
+          <td>{{marca.nome}}</td>
+
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
 </div>
+
