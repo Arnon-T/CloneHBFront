@@ -35,14 +35,12 @@
         <p></p>
         <a class="btn btn-primary" href="http://192.168.33.214:8080/api/marcas/export-marcas/{{tipo}}" type="button">Exportar</a>
       </div>
-
     </div>
-
   </div>
 
   <div>
     <button class="btn btn-primary" type="submit"
-            (click)="selectAllMarcas(tipo)" >Listar
+            (click)="listarMarcas(tipo)" >Listar
       <span class="glyphicon glyphicon-search"></span>
     </button>
   </div>
@@ -59,7 +57,7 @@
         </thead>
         <tbody>
 
-        <tr *ngFor="let marca of listaMarcas | async">
+        <tr *ngFor="let marca of listaMarcas.content | paginate: config">
 
           <td>{{marca.id}}</td>
           <td>{{marca.nome}}</td>
@@ -68,7 +66,8 @@
         </tbody>
 
       </table>
-    </div>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>    
   </div>
 </div>
 

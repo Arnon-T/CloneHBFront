@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { MarcaInfo } from './marca-info';
+import { map  } from 'rxjs/operators';
 
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -27,10 +28,10 @@ export class MarcaService {
     return this.http.get(url);
   }
 
-  selectAllMarcas(tipo: string): Observable<any> {
-  let url = this.signupUrl + 'allByTipo/' + tipo;
-
-  return this.http.get(url);
+  selectMarcas(tipo: string): Observable<any>{
+    let url = this.signupUrl + 'allByTipo/' + tipo; 
+ 
+    return this.http.get(url);
   }
 
 }
