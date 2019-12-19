@@ -1,11 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RentalTermComponent } from './rental-term/rental-term.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectpageimportComponent } from './selectpageimport/selectpageimport.component';
+
+import { RentalTermService } from './rental-term/rental-term.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -16,9 +21,13 @@ import { SelectpageimportComponent } from './selectpageimport/selectpageimport.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    RentalTermService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
