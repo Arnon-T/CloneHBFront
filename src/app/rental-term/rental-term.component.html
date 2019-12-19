@@ -1,18 +1,18 @@
 <div class="container-termo">
   <div class="content-termo">
-    <form>
+    <form name="form" (ngSubmit)=onSubmit($event)>
       <div class="header-form">
         <h2>Cadastrar Termo de Locação</h2>
       </div>
       <div class="content-form">
         <div class="input-area">
           <span>Título do Termo</span>
-          <input type="text" placeholder="Insira o título do termo que será cadastrado.">
+          <input [(ngModel)]="form.termTitle" [ngModelOptions]="{standalone: true}" type="text" placeholder="Insira o título do termo que será cadastrado.">
         </div>
         <div class="input-area">
           <div class="input-area-file">
-            <label for="file">Selecionar um arquivo</label>
-            <input id="file" type="file" name="file" class="form-control-file">
+            <label for="file" id="file-name">Selecionar um arquivo</label>
+            <input id="file" type="file" name="file"onchange="document.querySelector('#file-name').textContent = this.files[0].name" class="form-control-file" (change)="selectFile($event)">
           </div>
         </div>
       </div>
