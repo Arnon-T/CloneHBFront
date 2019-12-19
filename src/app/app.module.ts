@@ -4,11 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RentalTermComponent } from './rental-term/rental-term.component';
+import { HeaderComponent } from './header/header.component';
+import { SelectpageimportComponent } from './selectpageimport/selectpageimport.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RentalTermComponent
+    RentalTermComponent,
+    HeaderComponent,
+    SelectpageimportComponent
   ],
   imports: [
     BrowserModule,

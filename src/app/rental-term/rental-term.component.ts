@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rental-term.component.css']
 })
 export class RentalTermComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
   }
-
 }
