@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { RentalTermComponent } from './rental-term/rental-term.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectpageimportComponent } from './selectpageimport/selectpageimport.component';
+import { MarcaComponent } from './marca/marca.component';
+import { MarcaService } from './marca/marca.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RentalTermService } from './rental-term/rental-term.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,16 +20,19 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     RentalTermComponent,
     HeaderComponent,
-    SelectpageimportComponent
+    SelectpageimportComponent,
+    MarcaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [
-    RentalTermService
+    RentalTermService,
+    MarcaService
   ],
   bootstrap: [AppComponent]
 })
