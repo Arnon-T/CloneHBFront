@@ -5,7 +5,7 @@ import { SelectpageimportComponent } from './selectpageimport/selectpageimport.c
 
 const routes: Routes = [
   { path: "rental-term", component: RentalTermComponent },
-  { path: "import", component: SelectpageimportComponent }
+  { path: "import", component: SelectpageimportComponent },
 ];
 
 @NgModule({
