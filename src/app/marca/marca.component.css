@@ -112,6 +112,10 @@
   overflow: hidden;
 }
 
+.container-marcas .content-marcas form .input-group .custom-file .custom-file-label {
+  overflow: hidden;
+}
+
 .container-marcas .content-marcas form .input-group .input-group-append {
   border: 1px solid #ecebed;
   border-top-right-radius: 5px;

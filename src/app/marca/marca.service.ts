@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 })
 
 export class MarcaService {
-  private signupUrl = 'http://192.168.32.74:8080/api/marcas/';
+  private signupUrl = 'http://localhost:8080/api/marcas';
 
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File, tipo: string): Observable<any> {
-    let url = this.signupUrl + 'fileupload/' + tipo;
+    let url = this.signupUrl + '/fileupload/' + tipo;
     let formdata: FormData = new FormData();
     formdata.append('file', file);
 
@@ -21,13 +21,13 @@ export class MarcaService {
   }
 
   downloadFile(tipo: string): Observable<any> {
-    let url = this.signupUrl + 'export-marcas/' + tipo;
+    let url = this.signupUrl + '/export-marcas/' + tipo;
 
     return this.http.get(url);
   }
 
   selectMarcas(tipo: string): Observable<any>{
-    let url = this.signupUrl + 'allByTipo/' + tipo;
+    let url = this.signupUrl + '/allByTipo/' + tipo;
 
     return this.http.get(url);
   }
