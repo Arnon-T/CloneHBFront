@@ -1,0 +1,27 @@
+<div class="container-modelos">
+  <div class="content-modelos">
+    <div class="header-modelos">
+      <h2>Gerenciamento de modelos</h2>
+    </div>
+    <div class="content-actions">
+      <form name="formzin" (ngSubmit)="onSubmit()" #f="ngForm" novalidate enctype="multipart/form-data">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="file" (change)="selectFile($event)"
+              onchange="document.querySelector('#labelzin').textContent=this.files[0].name;" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label label-arquivo" id=labelzin for="inputGroupFile01">Escolha o arquivo
+              aqui</label>
+          </div>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03"
+              type="submit">Importar</button>
+          </div>
+        </div>
+      </form>
+      <div class="button-export">
+        <button (click)="exportar()" class="btn btn-light btn-export" type="submit">Exportar modelo</button>
+      </div>
+    </div>
+  </div>
+</div>
