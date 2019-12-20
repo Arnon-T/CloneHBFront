@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 
 export class MarcaService {
-  private signupUrl = 'http://192.168.33.214:8080/api/marcas/';
+  private signupUrl = 'http://192.168.32.74:8080/api/marcas/';
 
   constructor(private http: HttpClient) { }
 

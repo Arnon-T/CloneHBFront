@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { MarcaService } from './marca.service';
 import { MarcaInfo } from './marca-info';
 import { Observable } from 'rxjs';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-marca',
   templateUrl: './marca.component.html',
-  styleUrls: ['./marca.component.scss']
+  styleUrls: ['./marca.component.css']
 })
 export class MarcaComponent implements OnInit {
 
