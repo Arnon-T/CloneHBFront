@@ -27,9 +27,9 @@
           <button type="submit" (click)="listarMarcas(tipo)">Listar</button>
         </div>
       </div>
-      <div class="button-export">
+      <a href="http://localhost:8080/api/marcas/export-marcas/{{tipo}}" class="button-export">
         <button type="button">Exportar</button>
-      </div>
+      </a>
     </form>
 
     <div id="lista" class="list-types">

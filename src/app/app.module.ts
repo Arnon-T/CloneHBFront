@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AppComponent } from './app.component';
 import { RentalTermComponent } from './rental-term/rental-term.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectpageimportComponent } from './selectpageimport/selectpageimport.component';
 import { MarcaComponent } from './marca/marca.component';
-import { MarcaService } from './marca/marca.service';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { VehicleModelComponent } from './import-model/import-model.component';
 
 import { RentalTermService } from './rental-term/rental-term.service';
-import { HttpClientModule } from '@angular/common/http';
+import { MarcaService } from './marca/marca.service';
+import { ModelService } from './import-model/import-model.service';
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     RentalTermComponent,
     HeaderComponent,
     SelectpageimportComponent,
-    MarcaComponent
+    MarcaComponent,
+    VehicleModelComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     RentalTermService,
-    MarcaService
+    MarcaService,
+    ModelService
   ],
   bootstrap: [AppComponent]
 })

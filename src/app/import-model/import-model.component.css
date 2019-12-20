@@ -1,0 +1,95 @@
+.container-modelos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 965px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-modelos .content-modelos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.container-modelos .content-modelos .header-modelos {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ecebed;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.container-modelos .content-modelos .header-modelos h2 {
+  font-size: 22px;
+  color: #1D285A;
+  overflow: hidden;
+}
+
+.container-modelos .content-modelos .content-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  max-width: 550px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-modelos .content-modelos .content-actions form {
+  width: 100%;
+}
+
+.container-modelos .content-modelos .content-actions form .input-group .custom-file .custom-file-input, .container-modelos .content-modelos form .input-group .custom-file .custom-file-label {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.container-modelos .content-modelos .content-actions form .input-group .custom-file .custom-file-label {
+  overflow: hidden;
+}
+
+.container-modelos .content-modelos .content-actions form .input-group-append button {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #ecebed !important;
+}
+
+.container-modelos .content-modelos .content-actions form .input-group-append button:hover {
+  background: #006da1;
+  transition: 0.2s background;
+}
+
+.container-modelos .content-modelos .content-actions .button-export, .container-modelos .content-modelos .content-actions .button-export button {
+  min-height: 40px;
+  height: 100%;
+}
+
+.container-modelos .content-modelos .content-actions .button-export {
+  background: #0082BF;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.container-modelos .content-modelos .content-actions .button-export button {
+  background: none;
+  border: none;
+  width: 100%;
+  outline: 0;
+  box-shadow: none;
+  color: #fff;
+}
+
+.container-modelos .content-modelos .content-actions .button-export:hover {
+  background: #006da1;
+  transition: 0.2s background;
+}
