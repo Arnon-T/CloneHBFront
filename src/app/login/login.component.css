@@ -19,7 +19,7 @@ h1, label, input, span {
 .container .container-page .content-login {
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 80px 0 rgba(77, 84, 124,.09);
+    box-shadow: 0 0 80px 0 rgba(0, 0, 0, .1);
     max-width: 450px;
     width: 100%;
     margin: 0 auto;
@@ -84,6 +84,11 @@ h1, label, input, span {
     cursor: pointer;
 }
 
+.container .container-page .content-login .form-login .button-enter:hover {
+    background: #006da1;
+    transition: 0.2s background;
+}
+
 .container .container-page .content-login .form-login .button-enter button {
     width: 100%;
     height: 100%;
@@ -128,6 +133,11 @@ h1, label, input, span {
     border: 1px solid #ebeced;
     transition: opacity .2s;
     cursor: pointer;
+}
+
+.container .container-page .content-signup .area-signup .area-button-signup:hover {
+    background: #006da1;
+    transition: 0.2s background;
 }
 
 .container .container-page .content-signup .area-signup .area-button-signup button {
