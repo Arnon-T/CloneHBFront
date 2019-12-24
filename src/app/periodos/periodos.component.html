@@ -1,0 +1,40 @@
+<div id="error"></div>
+
+<form name="form" (ngSubmit)= "sendInformation()" #f="ngForm">
+
+<select (change)="getSelected($event.target.value)" class="form-control" id="tipo" required>
+    <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+</select>
+
+Data Inicio: <input name="inicio" [(ngModel)]="form.inicio" #inicio="ngModel" id="dataInicio" type="date"><br>
+Data Fim: <input name="fim" [(ngModel)]="form.fim" #fim="ngModel" id="dataFim" type="date"><br>
+<button type="submit">Cadastrar</button>
+</form>
+
+
+<div id="lista" class="list-types">
+    <div class="table-responsive col-md-12">
+      <table class="table col-md-12 table-marcas">
+        <thead>
+          <tr>
+            <th class="col-md-1">ID</th>
+            <th class="col-md-2">Data Incial</th>
+            <th class="col-md-1">Data Final</th>
+            <th class="col-md-1">Tipo de Veiculo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let periodo of listaPeriodo | paginate: config">
+            <td>{{periodo.id}}</td>
+            <td>{{periodo.dataInicial}}</td>
+            <td>{{periodo.dataFinal}}</td>
+            <td>{{periodo.vehicleType}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+
+<button (click)="getInformation()">GetInformation</button>
+
