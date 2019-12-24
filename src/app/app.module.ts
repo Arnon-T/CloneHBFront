@@ -17,6 +17,7 @@ import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
 import { LoginComponent } from './login/login.component';
+import { LocationGarageComponent } from './location-garage/location-garage.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { LoginComponent } from './login/login.component';
     SelectpageimportComponent,
     MarcaComponent,
     VehicleModelComponent,
-    LoginComponent
+    LoginComponent,
+    LocationGarageComponent
   ],
   imports: [
     BrowserModule,

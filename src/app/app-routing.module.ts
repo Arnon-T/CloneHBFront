@@ -6,6 +6,7 @@ import { SelectpageimportComponent } from './selectpageimport/selectpageimport.c
 import { MarcaComponent } from './marca/marca.component';
 import { VehicleModelComponent } from './import-model/import-model.component';
 import { LoginComponent } from './login/login.component';
+import { LocationGarageComponent } from './location-garage/location-garage.component';
 
 const routes: Routes = [
   { path: "rental-term", component: RentalTermComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "gerenciar/marcas", component: MarcaComponent },
   { path: "gerenciar/modelos", component: VehicleModelComponent },
   { path: "login", component: LoginComponent},
+  { path: "location-garage", component: LocationGarageComponent },
 ];
 
 @NgModule({
