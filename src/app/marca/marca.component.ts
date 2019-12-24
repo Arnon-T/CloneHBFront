@@ -40,8 +40,8 @@ export class MarcaComponent implements OnInit {
     this.tipo = tipo;
   }
 
-  export(tipo) {
-    this.marcaService.downloadFile(tipo).subscribe();
+  export() {    
+    this.marcaService.downloadFile(this.tipo);
   }
 
   import() {

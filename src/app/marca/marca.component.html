@@ -2,7 +2,7 @@
   <div class="content-marcas">
     <div class="header-marcas">
       <h2>Gerenciamento de marcas</h2>
-    </div>
+    </div>    
     <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
       <div class="input-group">
         <div class="custom-file">
@@ -27,9 +27,9 @@
           <button type="submit" (click)="listarMarcas(tipo)">Listar</button>
         </div>
       </div>
-      <a href="http://localhost:8080/api/marcas/export-marcas/{{tipo}}" class="button-export">
-        <button type="button">Exportar</button>
-      </a>
+      <div>
+        <button type="button" class="button-export" (click)="export()">Exportar</button>
+      </div>
     </form>
 
     <div id="lista" class="list-types">
