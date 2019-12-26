@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AlertModule } from './_alert';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,8 @@ import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
+import { LoginComponent } from './login/login.component';
+import { LocationGarageComponent } from './location-garage/location-garage.component';
 
 
 @NgModule({
@@ -27,19 +30,23 @@ import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastr
     SelectpageimportComponent,
     MarcaComponent,
     VehicleModelComponent,
-    CadastroColaboradoresComponent
+    CadastroColaboradoresComponent,
+    LoginComponent,
+    LocationGarageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AlertModule,
     HttpClientModule,
     NgxPaginationModule
   ],
   providers: [
     RentalTermService,
     MarcaService,
-    ModelService
+    ModelService,
+
   ],
   bootstrap: [AppComponent]
 })

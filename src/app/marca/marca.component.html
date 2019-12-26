@@ -3,6 +3,9 @@
     <div class="header-marcas">
       <h2>Gerenciamento de marcas</h2>
     </div>
+    <div>
+      <alert></alert>
+    </div>
     <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
       <div class="input-group">
         <div class="custom-file">
@@ -24,12 +27,12 @@
           </div>
         </div>
         <div class="listar-button">
-          <button type="submit" (click)="listarMarcas(tipo)">Listar</button>
+          <button type="button" (click)="listarMarcas(tipo)">Listar</button>
         </div>
       </div>
-      <a href="http://localhost:8080/api/marcas/export-marcas/{{tipo}}" class="button-export">
-        <button type="button">Exportar</button>
-      </a>
+      <div class="button-export">
+        <button type="button" class="button-export" (click)="export()">Exportar</button>
+      </div>
     </form>
 
     <div id="lista" class="list-types">
@@ -53,71 +56,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col-md-5">
-      <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
-
-        <div class="dropdown">
-          <div class="form-group">
-            <select (change)="selectOption($event.target.value)" class="form-control" id="tipo" required>
-              <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="input-group">
-
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                   name="file" (change)="selectFile($event)"
-                   onchange="document.querySelector('#nome-arquivo').textContent = this.files[0].name;">
-            <label class="custom-file-label" id="nome-arquivo" for="inputGroupFile04">Escolher o arquivo</label>
-          </div>
-
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" id="inputGroupFileAddon04">Importar</button>
-          </div>
-        </div>
-
-      </form>
-
-      <div>
-        <a class="btn btn-primary" href="http://192.168.33.214:8080/api/marcas/export-marcas/{{tipo}}" type="button">Exportar</a>
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <button class="btn btn-primary" type="submit"
-            (click)="listarMarcas(tipo)" >Listar
-      <span class="glyphicon glyphicon-search"></span>
-    </button>
-  </div>
-
-  <div id="lista" class="row">
-    <div class="table-responsive col-md-12">
-
-      <table class="table col-md-12">
-        <thead>
-        <tr>
-          <th class="col-md-1">ID</th>
-          <th class="col-md-2">Marca</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <tr *ngFor="let marca of listaMarcas.content | paginate: config">
-
-          <td>{{marca.id}}</td>
-          <td>{{marca.nome}}</td>
-
-        </tr>
-        </tbody>
-
-      </table>
-      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-    </div>
-  </div>
-</div>  -->

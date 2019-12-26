@@ -1,0 +1,154 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 450px;
+    width: 100%;
+    margin: 85px auto 0;
+}
+
+.container .container-page {
+    max-width: 450px;
+    width: 100%;
+}
+
+h1, label, input, span {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container .container-page .content-login {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 80px 0 rgba(0, 0, 0, .1);
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-content-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 10px 15px;
+    border-bottom: 1px solid #ebeced;
+}
+
+.header-content-login h1 {
+    font-size: 35px;
+    color: #1D285A;
+}
+
+.container .container-page .content-login .form-login {
+    margin-top: 25px;
+    padding: 0 25px 25px;
+}
+
+.container .container-page .content-login .form-login .input-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.container .container-page .content-login .form-login .input-area .input-div {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border: 1px solid #d1d5da;
+}
+
+.container .container-page .content-login .form-login .input-area .input-div input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    margin: 0 15px;
+    color: #1D285A;
+}
+
+.container .container-page .content-login .form-login .button-enter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background: #0082BF;
+    border: 1px solid #ebeced;
+    transition: opacity .2s;
+    cursor: pointer;
+}
+
+.container .container-page .content-login .form-login .button-enter:hover {
+    background: #006da1;
+    transition: 0.2s background;
+}
+
+.container .container-page .content-login .form-login .button-enter button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: transparent;
+}
+
+.container .container-page .content-signup {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
+    border: 1px solid #ebeced;
+    max-width: 450px;
+    width: 100%;
+    margin: 25px auto 0;
+}
+
+.container .container-page .content-signup .area-signup {
+    padding: 15px 25px;
+}
+
+.container .container-page .content-signup .area-signup .header-content-signup {
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+.container .container-page .content-signup .area-signup .area-button-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    margin-top: 12px;
+    border-radius: 5px;
+    background: #0082BF;
+    border: 1px solid #ebeced;
+    transition: opacity .2s;
+    cursor: pointer;
+}
+
+.container .container-page .content-signup .area-signup .area-button-signup:hover {
+    background: #006da1;
+    transition: 0.2s background;
+}
+
+.container .container-page .content-signup .area-signup .area-button-signup button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: transparent;
+}
