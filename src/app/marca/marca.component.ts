@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AlertService } from '../_alert';
 import { saveAs } from 'file-saver';
 
+
 @Component({
   selector: 'app-marca',
   templateUrl: './marca.component.html',
@@ -23,12 +24,13 @@ export class MarcaComponent implements OnInit {
   tipo: string = 'CARRO';
   listaMarcas: Observable<any>[] = [];
   config: any;
+   
 
   constructor(private marcaService: MarcaService, private alertService: AlertService) {
     this.config = {
       itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.listaMarcas.length
+      currentPage: 1,      
+      totalItems: 0
     }
 
   }
@@ -77,9 +79,12 @@ export class MarcaComponent implements OnInit {
   }
 
   listarMarcas(tipo) {
-    this.marcaService.selectMarcas(tipo)
+    this.marcaService.selectMarcas(tipo, this.config.currentPage, this.config.itemsPerPage)
       .subscribe(data => {
         this.listaMarcas = data;
+        this.config.totalItems = data.totalElements;
+        console.log(data);
+        console.log(this.config);
       });
   }
 

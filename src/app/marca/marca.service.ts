@@ -42,8 +42,9 @@ export class MarcaService {
     }));
   }
 
-  selectMarcas(tipo: string): Observable<any> {
-    let url = this.urlBase + '/allByTipo/' + tipo;
+  selectMarcas(tipo: string, page: any, limit: any): Observable<any> {
+    page = page - 1;
+    let url = this.urlBase + '/allByTipo/' + tipo  + "/" + page + '/' + limit;
 
     return this.http.get(url);
   }

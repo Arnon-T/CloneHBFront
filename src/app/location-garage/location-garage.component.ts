@@ -51,7 +51,7 @@ export class LocationGarageComponent implements OnInit {
 
   searchMarca(tipo) {
     if (!this.vehicleHasOption) {
-      this.marcaService.selectMarcas(this.tipo).subscribe((dados: any) => {
+      this.marcaService.selectMarcas(this.tipo, 10, 10).subscribe((dados: any) => {
         this.listaMarcas = dados.content;
         
       console.log("Testando",this.listaMarcas);
