@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertModule } from './_alert';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpErrorInterceptor } from './http-error.interceptor';
+import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
@@ -41,11 +40,7 @@ import { ModelService } from './import-model/import-model.service';
     RentalTermService,
     MarcaService,
     ModelService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
-    }
+
   ],
   bootstrap: [AppComponent]
 })

@@ -17,23 +17,23 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.subscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
                 if (!alert.message) {
-                    // clear alerts when an empty alert is received
+ 
                     this.alerts = [];
                     return;
                 }
 
-                // add alert to array
                 this.alerts.push(alert);
-            });
+                setTimeout(() => this.removeAlert(alert), 5000);
+            });            
     }
 
     ngOnDestroy() {
-        // unsubscribe to avoid memory leaks
+ 
         this.subscription.unsubscribe();
     }
 
     removeAlert(alert: Alert) {
-        // remove specified alert from array
+ 
         this.alerts = this.alerts.filter(x => x !== alert);
     }
 
@@ -41,8 +41,7 @@ export class AlertComponent implements OnInit, OnDestroy {
         if (!alert) {
             return;
         }
-
-        // return css class based on alert type
+ 
         switch (alert.type) {
             case AlertType.Success:
                 return 'alert alert-success';

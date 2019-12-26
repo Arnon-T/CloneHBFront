@@ -4,13 +4,16 @@
       <h2>Gerenciamento de modelos</h2>
     </div>
     <div class="content-actions">
-      <form name="formzin" (ngSubmit)="onSubmit()" #f="ngForm" novalidate enctype="multipart/form-data">
+      <div>
+        <alert></alert>
+      </div>
+      <form name="formzin" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
         <div class="input-group">
           <div class="custom-file">
             <input type="file" class="custom-file-input" name="file" (change)="selectFile($event)"
-              onchange="document.querySelector('#labelzin').textContent=this.files[0].name;" id="inputGroupFile01"
+              onchange="document.querySelector('#nome-arquivo').textContent=this.files[0].name;" id="inputGroupFile01"
               aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label label-arquivo" id=labelzin for="inputGroupFile01">Escolha o arquivo
+            <label class="custom-file-label label-arquivo" id="nome-arquivo" for="inputGroupFile01">Escolha o arquivo
               aqui</label>
           </div>
           <div class="input-group-append">
@@ -19,9 +22,9 @@
           </div>
         </div>
       </form>
-      <a href="http://localhost:8080/api/model/export/models" class="button-export">
-        <button class="btn btn-light btn-export" type="button">Exportar modelo</button>
-      </a>
+      <div class="button-export">
+        <button type="button" (click)="export()">Exportar modelo</button>
+      </div>
     </div>
   </div>
 </div>
