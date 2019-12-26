@@ -31,5 +31,4 @@ import { Observable } from 'rxjs';
         return this.http.get(this.exportUrl, {observe: 'response', responseType: 'text'});
     }
 
-
   }

@@ -7,26 +7,25 @@
             <div class="input-area-reverse">
                 <label>Código da marca:</label>
                 <div class="input-div">
-                    <select name="codigo-marca" id="codigo-marca">
-                        <option>Example #1</option>
-                        <option>Example #2</option>
+                    <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca"
+                        [disabled]="vehicleHasOption">
+                        <option *ngFor="let marca of listaMarcas" [value]="marca">{{marca.nome}}</option>
                     </select>
-                    
                 </div>
             </div>
             <div class="input-area">
                 <label>Código do tipo de veículo:</label>
                 <div class="input-div">
-                    <select name="codigo-tipo" id="codigo-tipo">
-                        <option>Example #1</option>
-                        <option>Example #2</option>
+                    <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
+                        (change)="setVehicleHasOption()" (change)="searchMarca(tipo)">
+                        <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
                     </select>
                 </div>
             </div>
             <div class="input-area-reverse">
                 <label>Código da cor</label>
                 <div class="input-div">
-                    <select name="codigo-tipo" id="codigo-tipo">
+                    <select name="codigo-cor" id="codigo-cor">
                         <option>Example #1</option>
                         <option>Example #2</option>
                     </select>
@@ -35,10 +34,8 @@
             <div class="input-area">
                 <label>Código do modelo</label>
                 <div class="input-div">
-                    <select name="codigo-tipo" id="codigo-tipo">
-                        <option>Example #1</option>
-                        <option>Example #2</option>
-                    </select>
+                    <input (keydown)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
+                    <input type="text" disabled id="contentModel">
                 </div>
             </div>
             <div class="input-area-reverse">
@@ -50,7 +47,10 @@
             <div class="input-area">
                 <label>Código do período</label>
                 <div class="input-div">
-                    <input type="text" name="codigo-periodo">
+                    <select name="codigo-periodo" id="codigo-periodo">
+                        <option>Example #1</option>
+                        <option>Example #2</option>
+                    </select>
                 </div>
             </div>
             <div class="input-area-reverse">
