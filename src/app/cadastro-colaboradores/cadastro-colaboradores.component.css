@@ -1,0 +1,71 @@
+.container-colaboradores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 965px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-colaboradores .content-colaboradores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.container-colaboradores .content-colaboradores .header-colaboradores {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ecebed;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.container-colaboradores .content-colaboradores .header-colaboradores h2 {
+    font-size: 22px;
+    color: #1D285A;
+    overflow: hidden;
+}
+
+.container-colaboradores .container-colaboradores .content-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    max-width: 550px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container-colaboradores .container-colaboradores .content-actions form {
+    width: 100%;
+}
+
+.container-colaboradores .content-colaboradores .content-actions form .input-group .custom-file .custom-file-input, .container-colaboradores .container-colaboradores .content-action form .input-group .custom-file .custom-file-label {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.container-colaboradores .content-colaboradores .content-actions form .button-area {
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    background: #0082BF;
+    transition: 0.2s background;
+    margin-top: 20px;
+}
+
+.container-colaboradores .content-colaboradores .content-actions form .button-area button {
+    outline: none;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    max-height: 180;
+    height: 40px;
+}

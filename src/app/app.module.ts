@@ -16,6 +16,7 @@ import { VehicleModelComponent } from './import-model/import-model.component';
 import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
+import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ModelService } from './import-model/import-model.service';
     HeaderComponent,
     SelectpageimportComponent,
     MarcaComponent,
-    VehicleModelComponent
+    VehicleModelComponent,
+    CadastroColaboradoresComponent
   ],
   imports: [
     BrowserModule,
