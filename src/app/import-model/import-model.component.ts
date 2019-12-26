@@ -40,7 +40,6 @@ export class VehicleModelComponent implements OnInit {
     this.modelService.uploadFile(this.currentFileUpload).subscribe(data => {
       this.alertService.success('Modelos importados com sucesso!');
     }, error => {
-      console.log(error)
       switch (error.status) {
         case 0:
           this.alertService.error('Servidor indisponivel.');

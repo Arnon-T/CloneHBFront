@@ -4,11 +4,11 @@
     align-items: center;
     max-width: 700px;
     width: 100%;
-    margin: 85px auto 0;
+    margin: 85px auto 50px;
 }
 
-h1, label, input, span {
-    font-family: 'Poppins', sans-serif;
+h1, label, input, span, select {
+  font-family: 'Poppins', sans-serif;
 }
 
 .container .content-signup {
@@ -18,6 +18,7 @@ h1, label, input, span {
     max-width: 700px;
     width: 100%;
     margin: 0 auto;
+    border: 1px solid #ebeced;
 }
 
 .header-content-signup {
@@ -29,8 +30,8 @@ h1, label, input, span {
 }
 
 .header-content-signup h1 {
-    font-size: 35px;
-    color: #1D285A;
+    font-size: 25px;
+    color: #0082BF;
 }
 
 .container .content-signup .form-signup {
@@ -53,15 +54,20 @@ h1, label, input, span {
     height: 45px;
     border-radius: 5px;
     margin-bottom: 8px;
-    border: 1px solid #d1d5da;
+    padding: 0 15px;
+    border: 1px solid #ebeced;
+    outline: none;
 }
 
 .container .content-signup .form-signup .input-area .input-div option, select {
     border: none;
     background: transparent;
     width: 100%;
-    font-size: 16px;
+    font-size: 15px;
+    text-transform: uppercase;
     color: #1D285A;
+    outline: none;
+    cursor: pointer;
 }
 
 .container .content-signup .form-signup .input-area .input-div input {
@@ -69,11 +75,11 @@ h1, label, input, span {
     background: transparent;
     width: 100%;
     font-size: 16px;
-    border: 0 15px;
     color: #1D285A;
+    outline: none;
 }
 
-.container .content-signup .form-signup .area-button-signup{
+.container .content-signup .form-signup .area-button-signup {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,6 +91,7 @@ h1, label, input, span {
     border: 1px solid #ebeced;
     transition: opacity .2s;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .container .content-signup .form-signup .area-button-signup:hover{
@@ -98,11 +105,9 @@ h1, label, input, span {
     background: none;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     color: #fff;
-    text-shadow: transparent;
 }
 
 
@@ -122,7 +127,9 @@ h1, label, input, span {
     height: 45px;
     border-radius: 5px;
     margin-bottom: 8px;
-    border: 1px solid #d1d5da;
+    padding: 0 15px;
+    border: 1px solid #ebeced;
+    outline: none;
 }
 
 .container .content-signup .form-signup .input-area-reverse .input-div input {
@@ -130,7 +137,25 @@ h1, label, input, span {
     background: transparent;
     width: 100%;
     font-size: 16px;
-    margin: 0 15px;
     color: #1D285A;
+    outline: none;
 }
 
+
+@media only screen and (max-width: 500px) and (min-width: 0px) {
+  .container {
+    margin: 55px auto 50px;
+    transition: 0.2s margin;
+  }
+
+  .container .content-signup .form-signup .input-area {
+    width: 100%;
+    transition: 0.2s width;
+  }
+
+  .container .content-signup .form-signup .input-area-reverse {
+    width: 100%;
+    float: none;
+    transition: 0.2s width;
+  }
+}

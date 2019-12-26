@@ -9,7 +9,7 @@
     <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+          <input type="file" accept=".csv" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
             name="file" (change)="selectFile($event)"
             onchange="document.querySelector('#nome-arquivo').textContent = this.files[0].name;">
           <label class="custom-file-label" id="nome-arquivo" for="inputGroupFile04">Escolher o arquivo</label>
