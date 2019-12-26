@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalTermService } from './rental-term.service';
+import { Alert, AlertService } from '../_alert';
 
 @Component({
   selector: 'app-rental-term',
@@ -12,7 +13,7 @@ export class RentalTermComponent implements OnInit {
   currentFileUpload: File;
   termTitle: string;
 
-  constructor(private rentalTermService: RentalTermService) { }
+  constructor(private rentalTermService: RentalTermService, private alertService: AlertService) { }
 
   ngOnInit() {
   }
@@ -28,9 +29,22 @@ export class RentalTermComponent implements OnInit {
     this.termTitle = this.form.termTitle;
 
     this.currentFileUpload = this.selectedFiles.item(0);
-
-    console.log(this.currentFileUpload.name);
-
-    this.rentalTermService.uploadTerm(this.currentFileUpload, this.termTitle).subscribe();
+    
+    this.rentalTermService.uploadTerm(this.currentFileUpload, this.termTitle).subscribe(data => {
+      this.alertService.success('Termo cadastrado com sucesso!');
+    }, error => {
+      console.log(error)
+      switch (error.status) {
+        case 0:
+          this.alertService.error('Servidor indisponivel.');
+          break;
+        case 500:
+          this.alertService.error('Erro interno do servidor.');
+          break;
+        case 406:
+          this.alertService.error('Extensão do arquivo é inválida.');
+          break;
+      }
+    });
   }
 }

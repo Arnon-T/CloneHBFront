@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AlertService } from '../_alert';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -8,28 +10,43 @@ import { Observable } from 'rxjs';
 })
 
 export class MarcaService {
-  private signupUrl = 'http://localhost:8080/api/marcas';
+  private urlBase = 'http://localhost:8080/api/marcas';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertService: AlertService) { }
 
   uploadFile(file: File, tipo: string): Observable<any> {
-    let url = this.signupUrl + '/fileupload/' + tipo;
+    let url = this.urlBase + '/fileupload/' + tipo;
     let formdata: FormData = new FormData();
     formdata.append('file', file);
-
     return this.http.post(url, formdata);
   }
 
-  downloadFile(tipo: string): Observable<any> {
-    let url = this.signupUrl + '/export-marcas/' + tipo;
+  downloadFile(tipo): Observable<ArrayBuffer> {
+    let headers = new HttpHeaders();
+
+    const options: {
+        headers?: HttpHeaders;
+        observe?: 'body';
+        params?: HttpParams;
+        reportProgress?: boolean;
+        responseType: 'arraybuffer';
+        withCredentials?: boolean;
+    } = {
+        responseType: 'arraybuffer'
+    };
+
+    let url = this.urlBase + '/export-marcas/' + tipo;
+    
+    return this.http.get(url, options).pipe(map((file: ArrayBuffer) => {
+      return file;
+    }));
+  }
+
+  selectMarcas(tipo: string): Observable<any> {
+    let url = this.urlBase + '/allByTipo/' + tipo;
 
     return this.http.get(url);
   }
 
-  selectMarcas(tipo: string): Observable<any>{
-    let url = this.signupUrl + '/allByTipo/' + tipo;
-
-    return this.http.get(url);
-  }
 
 }
