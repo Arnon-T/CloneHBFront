@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelService }  from './import-model.service';
-import * as fileSaver from 'file-saver';
+import { ModelService } from './import-model.service';
+import { AlertService } from '../_alert'
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-import-model',
@@ -9,7 +10,7 @@ import * as fileSaver from 'file-saver';
 })
 export class VehicleModelComponent implements OnInit {
 
-  constructor(private modelService: ModelService ) { }
+  constructor(private modelService: ModelService, private alertService: AlertService) { }
 
   ngOnInit() {
   }
@@ -18,30 +19,40 @@ export class VehicleModelComponent implements OnInit {
   currentFileUpload: File;
   formzin: any = {};
 
-  selectFile(event){
+  selectFile(event) {
     this.selectedFiles = event.target.files;
   }
 
-  exportar(){
-    this.modelService.exportarCsv().subscribe(response =>{
-      const filename = response.headers.get('filename');
-      console.log(response.headers.get('filename'));
-      this.saveFile(response.body, filename);
+  export() {
+    this.modelService.downloadFile().subscribe(data => {
+      this.alertService.success('Iniciando download.');
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'modelo.csv');
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.alertService.error('Servidor está indisponível.')
+      }
     });
   }
 
-  saveFile(data: any, filename?: string){
-    const blob = new Blob([data], {type: 'text/csv;charset=utf-8,%EF%BB%BF'})
-    fileSaver.saveAs(blob, filename);
-  }
-
-  onSubmit(){
-    console.log(this.formzin);
-
+  import() {
     this.currentFileUpload = this.selectedFiles.item(0);
-
-    this.modelService.importarCsv(this.currentFileUpload).subscribe();
-
+    this.modelService.uploadFile(this.currentFileUpload).subscribe(data => {
+      this.alertService.success('Modelos importados com sucesso!');
+    }, error => {
+      console.log(error)
+      switch (error.status) {
+        case 0:
+          this.alertService.error('Servidor indisponivel.');
+          break;
+        case 500:
+          this.alertService.error('Erro interno do servidor.');
+          break;
+        case 406:
+          this.alertService.error('Extensão do arquivo é inválida.');
+          break;
+      }
+    });
   }
 
 }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AlertModule } from './_alert';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,13 +36,15 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AlertModule,
     HttpClientModule,
     NgxPaginationModule
   ],
   providers: [
     RentalTermService,
     MarcaService,
-    ModelService
+    ModelService,
+
   ],
   bootstrap: [AppComponent]
 })
