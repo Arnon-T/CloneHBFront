@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AlertService } from '../_alert';
-
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +9,12 @@ import { AlertService } from '../_alert';
 export class RentalTermService {
   private url = "http://localhost:8080/api";
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   uploadTerm(file: File, title: string): Observable<any> {
-    
     let url = this.url + "/termo/create";
 
     let formData: FormData = new FormData();
-
     formData.append('file', file);
     formData.append('title', title);
 

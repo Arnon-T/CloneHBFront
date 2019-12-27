@@ -4,7 +4,11 @@ import { Subscription } from 'rxjs';
 import { Alert, AlertType } from './alert.model';
 import { AlertService } from './alert.service';
 
-@Component({ selector: 'alert', templateUrl: 'alert.component.html' })
+@Component({
+  selector: 'alert',
+  templateUrl: 'alert.component.html',
+  styleUrls: ['./alert.component.css']
+})
 export class AlertComponent implements OnInit, OnDestroy {
     @Input() id: string;
 
@@ -17,23 +21,23 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.subscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
                 if (!alert.message) {
- 
+
                     this.alerts = [];
                     return;
                 }
 
                 this.alerts.push(alert);
                 setTimeout(() => this.removeAlert(alert), 5000);
-            });            
+            });
     }
 
     ngOnDestroy() {
- 
+
         this.subscription.unsubscribe();
     }
 
     removeAlert(alert: Alert) {
- 
+
         this.alerts = this.alerts.filter(x => x !== alert);
     }
 
@@ -41,7 +45,7 @@ export class AlertComponent implements OnInit, OnDestroy {
         if (!alert) {
             return;
         }
- 
+
         switch (alert.type) {
             case AlertType.Success:
                 return 'alert alert-success';
