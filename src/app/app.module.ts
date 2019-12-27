@@ -20,6 +20,7 @@ import { ModelService } from './import-model/import-model.service';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     VehicleModelComponent,
     CadastroColaboradoresComponent,
     LoginComponent,
-    LocationGarageComponent
+    LocationGarageComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,6 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     RentalTermService,
     MarcaService,
     ModelService,
-
   ],
   bootstrap: [AppComponent]
 })
