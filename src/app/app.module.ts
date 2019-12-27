@@ -20,6 +20,8 @@ import { ModelService } from './import-model/import-model.service';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
+import { httpInterceptorProvider } from './auth/auth-interceptor';
+import { GlobalAuth } from './global-auth';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     RentalTermService,
     MarcaService,
     ModelService,
+    httpInterceptorProvider,
+    GlobalAuth
 
   ],
   bootstrap: [AppComponent]

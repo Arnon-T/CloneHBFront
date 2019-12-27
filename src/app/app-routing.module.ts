@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: "gerenciar/modelos", component: VehicleModelComponent },
   { path: "cadastrar/colaboradores", component: CadastroColaboradoresComponent },
   { path: "login", component: LoginComponent},
-  { path: "location-garage", component: LocationGarageComponent }
+  { path: "location-garage", component: LocationGarageComponent },
+  { path: "", redirectTo: "/login", pathMatch: "full"}
 ];
 
 @NgModule({
