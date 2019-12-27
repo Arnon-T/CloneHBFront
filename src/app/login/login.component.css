@@ -13,7 +13,7 @@
 }
 
 h1, label, input, span {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .container .container-page .content-login {
@@ -23,6 +23,7 @@ h1, label, input, span {
     max-width: 450px;
     width: 100%;
     margin: 0 auto;
+    border: 1px solid #ebeced;
 }
 
 .header-content-login {
@@ -34,8 +35,8 @@ h1, label, input, span {
 }
 
 .header-content-login h1 {
-    font-size: 35px;
-    color: #1D285A;
+    font-size: 25px;
+    color: #0082BF;
 }
 
 .container .container-page .content-login .form-login {
@@ -68,6 +69,7 @@ h1, label, input, span {
     font-size: 16px;
     margin: 0 15px;
     color: #1D285A;
+    outline: 0;
 }
 
 .container .container-page .content-login .form-login .button-enter {
@@ -81,7 +83,9 @@ h1, label, input, span {
     background: #0082BF;
     border: 1px solid #ebeced;
     transition: opacity .2s;
+    outline: none;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .container .container-page .content-login .form-login .button-enter:hover {
@@ -95,11 +99,11 @@ h1, label, input, span {
     background: none;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     color: #fff;
     text-shadow: transparent;
+    outline: none;
 }
 
 .container .container-page .content-signup {
@@ -132,6 +136,7 @@ h1, label, input, span {
     background: #0082BF;
     border: 1px solid #ebeced;
     transition: opacity .2s;
+    outline: none;
     cursor: pointer;
 }
 
@@ -146,9 +151,9 @@ h1, label, input, span {
     background: none;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     color: #fff;
     text-shadow: transparent;
+    outline: none;
 }

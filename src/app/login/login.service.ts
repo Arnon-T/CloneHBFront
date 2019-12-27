@@ -14,7 +14,6 @@ const httpOptions = {
 })
 export class LoginService {
   private loginUrl = 'http://localhost:8080/api/auth/login';
-  private loginTST = 'http://localhost:56412/api/tst/login';
 
   constructor(private http: HttpClient) { }
 

@@ -31,7 +31,7 @@
     overflow: hidden;
 }
 
-.container-colaboradores .container-colaboradores .content-actions {
+.container-colaboradores .content-colaboradores .content-actions {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,13 +42,14 @@
     margin: 0 auto;
 }
 
-.container-colaboradores .container-colaboradores .content-actions form {
+.container-colaboradores .content-colaboradores .content-actions form {
     width: 100%;
 }
 
-.container-colaboradores .content-colaboradores .content-actions form .input-group .custom-file .custom-file-input, .container-colaboradores .container-colaboradores .content-action form .input-group .custom-file .custom-file-label {
+.container-colaboradores .content-colaboradores .content-actions form .input-group .custom-file .custom-file-input, .container-colaboradores .content-colaboradores .content-actions form .input-group .custom-file {
     outline: none !important;
     box-shadow: none !important;
+    overflow: hidden !important;
 }
 
 .container-colaboradores .content-colaboradores .content-actions form .button-area {

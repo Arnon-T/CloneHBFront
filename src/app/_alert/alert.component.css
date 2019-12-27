@@ -1,0 +1,7 @@
+.alert-dismissable {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.alert-dismissable a {
+  cursor: pointer;
+}

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from './login.service';
+import { AlertService } from '../_alert';
 
 import { GlobalAuth } from '../global-auth';
 import { AuthLoginInfo } from './auth-login-info';
 import { TokenStorage } from '../auth/token-storage';
-import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   tokenInfo: any;
   global : GlobalAuth;
   authority: String;
+  alertService: any;
 
   constructor(private loginService: LoginService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth) {
     this.global = authGlobal;
@@ -40,6 +42,16 @@ export class LoginComponent implements OnInit {
       this.form.email, 
       this.form.password
     );
+
+    if (this.form.email === undefined) {
+      this.alertService.info('E-mail precisa ser preenchido.');
+      return;
+    }
+
+    if (this.form.password === undefined) {
+      this.alertService.info('Senha precisa ser preenchido.');
+      return; 
+    }
 
     console.log(this.form.email, 
       this.form.password)
@@ -71,4 +83,11 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
+
+
+  // validateField(text: string, messageError: string) {
+  //   if (text === null || text === undefined) {
+  //     this.alertService.info(messageError);
+  //   }
+  // }
 }
