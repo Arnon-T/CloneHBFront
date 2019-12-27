@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalAuth } from '../global-auth';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
+
+    this.authGlobal.ngOnInit();
+
   }
 
 }

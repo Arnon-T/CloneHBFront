@@ -1,5 +1,5 @@
 <div class="container-termo">
-  <div class="content-termo">
+  <div class="content-termo"  *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
     <form name="form" (ngSubmit)=onSubmit($event)>
       <div class="header-form">
         <h2>Cadastrar Termo de Locação</h2>
@@ -25,4 +25,9 @@
       </div>
     </form>
   </div>
+
+<ng-template #acessoNegado>
+      <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+</ng-template>
+
 </div>

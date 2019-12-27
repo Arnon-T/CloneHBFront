@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalTermService } from './rental-term.service';
 import { AlertService } from '../_alert';
+import { GlobalAuth } from '../global-auth';
 
 @Component({
   selector: 'app-rental-term',
@@ -10,9 +11,12 @@ import { AlertService } from '../_alert';
 export class RentalTermComponent implements OnInit {
   form: any = {};
   selectedFiles: FileList;
-  constructor(private rentalTermService: RentalTermService, private alertService: AlertService) { }
+  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
+
+    this.authGlobal.ngOnInit();
+    
   }
 
   selectFile(event) {

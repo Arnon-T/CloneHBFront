@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModelService } from './import-model.service';
 import { AlertService } from '../_alert'
 import { saveAs } from 'file-saver';
+import { GlobalAuth } from '../global-auth';
 
 @Component({
   selector: 'app-import-model',
@@ -10,9 +11,12 @@ import { saveAs } from 'file-saver';
 })
 export class VehicleModelComponent implements OnInit {
 
-  constructor(private modelService: ModelService, private alertService: AlertService) { }
+  constructor(private modelService: ModelService, private alertService: AlertService, private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
+
+    this.authGlobal.ngOnInit();
+    
   }
 
   selectedFiles: FileList;
