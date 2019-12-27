@@ -3,6 +3,7 @@ import { ModelService } from './import-model.service';
 import { AlertService } from '../_alert'
 import { saveAs } from 'file-saver';
 import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import-model',
@@ -11,11 +12,16 @@ import { GlobalAuth } from '../global-auth';
 })
 export class VehicleModelComponent implements OnInit {
 
-  constructor(private modelService: ModelService, private alertService: AlertService, private authGlobal: GlobalAuth) { }
+  constructor(private modelService: ModelService, private alertService: AlertService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
 
     this.authGlobal.ngOnInit();
+
+    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
+      this.route.navigate(['/login']);  
+      return;
+    }
     
   }
 

@@ -5,6 +5,7 @@ import { AlertService } from '../_alert';
 import { GlobalAuth } from '../global-auth';
 import { AuthLoginInfo } from './auth-login-info';
 import { TokenStorage } from '../auth/token-storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,21 +20,20 @@ export class LoginComponent implements OnInit {
   tokenInfo: any;
   global : GlobalAuth;
   authority: String;
-  alertService: any;
-
-  constructor(private loginService: LoginService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth) {
+  
+  constructor(private loginService: LoginService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth, private alertService: AlertService, private route : Router) {
     this.global = authGlobal;
    }
 
   ngOnInit() {
 
     this.authGlobal.ngOnInit();
-    console.log(this.authGlobal)
     
     this.tokenInfo = {
       token: this.tokenStorage.getToken(),
       authorities: this.tokenStorage.getAuthorities()
     };
+    
   }
 
   onSubmit() {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     );
 
     if (this.form.email === undefined) {
-      this.alertService.info('E-mail precisa ser preenchido.');
+      this.alertService.info('E-mail precisa ser preenchido.');    
       return;
     }
 
@@ -67,8 +67,7 @@ export class LoginComponent implements OnInit {
 
       },
       error => {
-        console.log(error);
-        this.errorMessage = error.error.message;
+        this.alertService.error('Usuário e/ou senha inválida');
       }
     );
   }

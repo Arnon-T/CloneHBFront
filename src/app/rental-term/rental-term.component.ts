@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentalTermService } from './rental-term.service';
 import { AlertService } from '../_alert';
 import { GlobalAuth } from '../global-auth';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-rental-term',
@@ -11,11 +12,16 @@ import { GlobalAuth } from '../global-auth';
 export class RentalTermComponent implements OnInit {
   form: any = {};
   selectedFiles: FileList;
-  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private authGlobal: GlobalAuth) { }
+  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private authGlobal: GlobalAuth, private route : Router ) { }
 
   ngOnInit() {
 
     this.authGlobal.ngOnInit();
+
+    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
+      this.route.navigate(['/login']);  
+      return;
+    }
     
   }
 
