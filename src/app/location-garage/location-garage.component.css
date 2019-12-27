@@ -1,17 +1,18 @@
-.container {
+.container-locacao {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 700px;
     width: 100%;
-    margin: 85px auto 50px;
+    margin: 45px auto 50px;
+    padding: 0 15px;
 }
 
 h1, label, input, span, select {
   font-family: 'Poppins', sans-serif;
 }
 
-.container .content-signup {
+.container-locacao .content-locacao {
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 80px 0 rgba(0, 0, 0, .1);
@@ -21,7 +22,7 @@ h1, label, input, span, select {
     border: 1px solid #ebeced;
 }
 
-.header-content-signup {
+.container-locacao .content-locacao .header-content-locacao {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,36 +30,42 @@ h1, label, input, span, select {
     border-bottom: 1px solid #ebeced;
 }
 
-.header-content-signup h1 {
+.container-locacao .content-locacao .header-content-locacao h1 {
     font-size: 25px;
     color: #0082BF;
 }
 
-.container .content-signup .form-signup {
+.container-locacao .content-locacao .form-locacao {
     margin-top: 25px;
     padding: 0 25px 25px;
 }
 
-.container .content-signup .form-signup .content-input {
-    display: flex;
-    justify-content: space-between;
+.container-locacao .content-locacao .form-locacao .content-input {
+    display: grid;
+    grid-template-columns: 50% 50%;
     width: 100%;
-    align-items: center;
-    padding: 0 15px 25px;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    gap: 15px;
 }
 
-.container .content-signup .form-signup .content-input .input-area {
+.container-locacao .content-locacao .form-locacao .content-input .input-area {
     display: flex;
-    justify-content: left;
-    width: 49%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 45px;
     border-radius: 5px;
-    margin-bottom: 8px;
+    padding: 0 10px;
     border: 1px solid #ebeced;
     outline: none;
 }
 
-.container .content-signup .form-signup .content-input .input-area option, select {
+.container-locacao .content-locacao .form-locacao .content-input .input-area select {
+  padding: 11.5px 0;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .input-area option, .container-locacao .content-locacao .form-locacao .content-input .input-area select {
     border: none;
     background: transparent;
     width: 100%;
@@ -69,7 +76,7 @@ h1, label, input, span, select {
     cursor: pointer;
 }
 
-.container .content-signup .form-signup .content-input .input-area input {
+.container-locacao .content-locacao .form-locacao .content-input .input-area input {
     border: none;
     background: transparent;
     width: 100%;
@@ -78,7 +85,7 @@ h1, label, input, span, select {
     outline: none;
 }
 
-.container .content-signup .form-signup .area-button-signup {
+.container-locacao .content-locacao .form-locacao .area-button-signup {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,12 +100,12 @@ h1, label, input, span, select {
     font-size: 15px;
 }
 
-.container .content-signup .form-signup .area-button-signup:hover{
+.container-locacao .content-locacao .form-locacao .area-button-signup:hover{
     background: #006da1;
     transition: 0.2s background;
 }
 
-.container .content-signup .form-signup .area-button-signup button {
+.container-locacao .content-locacao .form-locacao .area-button-signup button {
     width: 100%;
     height: 100%;
     background: none;
@@ -109,13 +116,106 @@ h1, label, input, span, select {
     color: #fff;
 }
 
-@media only screen and (max-width: 500px) and (min-width: 0px) {
-  .content-input {
-    flex-direction: column;
-  }
-
-  .container .content-signup .form-signup .content-input {
-    padding: 0 15px 0px;
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo {
+  display: flex;
+  width: 100%;
+  padding: 0 25px;
+  margin-bottom: 20px;
+  user-select: none;
 }
 
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .input-checkbox {
+  display: flex;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .container-checkbox {
+  min-width: 21px;
+  max-width: 21px;
+  width: 100%;
+  min-height: 20px;
+  max-height: 20px;
+  width: 100%;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .container-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  background: #fafafa;
+  border: 1px solid #ebeced;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .text-aceitar-termo {
+  font-size: 15px;
+  margin-left: 10px;
+  color: #7d7d7d;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .text-aceitar-termo strong {
+  color: #0082BF;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .text-aceitar-termo strong:hover {
+  border-bottom: 1px solid #0082BF;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .container-checkbox .span-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .span-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid #0082BF;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo .container-checkbox input:checked ~ .span-checkmark:after  {
+  display: block;
+}
+
+.container-locacao .content-locacao .form-locacao .content-checkbox-termo label:checked {
+  background: #0082BF !important;
+}
+
+@media only screen and (max-width: 500px) and (min-width: 0px) {
+  .container-locacao .content-locacao .form-locacao .content-input {
+    grid-template-columns: 100%;
+  }
+
+  .container-locacao .content-locacao .form-locacao .content-input {
+    padding: 0 15px 0px;
+  }
+}
+
+@media only screen and (max-width: 450px) and (min-width: 0px) {
+  .container-locacao .content-locacao .form-locacao {
+    padding: 0 15px 25px;
+    transition: 0.2s padding;
+  }
 }
