@@ -20,9 +20,11 @@ import { ModelService } from './import-model/import-model.service';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+
 import { httpInterceptorProvider } from './auth/auth-interceptor';
 import { GlobalAuth } from './global-auth';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { GlobalAuth } from './global-auth';
     VehicleModelComponent,
     CadastroColaboradoresComponent,
     LoginComponent,
-    LocationGarageComponent
+    LocationGarageComponent,
+    MainPageComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,6 @@ import { GlobalAuth } from './global-auth';
     ModelService,
     httpInterceptorProvider,
     GlobalAuth
-
   ],
   bootstrap: [AppComponent]
 })

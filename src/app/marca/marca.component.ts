@@ -51,6 +51,7 @@ export class MarcaComponent implements OnInit {
   }
 
   export() {
+    this.alertService.clear();
     this.marcaService.downloadFile(this.tipo).subscribe(data => {
       this.alertService.success('Iniciando download.');
 

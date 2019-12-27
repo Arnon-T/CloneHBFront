@@ -1,0 +1,98 @@
+.container-notfound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 965px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-notfound .content-notfound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.container-notfound .content-notfound  .content-background-notfound {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .image-area {
+  max-width: 550px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .image-area img {
+  width: 100%;
+  height: 100%;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 725px;
+  margin: 0 auto;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .notfound-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .notfound-info h1 {
+  font-size: 25px;
+  color: #0082BF;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .notfound-info span {
+  font-size: 16px;
+  color: #7d7d7d;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .button-href {
+  max-width: 250px;
+  width: 100%;
+  height: 42px;
+  background: #0082BF;
+  border: 1px solid #ecebed;
+  color: #fff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .button-href span {
+  text-align: center;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.container-notfound .content-notfound  .content-background-notfound .content-text .button-href:hover {
+  text-decoration: none;
+  background: #006da1;
+  transition: 0.2s background;
+}
+
+@media only screen and (max-width: 400px) and (min-width: 0px) {
+  .container-notfound .content-notfound  .content-background-notfound .content-text .notfound-info h1 {
+    font-size: 23px;
+    transition: 0.2s font-size;
+  }
+
+  .container-notfound .content-notfound  .content-background-notfound .content-text .notfound-info span {
+    font-size: 15px;
+    transition: 0.2s font-size;
+  }
+}
