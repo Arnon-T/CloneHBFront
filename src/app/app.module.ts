@@ -21,6 +21,7 @@ import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastr
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MainPageComponent } from './main-page/main-page.component';
     CadastroColaboradoresComponent,
     LoginComponent,
     LocationGarageComponent,
-    MainPageComponent
+    MainPageComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
