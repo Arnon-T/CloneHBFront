@@ -18,9 +18,9 @@ const routes: Routes = [
   { path: "gerenciar/marcas", component: MarcaComponent },
   { path: "gerenciar/modelos", component: VehicleModelComponent },
   { path: "cadastrar/colaboradores", component: CadastroColaboradoresComponent },
-  { path: "login", component: LoginComponent},
+  { path: "login", component: LoginComponent },
   { path: "locacao-vaga", component: LocationGarageComponent },
-  { path: "", redirectTo: "/login", pathMatch: "full"},
+  { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", component: NotfoundComponent },
 ];
 

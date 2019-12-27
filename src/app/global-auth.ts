@@ -2,16 +2,15 @@ import { OnInit, Injectable } from '@angular/core';
 import { TokenStorage } from './auth/token-storage';
 
 @Injectable()
-export class GlobalAuth implements OnInit{
+export class GlobalAuth implements OnInit {
 
   roles: string[];
   authority: string;
   isLogged: boolean;
 
-
   constructor(private tokenStorage: TokenStorage) { }
 
-  ngOnInit(){
+  ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {
@@ -28,7 +27,7 @@ export class GlobalAuth implements OnInit{
         this.isLogged = true;
         return true;
       });
-    }else{
+    } else {
       this.isLogged = false;
     }
   }

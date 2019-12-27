@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   tokenInfo: any;
   global : GlobalAuth;
   authority: String;
-  
+
   constructor(private loginService: LoginService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth, private alertService: AlertService, private route : Router) {
     this.global = authGlobal;
    }
@@ -28,32 +28,36 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.authGlobal.ngOnInit();
-    
+    if(this.authGlobal.isLogged){
+      this.route.navigate(['/'])
+    }
+
     this.tokenInfo = {
       token: this.tokenStorage.getToken(),
       authorities: this.tokenStorage.getAuthorities()
     };
-    
+
   }
 
   onSubmit() {
-    
+    this.alertService.clear();
+
     this.loginInfo = new AuthLoginInfo(
-      this.form.email, 
+      this.form.email,
       this.form.password
     );
 
     if (this.form.email === undefined) {
-      this.alertService.info('E-mail precisa ser preenchido.');    
+      this.alertService.info('E-mail precisa ser preenchido.');
       return;
     }
 
     if (this.form.password === undefined) {
       this.alertService.info('Senha precisa ser preenchido.');
-      return; 
+      return;
     }
 
-    console.log(this.form.email, 
+    console.log(this.form.email,
       this.form.password)
 
     this.loginService.login(this.loginInfo).subscribe(
