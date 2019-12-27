@@ -23,6 +23,8 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
 import { MainPageComponent } from './main-page/main-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
+import { httpInterceptorProvider } from './auth/auth-interceptor';
+import { GlobalAuth } from './global-auth';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     RentalTermService,
     MarcaService,
     ModelService,
+    httpInterceptorProvider,
+    GlobalAuth
   ],
   bootstrap: [AppComponent]
 })

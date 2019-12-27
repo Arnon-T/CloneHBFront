@@ -4,6 +4,8 @@ import { MarcaInfo } from './marca-info';
 import { Observable } from 'rxjs';
 import { AlertService } from '../_alert';
 import { saveAs } from 'file-saver';
+import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-marca',
@@ -24,7 +26,7 @@ export class MarcaComponent implements OnInit {
   listaMarcas: Observable<any>[] = [];
   config: any;
 
-  constructor(private marcaService: MarcaService, private alertService: AlertService) {
+  constructor(private marcaService: MarcaService, private alertService: AlertService, private authGlobal: GlobalAuth, private route: Router) {
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -33,6 +35,12 @@ export class MarcaComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.authGlobal.ngOnInit();
+
+    if(this.authGlobal.authority === 'user'){
+      this.route.navigate(['/login'])
+      return;
+    }
   }
 
   selectFile(event) {

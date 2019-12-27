@@ -1,58 +1,64 @@
-<div class="container-marcas">
-  <div class="content-marcas">
-    <div class="header-marcas">
-      <h2>Gerenciamento de marcas</h2>
-    </div>
-    <div>
-      <alert></alert>
-    </div>
-    <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
-      <div class="input-group">
-        <div class="custom-file">
-          <input type="file" accept=".csv" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-            name="file" (change)="selectFile($event)"
-            onchange="document.querySelector('#nome-arquivo').textContent = this.files[0].name;">
-          <label class="custom-file-label" id="nome-arquivo" for="inputGroupFile04">Escolher o arquivo</label>
-        </div>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" id="inputGroupFileAddon04">Importar</button>
-        </div>
+<div  *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+  <div class="container-marcas">
+    <div class="content-marcas">
+      <div class="header-marcas">
+        <h2>Gerenciamento de marcas</h2>
       </div>
-      <div class="dropdown-area">
-        <div class="dropdown">
-          <div class="form-group">
-            <select (change)="selectOption($event.target.value)" class="form-control" id="tipo" required>
-              <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
-            </select>
+      
+      <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" accept=".csv" class="custom-file-input" id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04" name="file" (change)="selectFile($event)"
+              onchange="document.querySelector('#nome-arquivo').textContent = this.files[0].name;">
+            <label class="custom-file-label" id="nome-arquivo" for="inputGroupFile04">Escolher o arquivo</label>
+          </div>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" id="inputGroupFileAddon04">Importar</button>
           </div>
         </div>
-        <div class="listar-button">
-          <button type="button" (click)="listarMarcas(tipo)">Listar</button>
+        <div class="dropdown-area">
+          <div class="dropdown">
+            <div class="form-group">
+              <select (change)="selectOption($event.target.value)" class="form-control" id="tipo" required>
+                <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="listar-button">
+            <button type="button" (click)="listarMarcas(tipo)">Listar</button>
+          </div>
         </div>
-      </div>
-      <div class="button-export">
-        <button type="button" class="button-export" (click)="export()">Exportar</button>
-      </div>
-    </form>
+        <div class="button-export">
+          <button type="button" class="button-export" (click)="export()">Exportar</button>
+        </div>
+      </form>
 
-    <div id="lista" class="list-types">
-      <div class="table-responsive col-md-12">
-        <table class="table col-md-12 table-marcas">
-          <thead>
-            <tr>
-              <th class="col-md-1">ID</th>
-              <th class="col-md-2">Marca</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let marca of listaMarcas.content | paginate: config">
-              <td>{{marca.id}}</td>
-              <td>{{marca.nome}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)"></pagination-controls>
+      <div id="lista" class="list-types">
+        <div class="table-responsive col-md-12">
+          <table class="table col-md-12 table-marcas">
+            <thead>
+              <tr>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-2">Marca</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let marca of listaMarcas.content | paginate: config">
+                <td>{{marca.id}}</td>
+                <td>{{marca.nome}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)"></pagination-controls>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #acessoNegado>
+  <div>
+    <alert></alert>
+  </div>
+</ng-template>

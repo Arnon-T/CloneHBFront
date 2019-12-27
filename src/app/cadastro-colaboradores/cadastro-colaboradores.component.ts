@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroColaboradoresService } from './cadastr-colaboradores.service';
+import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-colaboradores',
@@ -8,12 +10,20 @@ import { CadastroColaboradoresService } from './cadastr-colaboradores.service';
 })
 export class CadastroColaboradoresComponent implements OnInit {
 
-  constructor(private cadastrarColaboradoresService: CadastroColaboradoresService) { }
+  constructor(private cadastrarColaboradoresService: CadastroColaboradoresService, private authGlobal: GlobalAuth, private route: Router) { }
 
   selectedFiles: FileList;
   fileToUpload: File;
 
   ngOnInit() {
+
+    this.authGlobal.ngOnInit();
+
+    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
+      this.route.navigate(['/login']);  
+      return;
+    }
+
   }
 
   selectFile(event) {

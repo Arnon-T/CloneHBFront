@@ -1,5 +1,6 @@
 <div class="container-termo">
-  <div class="content-termo">
+  <div class="content-termo"
+    *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
     <form name="form" (ngSubmit)=onSubmit($event)>
       <div class="header-form">
         <h2>Cadastrar Termo de Locação</h2>
@@ -16,7 +17,8 @@
         <div class="input-area">
           <div class="input-area-file">
             <label for="file" id="file-name">Selecionar um arquivo</label>
-            <input id="file" type="file" accept=".docx" name="file" class="form-control-file" (change)="selectFile($event)">
+            <input id="file" type="file" accept=".docx" name="file" class="form-control-file"
+              (change)="selectFile($event)">
           </div>
         </div>
         <div class="button-area">
@@ -25,4 +27,12 @@
       </div>
     </form>
   </div>
+
+  <ng-template #acessoNegado>
+    <div>
+      <alert></alert>
+    </div>
+  </ng-template>
+
+
 </div>

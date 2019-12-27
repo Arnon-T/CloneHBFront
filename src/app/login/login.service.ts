@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { JwtResponse } from '../auth/jwt-response';
+import { AuthLoginInfo } from '../login/auth-login-info';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  private urlToLogin = 'http://localhost:8080/api/auth/login';
+  private loginUrl = 'http://localhost:8080/api/auth/login';
 
   constructor(private http: HttpClient) { }
 
-  loginWithAPI(email: string, password: string): Observable<any> {
-    const user = {
-      email: email,
-      password: password
-    }
-
-    return this.http.post(this.urlToLogin, user);
+  login(credentials: AuthLoginInfo): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 }
