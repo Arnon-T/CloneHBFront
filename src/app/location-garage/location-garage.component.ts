@@ -21,6 +21,7 @@ export class LocationGarageComponent implements OnInit {
   vehicleHasOption: boolean;
   listaMarcas: Observable<any>[] = [];
   selectedMarca: any;
+  marca: 'SELECIONAR MARCA'
 
   constructor(private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
