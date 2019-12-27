@@ -21,6 +21,7 @@ export class RentalTermComponent implements OnInit {
   }
 
   onSubmit(event) {
+    this.alertService.clear();
     event.preventDefault();
 
     if (this.form.termTitle === undefined) {
