@@ -21,8 +21,11 @@
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input (keydown)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
+          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
         </div>
+        <ul>
+          <li *ngFor="let modelo of listaModelos">{{modelo.modelo}}</li>
+        </ul>
         <div class="input-area">
           <select name="codigo-cor" id="codigo-cor">
             <option>Coloração</option>

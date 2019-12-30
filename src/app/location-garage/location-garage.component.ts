@@ -26,6 +26,7 @@ export class LocationGarageComponent implements OnInit {
   listaMarcas: Observable<any>[] = [];
   selectedMarca: any;
   marca: 'SELECIONAR MARCA'
+  listaModelos: Observable<any>[] = [];
 
   constructor(private authGlobal: GlobalAuth, private alertService: AlertService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
@@ -71,15 +72,21 @@ export class LocationGarageComponent implements OnInit {
   }
 
   alterarMarca(marcaOption) {
-    this.selectedMarca = marcaOption.selectedIndex
+    this.selectedMarca = this.listaMarcas[marcaOption.selectedIndex - 1];
+    console.log(this.selectedMarca);
   }
 
   searchModelo(event) {
-    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca + 1).subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i])
-      }
+    if(event.target.value !== "") {
+      this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca.id).subscribe(data => {
+    
+        this.listaModelos = data;
+        console.log(data);
     })
+    }
+    if(event.target.value === "") {
+      this.listaModelos = [];
+    }
   }
 
 

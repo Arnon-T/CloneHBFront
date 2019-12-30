@@ -10,8 +10,8 @@ export class LocationGarageService {
   constructor(private http: HttpClient) { }
 
   
-  getNomeModelo(writed: string, idMarca: any): Observable<any>{
-    var url = "http://localhost:8080/api/model/modelSearch/"+idMarca+"/"+writed
+  getNomeModelo(modelo: string, idMarca: any): Observable<any>{
+    var url = "http://localhost:8080/api/model/findModel/" +idMarca+"/"+modelo
     console.log(url)
     return this.http.get(url);
   }
