@@ -15,14 +15,11 @@ export class VehicleModelComponent implements OnInit {
   constructor(private modelService: ModelService, private alertService: AlertService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
-
     this.authGlobal.ngOnInit();
-
-    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
-      this.route.navigate(['/login']);  
-      return;
+    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
+      this.alertService.info("Você não possui permissão para acessar essa página.");
+      return this.route.navigate(['/login']);
     }
-    
   }
 
   selectedFiles: FileList;

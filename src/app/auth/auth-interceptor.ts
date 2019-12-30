@@ -7,22 +7,22 @@ import { TokenStorage } from './token-storage';
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-    export class AuthInterceptor implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor {
 
-        constructor(private token: TokenStorage) {}
+  constructor(private token: TokenStorage) { }
 
-        intercept(request: HttpRequest<any>, next: HttpHandler){
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
 
-            let authRequest = request;
-            const token = this.token.getToken();
+    let authRequest = request;
+    const token = this.token.getToken();
 
-            if(token != null){
-                authRequest = request.clone({headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
-            }
-            return next.handle(authRequest);
-        }
+    if (token !== undefined && token !== null) {
+      authRequest = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }
+    return next.handle(authRequest);
+  }
+}
 
-    export const httpInterceptorProvider = [
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-    ];
+export const httpInterceptorProvider = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+];

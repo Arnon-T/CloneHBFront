@@ -4,6 +4,10 @@ import { FormGroup } from '@angular/forms';
 import { MarcaService } from '../marca/marca.service';
 import { LocationGarageService } from "./location-garage.service"
 
+import { AlertService } from '../_alert';
+import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-location-garage',
   templateUrl: './location-garage.component.html',
@@ -23,17 +27,23 @@ export class LocationGarageComponent implements OnInit {
   selectedMarca: any;
   marca: 'SELECIONAR MARCA'
 
-  constructor(private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
+  constructor(private authGlobal: GlobalAuth, private alertService: AlertService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
-   }
+  }
 
   ngOnInit() {
+    this.authGlobal.ngOnInit();
+    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
+      this.alertService.info("Você não possui permissão para acessar essa página.");
+      return this.route.navigate(['/login']);
+    }
+
     this.selectedMarca = 0
     this.initLocationForm();
-  } 
+  }
 
   initLocationForm() {
-    this.LocationForm 
+    this.LocationForm
   }
 
   selectOption(tipo) {
@@ -45,7 +55,7 @@ export class LocationGarageComponent implements OnInit {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
       this.listaMarcas = [];
-    }else {
+    } else {
       this.vehicleHasOption = false;
     }
   }
@@ -54,22 +64,22 @@ export class LocationGarageComponent implements OnInit {
     if (!this.vehicleHasOption) {
       this.marcaService.selectMarcas(this.tipo).subscribe((dados: any) => {
         this.listaMarcas = dados.content;
-        
-      console.log("Testando",this.listaMarcas);
+
+        console.log("Testando", this.listaMarcas);
       });
-    } 
+    }
   }
 
-  alterarMarca(marcaOption){
+  alterarMarca(marcaOption) {
     this.selectedMarca = marcaOption.selectedIndex
   }
 
-  searchModelo(event){
-        this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca+1).subscribe(data => {
-            for(let i = 0; i < data.length; i++){
-              console.log(data[i])
-            }
-        })
+  searchModelo(event) {
+    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca + 1).subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i])
+      }
+    })
   }
 
 

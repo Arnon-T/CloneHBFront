@@ -1,6 +1,3 @@
 export class JwtResponse {
-    
-    token: string;
-    authorities: string[];
-
+  token: string;
 }
