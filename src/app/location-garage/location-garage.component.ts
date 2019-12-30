@@ -33,7 +33,7 @@ export class LocationGarageComponent implements OnInit {
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
-    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
+    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR') || this.authGlobal.authorities.includes('ROLE_USER'))) {
       this.alertService.info("Você não possui permissão para acessar essa página.");
       return this.route.navigate(['/login']);
     }
