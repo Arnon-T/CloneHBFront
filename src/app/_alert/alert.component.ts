@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Alert, AlertType } from './alert.model';
@@ -9,7 +9,7 @@ import { AlertService } from './alert.service';
   templateUrl: 'alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit, OnDestroy {
+export class AlertComponent implements OnInit {
     @Input() id: string;
 
     alerts: Alert[] = [];
@@ -31,10 +31,10 @@ export class AlertComponent implements OnInit, OnDestroy {
             });
     }
 
-    ngOnDestroy() {
+    // ngOnDestroy() {
 
-        this.subscription.unsubscribe();
-    }
+    //     this.subscription.unsubscribe();
+    // }
 
     removeAlert(alert: Alert) {
 

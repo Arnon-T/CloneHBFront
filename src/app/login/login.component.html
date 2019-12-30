@@ -1,44 +1,32 @@
 <div>
-    <div *ngIf="authGlobal.isLogged; else loginForm">
-        <h5 class="text-primary">Your Information</h5>
-        <p>
-            <strong>AAA:</strong> {{tokenInfo.authorities}}<br />
-            <strong>Token:</strong> {{tokenInfo.token}}.
-        </p>
-        <button class="btn btn-secondary" (click)="logout()">Logout</button>
-    </div>
-
-    <ng-template #loginForm>
-        <div class="container">
-            <div class="container-page">
-                <div class="content-login">
-                    <div class="header-content-login">
-                        <h1>Entrar</h1>
-                    </div>
-                    <div>
-                        <alert></alert>
-                    </div>
-                    <form class="form-login" autocomplete="off" name="form" (ngSubmit)="onSubmit()" #formLogin="ngForm">
-                        <div class="input-area">
-                            <label>Email:</label>
-                            <div class="input-div">
-                                <input type="text" name="email" [(ngModel)]="form.email" #email="ngModel"
-                                    placeholder="Ex: usuario@usuario.com">
-                            </div>
-                        </div>
-                        <div class="input-area">
-                            <label>Senha:</label>
-                            <div class="input-div">
-                                <input type="password" name="password" [(ngModel)]="form.password" #password="ngModel"
-                                    autocomplete="on">
-                            </div>
-                        </div>
-                        <div class="button-enter">
-                            <button type="submit">Entrar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="container">
+    <div class="container-page">
+      <div class="content-login">
+        <div class="header-content-login">
+          <h1>Entrar</h1>
         </div>
-    </ng-template>
+        <form class="form-login" autocomplete="off" name="form" (ngSubmit)="onSubmit()" #formLogin="ngForm">
+          <div>
+            <alert></alert>
+          </div>
+          <div class="input-area">
+            <label>Email:</label>
+            <div class="input-div">
+              <input type="email" name="email" [(ngModel)]="form.email" #email="ngModel"
+                placeholder="Ex: usuario@usuario.com" ngModel email="true">
+            </div>
+          </div>
+          <div class="input-area">
+            <label>Senha:</label>
+            <div class="input-div">
+              <input type="password" name="password" [(ngModel)]="form.password" #password="ngModel" autocomplete="on">
+            </div>
+          </div>
+          <div class="button-enter">
+            <button type="submit">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
