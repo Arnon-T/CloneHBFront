@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalAuth } from '../global-auth';
 
+import { MessageService } from '../_message';
 import { TokenStorage } from '../auth/token-storage';
 import { Router } from '@angular/router';
 
@@ -11,17 +12,13 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authGlobal: GlobalAuth, private tokenStorage: TokenStorage, private route: Router) { }
+  constructor(private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
   }
 
   logout() {
-    this.tokenStorage.signOut();
-    this.authGlobal.isLogged = false;
-    this.authGlobal.authorities = [];
-    this.authGlobal.authority = undefined;
-    this.route.navigate(['/login']);
+    this.authGlobal.logout();
   }
 }

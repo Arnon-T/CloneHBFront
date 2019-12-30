@@ -67,9 +67,9 @@
   border-radius: 5px;
   text-decoration: none;
   color: #0082BF;
+  transition: transform .2s;
 }
 
 .container-header .content-header .content-links .icons .deslogado:hover {
   transform: translateY(-1px);
-  transition: 0.2s transform;
 }
