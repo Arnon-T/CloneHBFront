@@ -91,5 +91,4 @@ export class MarcaComponent implements OnInit {
   pageChanged(event) {
     this.config.currentPage = event;
   }
-
 }
