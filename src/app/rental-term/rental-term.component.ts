@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalTermService } from './rental-term.service';
 import { AlertService } from '../_alert';
+import { MessageService } from '../_message';
 import { GlobalAuth } from '../global-auth';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-rental-term',
@@ -12,17 +13,16 @@ import {Router} from "@angular/router"
 export class RentalTermComponent implements OnInit {
   form: any = {};
   selectedFiles: FileList;
-  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private authGlobal: GlobalAuth, private route : Router ) { }
+  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
-
     this.authGlobal.ngOnInit();
 
-    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
-      this.route.navigate(['/login']);  
-      return;
+    if (this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined) {
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
     }
-    
   }
 
   selectFile(event) {
@@ -54,16 +54,16 @@ export class RentalTermComponent implements OnInit {
     }, error => {
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor indisponivel.');
+          this.messageService.error('Servidor indisponivel.');
           break;
         case 500:
-          this.alertService.error('Erro interno do servidor.');
+          this.messageService.error('Erro interno do servidor.');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');
           break;
         case 401:
-          this.alertService.error('Necessário efetuar o login.');
+          this.messageService.error('Necessário efetuar o login.');
           break;
       }
     });

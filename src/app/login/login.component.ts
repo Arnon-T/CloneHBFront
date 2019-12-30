@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LoginService } from './login.service';
+import { MessageService } from '../_message';
 import { AlertService } from '../_alert';
 
 import { GlobalAuth } from '../global-auth';
@@ -21,15 +23,17 @@ export class LoginComponent implements OnInit {
   global: GlobalAuth;
   authority: String;
 
-  constructor(private loginService: LoginService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth, private alertService: AlertService, private route: Router) {
+  constructor(private loginService: LoginService, private messageService: MessageService, private tokenStorage: TokenStorage, private authGlobal: GlobalAuth, private alertService: AlertService, private route: Router) {
     this.global = authGlobal;
   }
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
 
-    if (this.authGlobal.isLogged) {
-      return this.route.navigate(['/']);
+    if (this.tokenStorage.getToken()) {
+      return this.route.navigate(['/']).then(() => {
+        this.messageService.warn("Você não tem permissão para acessar está página.");
+      });
     }
 
     this.tokenInfo = {
@@ -53,18 +57,19 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        this.reloadPage();
-        this.route.navigate(['/']);
+        this.route.navigate(["/"]).then(() => {
+          this.reloadPage();
+        });
       },
       error => {
         this.alertService.clear();
 
         switch (error.status) {
           case 0:
-            this.alertService.error('Servidor indisponivel.');
+            this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
             break;
           case 500:
-            this.alertService.error('Erro interno do servidor.');
+            this.messageService.error('Erro interno do servidor.');
             break;
           case 401:
             this.alertService.error('Usuário e/ou senha inválida');

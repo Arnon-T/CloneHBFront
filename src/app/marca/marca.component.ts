@@ -3,6 +3,7 @@ import { MarcaService } from './marca.service';
 import { MarcaInfo } from './marca-info';
 import { Observable } from 'rxjs';
 import { AlertService } from '../_alert';
+import { MessageService } from '../_message';
 import { saveAs } from 'file-saver';
 import { GlobalAuth } from '../global-auth';
 import { Router } from '@angular/router';
@@ -26,7 +27,7 @@ export class MarcaComponent implements OnInit {
   listaMarcas: Observable<any>[] = [];
   config: any;
 
-  constructor(private marcaService: MarcaService, private alertService: AlertService, private authGlobal: GlobalAuth, private route: Router) {
+  constructor(private marcaService: MarcaService, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) {
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -38,7 +39,9 @@ export class MarcaComponent implements OnInit {
     this.authGlobal.ngOnInit();
     if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
       this.alertService.info("Você não possui permissão para acessar essa página.");
-      return this.route.navigate(['/login']);
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
     }
   }
 
@@ -58,7 +61,7 @@ export class MarcaComponent implements OnInit {
     }, error => {
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor está indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
       }
     });
@@ -72,10 +75,10 @@ export class MarcaComponent implements OnInit {
       console.log(error)
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
         case 500:
-          this.alertService.error('Erro interno do servidor.');
+          this.messageService.error('Erro interno do servidor.');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');
