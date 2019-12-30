@@ -26,15 +26,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.authGlobal.ngOnInit();
+
     if (this.authGlobal.isLogged) {
-      this.route.navigate(['/'])
+      return this.route.navigate(['/']);
     }
 
     this.tokenInfo = {
       token: this.tokenStorage.getToken(),
-      authorities: this.tokenStorage.getAuthorities()
     };
 
   }
@@ -54,12 +53,8 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveAuthorities(data.authorities);
-        this.authGlobal.roles = this.tokenStorage.getAuthorities();
-
-        this.roles = this.tokenStorage.getAuthorities();
         this.reloadPage();
-
+        this.route.navigate(['/']);
       },
       error => {
         this.alertService.clear();
@@ -79,7 +74,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  reloadPage() {
+  async reloadPage() {
     window.location.reload();
   }
 

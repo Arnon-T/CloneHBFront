@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.tokenStorage.signOut();
     this.authGlobal.isLogged = false;
+    this.authGlobal.authorities = [];
+    this.authGlobal.authority = undefined;
     this.route.navigate(['/login']);
   }
 }

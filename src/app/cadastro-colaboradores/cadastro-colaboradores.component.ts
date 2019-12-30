@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CadastroColaboradoresService } from './cadastr-colaboradores.service';
 import { GlobalAuth } from '../global-auth';
+
+import { CadastroColaboradoresService } from './cadastr-colaboradores.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../_alert';
 
 @Component({
   selector: 'app-cadastro-colaboradores',
@@ -10,20 +12,17 @@ import { Router } from '@angular/router';
 })
 export class CadastroColaboradoresComponent implements OnInit {
 
-  constructor(private cadastrarColaboradoresService: CadastroColaboradoresService, private authGlobal: GlobalAuth, private route: Router) { }
+  constructor(private cadastrarColaboradoresService: CadastroColaboradoresService, private authGlobal: GlobalAuth, private route: Router, private alertService: AlertService) { }
 
   selectedFiles: FileList;
   fileToUpload: File;
 
   ngOnInit() {
-
     this.authGlobal.ngOnInit();
-
-    if(this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined){
-      this.route.navigate(['/login']);  
-      return;
+    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
+      this.alertService.info("Você não possui permissão para acessar essa página.");
+      return this.route.navigate(['/login']);
     }
-
   }
 
   selectFile(event) {
