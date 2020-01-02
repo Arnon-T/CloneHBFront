@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserDTO } from './user-dto';
 import { TokenStorage } from './auth/token-storage';
 import { Router } from '@angular/router';
+import { MessageService } from './_message';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private loginUrl = 'http://localhost:8080/api/auth';
 
-  constructor(private http: HttpClient, private tokenService: TokenStorage, private route: Router) { }
+  constructor(private http: HttpClient, private tokenService: TokenStorage, private route: Router, private messageService: MessageService) { }
 
   getUserFromToken(): Observable<UserDTO> {
     const token = this.tokenService.getToken();

@@ -11,7 +11,6 @@ export class SelectpageimportComponent implements OnInit {
   constructor( private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
-
     this.authGlobal.ngOnInit();
   }
 

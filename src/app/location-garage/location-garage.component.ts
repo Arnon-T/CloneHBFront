@@ -5,6 +5,7 @@ import { MarcaService } from '../marca/marca.service';
 import { LocationGarageService } from "./location-garage.service"
 
 import { AlertService } from '../_alert';
+import { MessageService } from '../_message';
 import { GlobalAuth } from '../global-auth';
 import { Router } from '@angular/router';
 
@@ -28,7 +29,7 @@ export class LocationGarageComponent implements OnInit {
   marca: 'SELECIONAR MARCA'
   listaModelos: Observable<any>[] = [];
 
-  constructor(private authGlobal: GlobalAuth, private alertService: AlertService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
+  constructor(private authGlobal: GlobalAuth, private alertService: AlertService, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
   }
 
@@ -36,7 +37,9 @@ export class LocationGarageComponent implements OnInit {
     this.authGlobal.ngOnInit();
     if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR') || this.authGlobal.authorities.includes('ROLE_USER'))) {
       this.alertService.info("Você não possui permissão para acessar essa página.");
-      return this.route.navigate(['/login']);
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
     }
 
     this.selectedMarca = 0

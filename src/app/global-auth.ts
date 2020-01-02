@@ -2,7 +2,7 @@ import { OnInit, Injectable } from '@angular/core';
 
 import { AuthService } from './auth.service';
 import { TokenStorage } from './auth/token-storage';
-import { AlertService } from './_alert';
+import { MessageService } from './_message';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class GlobalAuth implements OnInit {
   authorities: string[] = [];
   isLogged: boolean;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorage, private alertService: AlertService, private route: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorage, private messageService: MessageService, private route: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -34,20 +34,20 @@ export class GlobalAuth implements OnInit {
           return true;
         });
       }, error => {
-        this.isLogged = false;
-        this.alertService.clear();
-
-        switch (error.status) {
-          case 0:
-            this.alertService.error('Servidor indisponivel.');
-            break;
-          case 500:
-            this.alertService.error('Erro interno do servidor.');
-            break;
-          case 403:
-            return this.route.navigate(['/login']);
-        }
+        this.logout();
+        return this.route.navigate(['/login']);
       });
     }
+    this.isLogged = false;
+  }
+
+  logout() {
+    this.tokenStorage.signOut();
+    this.isLogged = false;
+    this.authorities = [];
+    this.authority = undefined;
+    return this.route.navigate(['/login']).then(() => {
+      this.messageService.success("Você encerrou sua sessão no HBParking, até a próxima ;)");
+    });
   }
 }
