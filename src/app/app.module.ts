@@ -39,7 +39,7 @@ import { GlobalAuth } from './global-auth';
     LoginComponent,
     LocationGarageComponent,
     MainPageComponent,
-    NotfoundComponent
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,
