@@ -3,6 +3,7 @@ import { RentalTermService } from './rental-term.service';
 import { AlertService } from '../_alert';
 import { MessageService } from '../_message';
 import { GlobalAuth } from '../global-auth';
+import { TokenStorage } from '../auth/token-storage';
 import { Router } from "@angular/router"
 
 @Component({
@@ -13,12 +14,12 @@ import { Router } from "@angular/router"
 export class RentalTermComponent implements OnInit {
   form: any = {};
   selectedFiles: FileList;
-  constructor(private rentalTermService: RentalTermService, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
+  constructor(private rentalTermService: RentalTermService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
 
-    if (this.authGlobal.authority === 'user' || this.authGlobal.authority === undefined) {
+    if (!this.tokenService.getToken()) {
       return this.route.navigate(['/login']).then(() => {
         this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
       });
