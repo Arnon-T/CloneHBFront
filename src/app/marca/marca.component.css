@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 965px;
+  max-width: 1036px;
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -18,10 +18,25 @@
   padding: 0 15px;
 }
 
+.container-marcas .content-marcas .content-area-marcas {
+  display: flex;
+  width: 100%;
+}
+
+.container-marcas .content-marcas .content-area-marcas .content-page {
+  border: 1px solid #ecebed;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  margin-left: 25px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s;
+}
+
 .container-marcas .content-marcas .header-marcas {
   margin-bottom: 25px;
   border-bottom: 1px solid #ecebed;
-  padding: 10px 15px;
+  padding: 15px 15px;
   width: 100%;
 }
 
@@ -29,6 +44,7 @@
   font-size: 22px;
   color: #1D285A;
   overflow: hidden;
+  margin-bottom: 0;
 }
 
 .container-marcas .content-marcas form {
@@ -195,7 +211,18 @@
 
 @media only screen and (max-width: 370px) and (min-width: 0px) {
   .container-marcas .content-marcas .list-types {
-    padding: 0 2px;
+    padding: 0 10px;
     transition: 0.2s padding;
+  }
+}
+
+
+@media only screen and (max-width: 750px) and (min-width: 0px) {
+  .container-marcas .content-marcas .content-area-marcas {
+    flex-direction: column;
+  }
+
+  .container-marcas .content-marcas .content-area-marcas .content-page {
+    margin-left: 0;
   }
 }

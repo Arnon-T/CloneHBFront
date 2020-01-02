@@ -1,0 +1,39 @@
+<div class="container-funcionalities-buttons">
+  <div class="content-funcionalities">
+    <div routerLink="/locacao-vaga" class="funcionality-button">
+      <div class="header-button">
+        <h1>Locação de vaga</h1>
+      </div>
+      <div class="text-area">
+        <span>Clique para alocar sua vaga aqui na HBSIS ;)</span>
+      </div>
+    </div>
+    <div routerLink="/gerenciar/marcas" *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'"
+      class="funcionality-button">
+      <div class="header-button">
+        <h1>Gerenciar Marcas</h1>
+      </div>
+      <div class="text-area">
+        <span>Clique para gerenciar as marcas do HB Parking</span>
+      </div>
+    </div>
+    <div routerLink="/gerenciar/modelos" *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'"
+      class="funcionality-button">
+      <div class="header-button">
+        <h1>Gerenciar Modelos</h1>
+      </div>
+      <div class="text-area">
+        <span>Clique para gerenciar os modelos existente no HB Parking</span>
+      </div>
+    </div>
+    <div routerLink="/gerenciar/colaboradores"
+      *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'" class="funcionality-button">
+      <div class="header-button">
+        <h1>Gerenciar Colaboradores</h1>
+      </div>
+      <div class="text-area">
+        <span>Clique para gerenciar os colaboradores do HB Parking</span>
+      </div>
+    </div>
+  </div>
+</div>
