@@ -13,11 +13,11 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
   { path: "", component: MainPageComponent },
-  { path: "rental-term", component: RentalTermComponent },
+  { path: "termo-locacao", component: RentalTermComponent },
   { path: "gerenciar", component: SelectpageimportComponent },
   { path: "gerenciar/marcas", component: MarcaComponent },
   { path: "gerenciar/modelos", component: VehicleModelComponent },
-  { path: "cadastrar/colaboradores", component: CadastroColaboradoresComponent },
+  { path: "gerenciar/colaboradores", component: CadastroColaboradoresComponent },
   { path: "login", component: LoginComponent },
   { path: "locacao-vaga", component: LocationGarageComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },

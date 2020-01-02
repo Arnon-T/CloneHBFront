@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelService } from './import-model.service';
+import { TokenStorage } from '../auth/token-storage'
 import { AlertService } from '../_alert'
 import { MessageService } from '../_message'
 import { saveAs } from 'file-saver';
@@ -13,12 +14,12 @@ import { Router } from '@angular/router';
 })
 export class VehicleModelComponent implements OnInit {
 
-  constructor(private modelService: ModelService, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
+  constructor(private modelService: ModelService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
-    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
-      this.alertService.info("Você não possui permissão para acessar essa página.");
+
+    if (!this.tokenService.getToken()) {
       return this.route.navigate(['/login']).then(() => {
         this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
       });

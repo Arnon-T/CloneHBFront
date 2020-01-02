@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     if (this.tokenStorage.getToken()) {
       return this.route.navigate(['/']).then(() => {
-        this.messageService.warn("Você não tem permissão para acessar está página.");
+        this.messageService.warn("Você já está logado portanto não pode acessar a página de login.");
       });
     }
 

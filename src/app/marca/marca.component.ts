@@ -6,6 +6,7 @@ import { AlertService } from '../_alert';
 import { MessageService } from '../_message';
 import { saveAs } from 'file-saver';
 import { GlobalAuth } from '../global-auth';
+import { TokenStorage } from '../auth/token-storage';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,17 +28,16 @@ export class MarcaComponent implements OnInit {
   listaMarcas: Observable<any>[] = [];
   config: any;
 
-  constructor(private marcaService: MarcaService, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) {
+  constructor(private authGlobal: GlobalAuth, private marcaService: MarcaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private route: Router) {
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
       totalItems: this.listaMarcas.length
     }
-
   }
   ngOnInit() {
     this.authGlobal.ngOnInit();
-    if (!(this.authGlobal.authorities.includes('ROLE_SISTEMA') || this.authGlobal.authorities.includes('ROLE_GESTOR'))) {
+    if (!this.tokenService.getToken()) {
       this.alertService.info("Você não possui permissão para acessar essa página.");
       return this.route.navigate(['/login']).then(() => {
         this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");

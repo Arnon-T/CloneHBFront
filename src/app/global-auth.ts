@@ -14,7 +14,7 @@ export class GlobalAuth implements OnInit {
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorage, private messageService: MessageService, private route: Router) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLogged = true;
       this.authService.getUserFromToken().subscribe(data => {
