@@ -49,5 +49,8 @@ export class MarcaService {
     return this.http.get(url);
   }
 
-
+  selectAllMarcas(tipo: string){
+    let url = this.urlBase + '/allByTipo/' + tipo;
+    return this.http.get(url);
+  }
 }

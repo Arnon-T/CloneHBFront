@@ -7,7 +7,7 @@
       <div class="content-input">
         <div class="input-area">
           <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
-          (change)="setVehicleHasOption()" (change)="searchMarca(tipo)">
+          (change)="setVehicleHasOption()" (change)="listarAllMarcas()">
             <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
           </select>
         </div>
@@ -15,13 +15,13 @@
           <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca"
             [disabled]="vehicleHasOption">
             <option>MARCA</option>
-            <option *ngFor="let marca of listaMarcas" [value]="marca" id="marca">{{marca.nome}}</option>
+            <option *ngFor="let marca of listaAllMarcas" [value]="marca" id="marca">{{marca.nome}}</option>
           </select>
         </div>
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input (keydown)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
+          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
         </div>
         <div class="input-area">
           <select name="codigo-cor" id="codigo-cor">
