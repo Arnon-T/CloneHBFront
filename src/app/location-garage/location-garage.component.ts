@@ -26,9 +26,10 @@ export class LocationGarageComponent implements OnInit {
   vehicleHasOption: boolean;
   listaMarcas: Observable<any>[] = [];
   listaAllMarcas: any;
+  listaPeriodos: any;
   selectedMarca: any;
-  marca: 'SELECIONAR MARCA'
-
+  marca: 'SELECIONAR MARCA';
+  cores = ['SELECIONAR COR','BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
   constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
   }
@@ -90,9 +91,17 @@ export class LocationGarageComponent implements OnInit {
   listarAllMarcas() {
     this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
       this.listaAllMarcas = data;
-      console.log('passou');
     });
 }
+
+  selectPeriodos(){
+    this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
+      this.listaPeriodos = data;
+      console.log(this.tipo);
+      console.log(this.listaPeriodos);
+      console.log(data);
+    });
+  }
 
 
 }
