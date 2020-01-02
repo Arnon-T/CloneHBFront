@@ -9,6 +9,7 @@ import { GlobalAuth } from '../global-auth';
 import { TokenStorage } from '../auth/token-storage';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-marca',
   templateUrl: './marca.component.html',
@@ -27,12 +28,13 @@ export class MarcaComponent implements OnInit {
   tipo: string = 'CARRO';
   listaMarcas: Observable<any>[] = [];
   config: any;
+   
 
   constructor(private authGlobal: GlobalAuth, private marcaService: MarcaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private route: Router) {
     this.config = {
       itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.listaMarcas.length
+      currentPage: 1,      
+      totalItems: 0
     }
   }
   ngOnInit() {
@@ -88,14 +90,16 @@ export class MarcaComponent implements OnInit {
   }
 
   listarMarcas(tipo) {
-    this.marcaService.selectMarcas(tipo)
+    this.marcaService.selectMarcas(tipo, this.config.currentPage, this.config.itemsPerPage)
       .subscribe(data => {
         this.listaMarcas = data;
+        this.config.totalItems = data.totalElements;
+        console.log(data);
+        console.log(this.config);
       });
   }
 
   pageChanged(event) {
     this.config.currentPage = event;
   }
-
 }
