@@ -7,7 +7,7 @@
       <div class="content-input">
         <div class="input-area">
           <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
-          (change)="setVehicleHasOption()" (change)="listarAllMarcas()">
+          (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="selectPeriodos()">
             <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
           </select>
         </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="input-area">
           <select name="codigo-cor" id="codigo-cor">
-            <option>Coloração</option>
+            <option *ngFor="let cor of cores">{{cor}}</option>
           </select>
         </div>
       </div>
@@ -36,6 +36,7 @@
         <div class="input-area">
           <select name="codigo-periodo" id="codigo-periodo">
             <option>PERÍODO</option>
+            <option *ngFor="let periodo of listaPeriodos" [value]="periodo" id="periodo">{{periodo.descricao}}</option>
           </select>
         </div>
       </div>

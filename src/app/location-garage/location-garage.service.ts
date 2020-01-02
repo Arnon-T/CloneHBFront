@@ -15,4 +15,10 @@ export class LocationGarageService {
     console.log(url)
     return this.http.get(url);
   }
+
+  getPeriodos(tipo: string){
+    var url = "http://localhost:8080/api/periodo/buscar-tipo/" + tipo
+    return this.http.get(url);
+  }
+
 }
