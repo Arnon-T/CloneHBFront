@@ -8,6 +8,9 @@
             <h2>Gerenciamento de Marcas</h2>
           </div>
           <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
+            <div class="alert-area">
+              <alert></alert>
+            </div>
             <div class="input-group">
               <div class="custom-file">
                 <input type="file" accept=".csv" class="custom-file-input" id="inputGroupFile04"

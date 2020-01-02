@@ -58,6 +58,10 @@
   margin: 0 auto;
 }
 
+.container-marcas .content-marcas form .alert-area {
+  width: 100%;
+}
+
 .container-marcas .content-marcas form .dropdown-area {
   display: flex;
   justify-content: space-between;

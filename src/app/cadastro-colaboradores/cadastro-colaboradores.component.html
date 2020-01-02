@@ -33,11 +33,14 @@
           </div>
           <div class="content-actions">
             <form action="" (ngSubmit)=onSubmit($event) name="form">
+              <div>
+                <alert></alert>
+              </div>
               <div class="input-group">
                 <div class="custom-file">
-                  <input type="file" accept=".csv" name="file" class="custom-file-input" id=""
-                    (change)="selectFile($event)">
-                  <label class="custom-file-label label-arquivo" for="">Escolha o arquivo</label>
+                  <input type="file" accept=".csv" name="file" class="custom-file-input" id="inputGroupFileColaboradores"
+                  onchange="document.querySelector('#nome-colaborador-arquivo').textContent=this.files[0].name;" (change)="selectFile($event)">
+                  <label class="custom-file-label label-arquivo" id="nome-colaborador-arquivo" for="inputGroupFileColaboradores">Escolha o arquivo</label>
                 </div>
               </div>
               <div class="button-area">
