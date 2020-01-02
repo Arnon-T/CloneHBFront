@@ -28,12 +28,12 @@ export class MarcaComponent implements OnInit {
   tipo: string = 'CARRO';
   listaMarcas: Observable<any>[] = [];
   config: any;
-   
+
 
   constructor(private authGlobal: GlobalAuth, private marcaService: MarcaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private route: Router) {
     this.config = {
       itemsPerPage: 5,
-      currentPage: 1,      
+      currentPage: 1,
       totalItems: 0
     }
   }
@@ -51,7 +51,7 @@ export class MarcaComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
   selectOption(tipo) {
-    this.tipo = tipo;    
+    this.tipo = tipo;
   }
 
   export() {
@@ -65,16 +65,21 @@ export class MarcaComponent implements OnInit {
         case 0:
           this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
       }
     });
   }
 
   import() {
+    if (this.selectedFiles === undefined) {
+      return this.alertService.error("Necessário selecionar um arquivo em formato csv.");
+    }
     this.currentFileUpload = this.selectedFiles.item(0);
     this.marcaService.uploadFile(this.currentFileUpload, this.tipo).subscribe(data => {
       this.alertService.success('Marcas importadas com sucesso!');
     }, error => {
-      console.log(error)
       switch (error.status) {
         case 0:
           this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
@@ -90,15 +95,25 @@ export class MarcaComponent implements OnInit {
   }
 
   listarMarcas(tipo) {
+    if (this.listaMarcas.length <= 0) {
+      this.messageService.info("Buscando marcas existentes.");
+    }
     this.marcaService.selectMarcas(tipo, this.config.currentPage, this.config.itemsPerPage)
       .subscribe(data => {
         this.listaMarcas = data;
         this.config.totalItems = data.totalElements;
-        console.log(data);
-        console.log(this.config);
+      }, error => {
+        switch (error.status) {
+          case 0:
+            this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+            break;
+          case 500:
+            this.messageService.error('Erro interno do servidor.');
+            break;
+        }
       });
   }
- 
+
   pageChanged(event) {
     this.config.currentPage = event;
   }

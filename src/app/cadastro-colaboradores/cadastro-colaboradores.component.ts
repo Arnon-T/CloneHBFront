@@ -30,12 +30,13 @@ export class CadastroColaboradoresComponent implements OnInit {
   }
 
   selectFile(event) {
-    console.log("testando");
     this.selectedFiles = event.target.files;
   }
 
-  onSubmit(event) {
-
+  onSubmit() {
+    if (this.selectedFiles === undefined) {
+      return this.alertService.error("Necessário selecionar um arquivo em formato csv.");
+    }
     this.fileToUpload = this.selectedFiles.item(0);
     console.log(this.cadastrarColaboradoresService.uploadFile(this.fileToUpload).subscribe());
 

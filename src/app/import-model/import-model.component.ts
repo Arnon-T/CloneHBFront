@@ -41,22 +41,30 @@ export class VehicleModelComponent implements OnInit {
     }, error => {
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor está indisponível.')
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
       }
     });
   }
 
   import() {
+    this.alertService.clear();
+    if (this.selectedFiles === undefined) {
+      return this.alertService.error("Necessário selecionar um arquivo em formato csv.");
+    }
     this.currentFileUpload = this.selectedFiles.item(0);
     this.modelService.uploadFile(this.currentFileUpload).subscribe(data => {
       this.alertService.success('Modelos importados com sucesso!');
     }, error => {
       switch (error.status) {
         case 0:
-          this.alertService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
         case 500:
-          this.alertService.error('Erro interno do servidor.');
+          this.messageService.error('Erro interno do servidor.');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');
@@ -64,5 +72,4 @@ export class VehicleModelComponent implements OnInit {
       }
     });
   }
-
 }

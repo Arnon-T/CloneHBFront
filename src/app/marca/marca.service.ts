@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AlertService } from '../_alert';
+import { MessageService } from '../_message';
 import { map } from 'rxjs/operators';
 
 
@@ -12,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class MarcaService {
   private urlBase = 'http://localhost:8080/api/marcas';
 
-  constructor(private http: HttpClient, private alertService: AlertService) { }
+  constructor(private http: HttpClient, private alertService: AlertService, private messageService: MessageService) { }
 
   uploadFile(file: File, tipo: string): Observable<any> {
     let url = this.urlBase + '/fileupload/' + tipo;
@@ -36,7 +37,7 @@ export class MarcaService {
     };
 
     let url = this.urlBase + '/export-marcas/' + tipo;
-    
+
     return this.http.get(url, options).pipe(map((file: ArrayBuffer) => {
       return file;
     }));
@@ -51,6 +52,7 @@ export class MarcaService {
 
   selectAllMarcas(tipo: string){
     let url = this.urlBase + '/allByTipo/' + tipo;
+
     return this.http.get(url);
   }
 }
