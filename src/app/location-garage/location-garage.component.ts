@@ -25,9 +25,11 @@ export class LocationGarageComponent implements OnInit {
   config: any;
   vehicleHasOption: boolean;
   listaMarcas: Observable<any>[] = [];
+  listaAllMarcas: any;
+  listaPeriodos: any;
   selectedMarca: any;
-  marca: 'SELECIONAR MARCA'
-
+  marca: 'SELECIONAR MARCA';
+  cores = ['SELECIONAR COR','BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
   constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
   }
@@ -57,15 +59,16 @@ export class LocationGarageComponent implements OnInit {
     console.log(this.vehicleHasOption);
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
-      this.listaMarcas = [];
+      this.listaMarcas = [];      
     } else {
       this.vehicleHasOption = false;
     }
+    console.log(this.vehicleHasOption);
   }
 
-  searchMarca(tipo) {
+  searchMarca() {
     if (!this.vehicleHasOption) {
-      this.marcaService.selectMarcas(this.tipo).subscribe((dados: any) => {
+      this.marcaService.selectMarcas(this.tipo, 10, 10).subscribe((dados: any) => {
         this.listaMarcas = dados.content;
 
         console.log("Testando", this.listaMarcas);
@@ -83,6 +86,21 @@ export class LocationGarageComponent implements OnInit {
         console.log(data[i])
       }
     })
+  }
+    
+  listarAllMarcas() {
+    this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
+      this.listaAllMarcas = data;
+    });
+}
+
+  selectPeriodos(){
+    this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
+      this.listaPeriodos = data;
+      console.log(this.tipo);
+      console.log(this.listaPeriodos);
+      console.log(data);
+    });
   }
 
 

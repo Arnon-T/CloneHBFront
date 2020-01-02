@@ -11,8 +11,14 @@ export class LocationGarageService {
 
   
   getNomeModelo(writed: string, idMarca: any): Observable<any>{
-    var url = "http://localhost:8080/api/model/modelSearch/"+idMarca+"/"+writed
+    var url = "http://localhost:8080/api/model/findModel/"+idMarca+"/"+writed
     console.log(url)
     return this.http.get(url);
   }
+
+  getPeriodos(tipo: string){
+    var url = "http://localhost:8080/api/periodo/buscar-tipo/" + tipo
+    return this.http.get(url);
+  }
+
 }
