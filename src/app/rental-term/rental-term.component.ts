@@ -36,18 +36,15 @@ export class RentalTermComponent implements OnInit {
     event.preventDefault();
 
     if (this.form.termTitle === undefined) {
-      this.alertService.info("Favor preencher o título do termo.");
-      return;
+      return this.alertService.info("Favor preencher o título do termo.");
     }
 
     if (this.selectedFiles === undefined) {
-      this.alertService.info("Favor selecionar um termo.");
-      return;
+      return this.alertService.info("Favor selecionar um termo.");
     }
 
     if (!this.selectedFiles.item(0).name.includes(".docx")) {
-      this.alertService.info("Favor selecionar um termo em formato docx.");
-      return;
+      return this.alertService.info("Favor selecionar um termo em formato docx.");
     }
 
     this.rentalTermService.uploadTerm(this.selectedFiles.item(0), this.form.termTitle).subscribe(data => {
@@ -55,10 +52,10 @@ export class RentalTermComponent implements OnInit {
     }, error => {
       switch (error.status) {
         case 0:
-          this.messageService.error('Servidor indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
         case 500:
-          this.messageService.error('Erro interno do servidor.');
+          this.messageService.error('O nome do termo não deve ser igual ao termo atual.');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');
