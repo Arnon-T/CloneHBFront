@@ -25,6 +25,7 @@ export class LocationGarageComponent implements OnInit {
   config: any;
   vehicleHasOption: boolean;
   listaMarcas: Observable<any>[] = [];
+  listaAllMarcas: any;
   selectedMarca: any;
   marca: 'SELECIONAR MARCA'
 
@@ -57,13 +58,14 @@ export class LocationGarageComponent implements OnInit {
     console.log(this.vehicleHasOption);
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
-      this.listaMarcas = [];
+      this.listaMarcas = [];      
     } else {
       this.vehicleHasOption = false;
     }
+    console.log(this.vehicleHasOption);
   }
 
-  searchMarca(tipo) {
+  searchMarca() {
     if (!this.vehicleHasOption) {
       this.marcaService.selectMarcas(this.tipo, 10, 10).subscribe((dados: any) => {
         this.listaMarcas = dados.content;
@@ -84,6 +86,13 @@ export class LocationGarageComponent implements OnInit {
       }
     })
   }
+    
+  listarAllMarcas() {
+    this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
+      this.listaAllMarcas = data;
+      console.log('passou');
+    });
+}
 
 
 }

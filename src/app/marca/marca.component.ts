@@ -51,7 +51,7 @@ export class MarcaComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
   selectOption(tipo) {
-    this.tipo = tipo;
+    this.tipo = tipo;    
   }
 
   export() {
@@ -98,7 +98,7 @@ export class MarcaComponent implements OnInit {
         console.log(this.config);
       });
   }
-
+ 
   pageChanged(event) {
     this.config.currentPage = event;
   }
