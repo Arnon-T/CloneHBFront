@@ -1,0 +1,110 @@
+.message-dismissable {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 85px;
+  right: 20px;
+  max-width: 275px;
+  width: 100%;
+  transition: height 0.2s;
+  z-index: 9999999;
+}
+
+.message {
+  position: relative;
+  right: -330px;
+  max-width: 250px;
+  width: 100%;
+  background: #0082BF;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif !important;
+  cursor: pointer;
+  -webkit-animation: alternate forwards;
+  -webkit-animation-name: animationToIn;
+  -webkit-animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.message-area {
+  padding: 5px 12px;
+  min-height: 60px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.message-area .message-text {
+  user-select: none;
+  word-break: normal;
+  color: #fff;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.loading-bar {
+  height: 5px;
+  background: #085d85;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 0.2s width;
+
+  width: 100%;
+  -webkit-animation: alternate forwards;
+  -webkit-animation-name: timeAnimation;
+  -webkit-animation-duration: 5.2s;
+  transition: cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+/* SUCESS CSS */
+.message-success {
+  background: #2CC96B;
+}
+
+.message-success .loading-bar {
+  background: #2aa35b;
+}
+
+/* ERROR CSS */
+.message-danger {
+  background: #fa4052;
+}
+
+.message-danger .loading-bar {
+  background: #c93040;
+}
+
+/* INFO CSS */
+.message-info {
+  background: #0082BF;
+}
+
+.message-info .loading-bar {
+  background: #026a9c;
+}
+
+/* WARN CSS */
+.message-warning {
+  background: #f67f2d;
+}
+
+.message-warning .loading-bar {
+  background: #d66d24;
+}
+
+@keyframes animationToIn {
+  0% { right: -230px;}
+  100%{ right: 15px;}
+}
+
+@keyframes timeAnimation {
+  0% { width: 0%;}
+  100%{ width: 100%;}
+}
+
+@media only screen and (max-width: 500px) and (min-width: 0px) {
+  .message-dismissable {
+    top: 45px;
+    right: 0px;
+  }
+}

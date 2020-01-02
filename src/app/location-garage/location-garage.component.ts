@@ -4,6 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { MarcaService } from '../marca/marca.service';
 import { LocationGarageService } from "./location-garage.service"
 
+import { TokenStorage } from '../auth/token-storage';
+import { MessageService } from '../_message';
+import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-location-garage',
   templateUrl: './location-garage.component.html',
@@ -21,18 +26,27 @@ export class LocationGarageComponent implements OnInit {
   vehicleHasOption: boolean;
   listaMarcas: Observable<any>[] = [];
   selectedMarca: any;
+  marca: 'SELECIONAR MARCA'
 
-  constructor(private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
+  constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
-   }
+  }
 
   ngOnInit() {
+    this.authGlobal.ngOnInit();
+
+    if (!this.tokenService.getToken()) {
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
+    }
+
     this.selectedMarca = 0
     this.initLocationForm();
-  } 
+  }
 
   initLocationForm() {
-    this.LocationForm 
+    this.LocationForm
   }
 
   selectOption(tipo) {
@@ -44,7 +58,7 @@ export class LocationGarageComponent implements OnInit {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
       this.listaMarcas = [];
-    }else {
+    } else {
       this.vehicleHasOption = false;
     }
   }
@@ -53,22 +67,22 @@ export class LocationGarageComponent implements OnInit {
     if (!this.vehicleHasOption) {
       this.marcaService.selectMarcas(this.tipo, 10, 10).subscribe((dados: any) => {
         this.listaMarcas = dados.content;
-        
-      console.log("Testando",this.listaMarcas);
+
+        console.log("Testando", this.listaMarcas);
       });
-    } 
+    }
   }
 
-  alterarMarca(marcaOption){
+  alterarMarca(marcaOption) {
     this.selectedMarca = marcaOption.selectedIndex
   }
 
-  searchModelo(event){
-        this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca+1).subscribe(data => {
-            for(let i = 0; i < data.length; i++){
-              console.log(data[i])
-            }
-        })
+  searchModelo(event) {
+    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca + 1).subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i])
+      }
+    })
   }
 
 

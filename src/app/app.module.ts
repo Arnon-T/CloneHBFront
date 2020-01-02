@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from './_alert';
+import { MessageModule } from './_message';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +21,11 @@ import { ModelService } from './import-model/import-model.service';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
+import { httpInterceptorProvider } from './auth/auth-interceptor';
+import { GlobalAuth } from './global-auth';
 
 @NgModule({
   declarations: [
@@ -32,13 +37,16 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     VehicleModelComponent,
     CadastroColaboradoresComponent,
     LoginComponent,
-    LocationGarageComponent
+    LocationGarageComponent,
+    MainPageComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AlertModule,
+    MessageModule,
     HttpClientModule,
     NgxPaginationModule
   ],
@@ -46,7 +54,8 @@ import { LocationGarageComponent } from './location-garage/location-garage.compo
     RentalTermService,
     MarcaService,
     ModelService,
-
+    httpInterceptorProvider,
+    GlobalAuth
   ],
   bootstrap: [AppComponent]
 })

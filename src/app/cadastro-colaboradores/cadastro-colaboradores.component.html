@@ -1,20 +1,27 @@
-<div class="container-colaboradores">
-    <div class="content-colaboradores">
-        <div class="header-colaboradores">
-            <h2>Gerenciamento de Colaboradores</h2>
-        </div>
-        <div class="content-actions">
-            <form action="" (ngSubmit)=onSubmit($event) name="form">
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" name="file" class="custom-file-input" id="" (change)="selectFile($event)">
-                        <label class="custom-file-label label-arquivo" for="">Escolha o arquivo</label>
+<div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+    <div class="container-colaboradores">
+        <div class="content-colaboradores">
+            <div class="header-colaboradores">
+                <h2>Gerenciamento de Colaboradores</h2>
+            </div>
+            <div class="content-actions">
+                <form action="" (ngSubmit)=onSubmit($event) name="form">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" accept=".csv" name="file" class="custom-file-input" id=""
+                                (change)="selectFile($event)">
+                            <label class="custom-file-label label-arquivo" for="">Escolha o arquivo</label>
+                        </div>
                     </div>
-                </div>
-                <div class="button-area">
-                    <button type="submit">Importar</button>
-                </div>
-            </form>
+                    <div class="button-area">
+                        <button type="submit">Importar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<ng-template #acessoNegado>
+  <app-notfound></app-notfound>
+</ng-template>

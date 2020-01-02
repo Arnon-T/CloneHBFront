@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalTermService } from './rental-term.service';
-import { Alert, AlertService } from '../_alert';
+import { AlertService } from '../_alert';
+import { MessageService } from '../_message';
+import { GlobalAuth } from '../global-auth';
+import { TokenStorage } from '../auth/token-storage';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-rental-term',
@@ -10,39 +14,57 @@ import { Alert, AlertService } from '../_alert';
 export class RentalTermComponent implements OnInit {
   form: any = {};
   selectedFiles: FileList;
-  currentFileUpload: File;
-  termTitle: string;
-
-  constructor(private rentalTermService: RentalTermService, private alertService: AlertService) { }
+  constructor(private rentalTermService: RentalTermService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
+    this.authGlobal.ngOnInit();
+
+    if (!this.tokenService.getToken()) {
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
+    }
   }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    document.querySelector("#file-name").textContent = event.target.files[0].name;
   }
 
   onSubmit(event) {
+    this.alertService.clear();
     event.preventDefault();
-    console.log(this.form);
 
-    this.termTitle = this.form.termTitle;
+    if (this.form.termTitle === undefined) {
+      this.alertService.info("Favor preencher o título do termo.");
+      return;
+    }
 
-    this.currentFileUpload = this.selectedFiles.item(0);
-    
-    this.rentalTermService.uploadTerm(this.currentFileUpload, this.termTitle).subscribe(data => {
+    if (this.selectedFiles === undefined) {
+      this.alertService.info("Favor selecionar um termo.");
+      return;
+    }
+
+    if (!this.selectedFiles.item(0).name.includes(".docx")) {
+      this.alertService.info("Favor selecionar um termo em formato docx.");
+      return;
+    }
+
+    this.rentalTermService.uploadTerm(this.selectedFiles.item(0), this.form.termTitle).subscribe(data => {
       this.alertService.success('Termo cadastrado com sucesso!');
     }, error => {
-      console.log(error)
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor indisponivel.');
+          this.messageService.error('Servidor indisponivel.');
           break;
         case 500:
-          this.alertService.error('Erro interno do servidor.');
+          this.messageService.error('Erro interno do servidor.');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');
+          break;
+        case 401:
+          this.messageService.error('Necessário efetuar o login.');
           break;
       }
     });

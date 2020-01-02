@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelService } from './import-model.service';
+import { TokenStorage } from '../auth/token-storage'
 import { AlertService } from '../_alert'
+import { MessageService } from '../_message'
 import { saveAs } from 'file-saver';
+import { GlobalAuth } from '../global-auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import-model',
@@ -10,9 +14,16 @@ import { saveAs } from 'file-saver';
 })
 export class VehicleModelComponent implements OnInit {
 
-  constructor(private modelService: ModelService, private alertService: AlertService) { }
+  constructor(private modelService: ModelService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   ngOnInit() {
+    this.authGlobal.ngOnInit();
+
+    if (!this.tokenService.getToken()) {
+      return this.route.navigate(['/login']).then(() => {
+        this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
+      });
+    }
   }
 
   selectedFiles: FileList;
@@ -40,10 +51,9 @@ export class VehicleModelComponent implements OnInit {
     this.modelService.uploadFile(this.currentFileUpload).subscribe(data => {
       this.alertService.success('Modelos importados com sucesso!');
     }, error => {
-      console.log(error)
       switch (error.status) {
         case 0:
-          this.alertService.error('Servidor indisponivel.');
+          this.alertService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
           break;
         case 500:
           this.alertService.error('Erro interno do servidor.');
