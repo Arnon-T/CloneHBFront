@@ -1,4 +1,4 @@
-<div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+<!-- <div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
   <div class="container-modelos">
     <div class="content-modelos">
       <div class="header-modelos">
@@ -29,7 +29,47 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+  <div class="container-modelos">
+    <div class="content-modelos">
+      <div class="content-area-modelos">
+        <app-functionality-button-area></app-functionality-button-area>
+        <div class="content-page">
+          <div class="header-modelos">
+            <h2>Gerenciamento de Modelos</h2>
+          </div>
+          <div class="content-actions">
+            <form name="formzin" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
+              <div>
+                <alert></alert>
+              </div>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" accept=".csv" class="custom-file-input" name="file" (change)="selectFile($event)"
+                    onchange="document.querySelector('#nome-arquivo').textContent=this.files[0].name;"
+                    id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label label-arquivo" id="nome-arquivo" for="inputGroupFile01">Escolha o
+                    arquivo
+                    aqui</label>
+                </div>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03"
+                    type="submit">Importar</button>
+                </div>
+              </div>
+            </form>
+            <div class="button-export">
+              <button type="button" (click)="export()">Exportar modelo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 <ng-template #acessoNegado>
   <app-notfound></app-notfound>

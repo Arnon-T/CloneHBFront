@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectpageimportComponent } from './selectpageimport.component';
+import { FuncionalityPageComponent } from './funcionality-page.component';
 
-describe('SelectpageimportComponent', () => {
-  let component: SelectpageimportComponent;
-  let fixture: ComponentFixture<SelectpageimportComponent>;
+describe('FuncionalityPageComponent', () => {
+  let component: FuncionalityPageComponent;
+  let fixture: ComponentFixture<FuncionalityPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectpageimportComponent ]
+      declarations: [ FuncionalityPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectpageimportComponent);
+    fixture = TestBed.createComponent(FuncionalityPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

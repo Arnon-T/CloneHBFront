@@ -1,0 +1,94 @@
+.container-funcionality {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1036px;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  font-family: 'Poppins', sans-serif;
+  outline: 0;
+}
+
+.container-funcionality .content-funcionality {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality {
+  display: flex;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page {
+  border: 1px solid #ecebed;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  margin-left: 25px;
+  max-width: 695px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 25px;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .image-content {
+  max-width: 550px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .image-content img {
+  width: 100%;
+  height: 100%;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .content-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 30px;
+  margin-bottom: 20px;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .content-text .content-info {
+  text-align: center;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .content-text .content-info h1 {
+  font-size: 25px;
+  color: #0082BF;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .content-text .content-info span {
+  font-size: 16px;
+  color: #7d7d7d;
+}
+
+.container-funcionality .content-funcionality .content-area-funcionality .content-page .display-area .content-text .button-href {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 750px) and (min-width: 0px) {
+  .container-funcionality .content-funcionality .content-area-funcionality {
+    flex-direction: column;
+  }
+
+  .container-funcionality .content-funcionality .content-area-funcionality .content-page {
+    margin-left: 0;
+  }
+}

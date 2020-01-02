@@ -11,7 +11,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { RentalTermComponent } from './rental-term/rental-term.component';
 import { HeaderComponent } from './header/header.component';
-import { SelectpageimportComponent } from './selectpageimport/selectpageimport.component';
 import { MarcaComponent } from './marca/marca.component';
 import { VehicleModelComponent } from './import-model/import-model.component';
 
@@ -26,13 +25,14 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 import { httpInterceptorProvider } from './auth/auth-interceptor';
 import { GlobalAuth } from './global-auth';
+import { FunctionalityButtonAreaComponent } from './functionality-button-area/functionality-button-area.component';
+import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RentalTermComponent,
     HeaderComponent,
-    SelectpageimportComponent,
     MarcaComponent,
     VehicleModelComponent,
     CadastroColaboradoresComponent,
@@ -40,6 +40,8 @@ import { GlobalAuth } from './global-auth';
     LocationGarageComponent,
     MainPageComponent,
     NotfoundComponent,
+    FunctionalityButtonAreaComponent,
+    FuncionalityPageComponent,
   ],
   imports: [
     BrowserModule,
