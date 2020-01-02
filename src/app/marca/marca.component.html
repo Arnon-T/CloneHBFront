@@ -1,10 +1,12 @@
-<div  *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+<div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
   <div class="container-marcas">
+
     <div class="content-marcas">
+
       <div class="header-marcas">
         <h2>Gerenciamento de marcas</h2>
       </div>
-      
+
       <form name="form" (ngSubmit)="import()" #f="ngForm" novalidate enctype="multipart/form-data">
         <div class="input-group">
           <div class="custom-file">
@@ -35,17 +37,17 @@
       </form>
 
       <div id="lista" class="list-types">
-        <div class="table-responsive col-md-12">
-          <table class="table col-md-12 table-marcas">
+        <div class="table-container">
+          <table class="table-default">
             <thead>
               <tr>
-                <th class="col-md-1">ID</th>
-                <th class="col-md-2">Marca</th>
+                <th class="id">ID</th>
+                <th class="name">Marca</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let marca of listaMarcas.content | paginate: config">
-                <td>{{marca.id}}</td>
+                <td class="id">{{marca.id}}</td>
                 <td>{{marca.nome}}</td>
               </tr>
             </tbody>
