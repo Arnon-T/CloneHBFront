@@ -1,0 +1,9 @@
+﻿
+<div class="message-dismissable">
+  <div *ngFor="let message of messages" (click)="removeAlert(message)" class="{{cssClass(message)}}">
+    <div class="message-area">
+      <span class="message-text">{{message.message}}</span>
+    </div>
+    <div class="loading-bar"></div>
+  </div>
+</div>

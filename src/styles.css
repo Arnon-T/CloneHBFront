@@ -1,1 +1,110 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  width: 100% !important;
+  outline: none;
+}
+
+span, p {
+  font-family: 'Poppins', sans-serif;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.09);
+  margin-bottom: 25px;
+}
+
+.table-container table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.table-container table thead {
+  width: 100%;
+  padding: 5px 15px 0;
+}
+
+.table-container table thead tr, .table-container table tbody tr {
+  width: 100%;
+}
+
+.table-container table thead tr th, .table-container table tbody tr td {
+  width: 100%;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #0082BF;
+}
+
+.table-container table thead tr .id, .table-container table tbody tr .id {
+  width: 65px;
+}
+
+.table-container table tbody {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 0 15px 5px;
+}
+
+.table-container table tbody tr {
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.table-container table tbody tr td {
+  color: #1D285A;
+  border-radius: 0;
+}
+
+.table-container table tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.table-container .pagination-buttons {
+  width: 100% !important;
+  margin-bottom: 10px;
+}
+
+.table-container .pagination-buttons ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  margin: 0 auto;
+}
+
+.table-container .pagination-buttons ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.table-container .pagination-buttons ul .small-screen {
+  display: none;
+}
+
+.table-container .pagination-buttons span, .table-container .pagination-buttons a {
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 300px) and (min-width: 0px) {
+  .table-container .pagination-buttons ul, .table-container .pagination-buttons ul li {
+    display: inline-block;
+  }
+}

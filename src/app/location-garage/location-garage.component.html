@@ -1,0 +1,65 @@
+<div class="container-locacao">
+  <div class="content-locacao">
+    <div class="header-content-locacao">
+      <h1>Locação de vaga</h1>
+    </div>
+    <form class="form-locacao" autocomplete="off">
+      <div class="content-input">
+        <div class="input-area">
+          <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
+          (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="selectPeriodos()">
+            <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+          </select>
+        </div>
+        <div class="input-area">
+          <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca"
+            [disabled]="vehicleHasOption">
+            <option>MARCA</option>
+            <option *ngFor="let marca of listaAllMarcas" [value]="marca" id="marca">{{marca.nome}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="content-input">
+        <div class="input-area">
+          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
+        </div>
+        <div class="input-area">
+          <select name="codigo-cor" id="codigo-cor">
+            <option *ngFor="let cor of cores">{{cor}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="content-input">
+        <div class="input-area">
+          <input type="text" name="placa-veiculo" placeholder="Placa do veículo">
+        </div>
+        <div class="input-area">
+          <select name="codigo-periodo" id="codigo-periodo">
+            <option>PERÍODO</option>
+            <option *ngFor="let periodo of listaPeriodos" [value]="periodo" id="periodo">{{periodo.descricao}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="content-input">
+        <div class="input-area">
+          <input type="text" name="codigo-usuario" placeholder="Matrícula do usuário">
+        </div>
+        <div class="input-area">
+          <input type="text" name="moradia" placeholder="Cidade">
+        </div>
+      </div>
+      <div class="content-checkbox-termo">
+        <div class="input-checkbox">
+          <label class="container-checkbox" for="input-termo-locacao">
+            <input id="input-termo-locacao" type="checkbox" name="aceito-termo">
+            <span class="span-checkmark"></span>
+          </label>
+          <span class="text-aceitar-termo">Aceito o <strong>Termo de Locação HBSIS</strong>. Ao aceitar você concorda com os requisitos proposto no termo.</span>
+        </div>
+      </div>
+      <div class="area-button-signup">
+        <button type="submit">Cadastrar locação</button>
+      </div>
+    </form>
+  </div>
+</div>
