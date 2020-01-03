@@ -59,7 +59,10 @@ export class LocationGarageComponent implements OnInit {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
       this.listaAllMarcas = [];
-      this.cores = [];
+      this.cores = ['SELECIONAR COR'];
+      if(this.tipo === 'SELECIONAR TIPO'){
+        this.listaPeriodos = [];
+      }
     } else {
       this.vehicleHasOption = false;
       this.cores = ['SELECIONAR COR', 'BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS']

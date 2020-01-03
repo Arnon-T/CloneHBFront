@@ -35,7 +35,8 @@
           <input type="text" name="placa-veiculo" placeholder="Placa do veículo">
         </div>
         <div class="input-area">
-          <select name="codigo-periodo" id="codigo-periodo">
+          <select name="codigo-periodo" id="codigo-periodo"
+          [disabled]="tipo === 'SELECIONAR TIPO'">
             <option>PERÍODO</option>
             <option *ngFor="let periodo of listaPeriodos" [value]="periodo" id="periodo">{{periodo.descricao}}</option>
           </select>
