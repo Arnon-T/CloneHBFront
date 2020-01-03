@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 
 export class CadastroColaboradoresService {
-  private mainUrl = "http://192.168.32.28:8080/api";
+  private mainUrl = "http://localhost:8080/api";
 
   constructor(private http: HttpClient) {}
 
