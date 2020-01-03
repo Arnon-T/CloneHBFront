@@ -38,7 +38,30 @@ export class CadastroColaboradoresComponent implements OnInit {
       return this.alertService.error("Necessário selecionar um arquivo em formato csv.");
     }
     this.fileToUpload = this.selectedFiles.item(0);
-    console.log(this.cadastrarColaboradoresService.uploadFile(this.fileToUpload).subscribe());
 
+    this.cadastrarColaboradoresService.uploadFile(this.fileToUpload).subscribe(data => {
+      this.alertService.info("Importando arquivo com os colaboradores.");
+    }, error => {
+      if (error.error.message !== undefined) {
+        this.alertService.error(error.error.message);
+      }
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('O nome do termo não deve ser igual ao termo atual.');
+          break;
+        case 406:
+          this.alertService.error('Extensão do arquivo é inválida.');
+          break;
+        case 401:
+          this.messageService.error('Necessário efetuar o login.');
+          break;
+        case 409:
+          this.messageService.warn('Alguns colaboradores não foram cadastrados devido ao seu e-mail.');
+          break;
+      }
+    })
   }
 }
