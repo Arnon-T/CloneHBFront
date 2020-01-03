@@ -21,11 +21,12 @@
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos">
+          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos"
+          [disabled]="vehicleHasOption">
         </div>
         <div class="input-area">
-          <select name="codigo-cor" id="codigo-cor">
-            <option *ngFor="let cor of cores">{{cor}}</option>
+          <select name="codigo-cor" id="codigo-cor" [disabled]="vehicleHasOption">
+            <option *ngFor="let cor of cores" [value]="corSelecionada">{{cor}}</option>
           </select>
         </div>
       </div>

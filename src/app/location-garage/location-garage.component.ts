@@ -29,7 +29,7 @@ export class LocationGarageComponent implements OnInit {
   listaPeriodos: any;
   selectedMarca: any;
   marca: 'SELECIONAR MARCA';
-  cores = ['SELECIONAR COR','BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
+  cores = ['SELECIONAR COR', 'BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
   constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
   }
@@ -56,24 +56,16 @@ export class LocationGarageComponent implements OnInit {
   }
 
   setVehicleHasOption() {
-    console.log(this.vehicleHasOption);
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
-      this.listaMarcas = [];      
+      this.listaAllMarcas = [];
+      this.cores = [];
     } else {
       this.vehicleHasOption = false;
+      this.cores = ['SELECIONAR COR', 'BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS']
     }
-    console.log(this.vehicleHasOption);
-  }
-
-  searchMarca() {
-    if (!this.vehicleHasOption) {
-      this.marcaService.selectMarcas(this.tipo, 10, 10).subscribe((dados: any) => {
-        this.listaMarcas = dados.content;
-
-        console.log("Testando", this.listaMarcas);
-      });
-    }
+    console.log(this.vehicleHasOption + " GSDGFSHJ");
+    return this.vehicleHasOption;
   }
 
   alterarMarca(marcaOption) {
@@ -81,20 +73,23 @@ export class LocationGarageComponent implements OnInit {
   }
 
   searchModelo(event) {
-    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca + 1).subscribe(data => {
+    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca).subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         console.log(data[i])
       }
     })
   }
-    
-  listarAllMarcas() {
-    this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
-      this.listaAllMarcas = data;
-    });
-}
 
-  selectPeriodos(){
+  listarAllMarcas() {
+    if (!this.vehicleHasOption) {
+      this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
+        console.log(data);
+        this.listaAllMarcas = data;
+      });
+    }
+  }
+
+  selectPeriodos() {
     this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
       this.listaPeriodos = data;
       console.log(this.tipo);
