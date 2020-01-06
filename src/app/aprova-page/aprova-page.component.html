@@ -1,0 +1,24 @@
+<div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
+  <div class="container-aprovacao">
+    <div class="content-aprovacao">
+      <div class="content-area-aprovacao">
+        <app-functionality-button-area></app-functionality-button-area>
+        <div class="content-page">
+          <div class="header-aprovacao">
+            <h2>Gerenciamento de Modelos</h2>
+          </div>
+          <div class="content-actions">
+            <div class="alert-area">
+              <alert></alert>
+            </div>
+            <table>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button (click)="alert()">CLICK</button>
