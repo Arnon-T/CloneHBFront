@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalAuth } from '../global-auth';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authGlobal: GlobalAuth) { }
 
   ngOnInit() {
+    this.authGlobal.ngOnInit();
   }
 
 }

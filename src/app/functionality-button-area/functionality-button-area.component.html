@@ -1,6 +1,6 @@
 <div class="container-funcionalities-buttons">
   <div class="content-funcionalities">
-    <div routerLink="/locacao-vaga" class="funcionality-button">
+    <div routerLink="/locacao-vaga" *ngIf="authGlobal.authority === 'user'" class="funcionality-button">
       <div class="header-button">
         <h1>Locação de vaga</h1>
       </div>

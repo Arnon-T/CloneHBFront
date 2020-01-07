@@ -28,6 +28,7 @@ import { GlobalAuth } from './global-auth';
 import { FunctionalityButtonAreaComponent } from './functionality-button-area/functionality-button-area.component';
 import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
 import { AprovaPageComponent } from './aprova-page/aprova-page.component';
+import { ModalTermComponent } from './modal-term/modal-term.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AprovaPageComponent } from './aprova-page/aprova-page.component';
     FunctionalityButtonAreaComponent,
     FuncionalityPageComponent,
     AprovaPageComponent,
+    ModalTermComponent,
   ],
   imports: [
     BrowserModule,

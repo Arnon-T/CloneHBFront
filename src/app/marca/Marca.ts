@@ -1,6 +1,6 @@
-export class Marca{
+export class Marca {
 
-    tipo: string;
-    nome: string;  
+  tipo: string;
+  nome: string;
 
 }
