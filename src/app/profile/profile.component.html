@@ -1,0 +1,80 @@
+<div class="container-profile">
+  <div class="content-profile">
+    <div class="container-content">
+      <div class="header-content-profile">
+        <h1>Seu Perfil</h1>
+      </div>
+      <form *ngIf="isLoading === false; else isloading" class="form-profile" autocomplete="on" name="form"
+        (ngSubmit)="onSubmit()" #formProfile="ngForm">
+        <div>
+          <alert></alert>
+        </div>
+        <div class="container-input">
+          <span>Nome completo</span>
+          <div class="input-area">
+            <input type="text" name="nome" [(ngModel)]="form.nome" #nomeCompleto="ngModel" value="{{colaborador.nome}}">
+          </div>
+        </div>
+        <div class="container-input">
+          <span>Email</span>
+          <div class="input-area">
+            <input type="email" value="{{colaborador.email}}" disabled>
+          </div>
+        </div>
+        <div class="container-input">
+          <span>Data nascimento</span>
+          <div class="input-area">
+            <input type="text" value="{{colaborador.dataNascimento}}" disabled>
+          </div>
+        </div>
+        <div class="separate-buttons"></div>
+        <div class="content-checkbox">
+          <div class="input-checkbox">
+            <label class="container-checkbox" for="input-pcd">
+              <input id="input-pcd" type="checkbox" name="pcd" [(ngModel)]="form.pcd" #pcd="ngModel">
+              <span class="span-checkmark"></span>
+            </label>
+            <span class="text-checkbox">Pessoa com Deficiência</span>
+          </div>
+        </div>
+        <div class="content-checkbox">
+          <div class="input-checkbox">
+            <label class="container-checkbox" for="input-reside-fora">
+              <input id="input-reside-fora" type="checkbox" name="resideFora" [(ngModel)]="form.resideFora"
+                #resideFora="ngModel">
+              <span class="span-checkmark"></span>
+            </label>
+            <span class="text-checkbox">Reside fora Blumenau</span>
+          </div>
+        </div>
+        <div class="content-checkbox">
+          <div class="input-checkbox">
+            <label class="container-checkbox" for="input-oferece-carona">
+              <input id="input-oferece-carona" type="checkbox" name="ofereceCarona" [(ngModel)]="form.ofereceCarona"
+                #ofereceCarona="ngModel">
+              <span class="span-checkmark"></span>
+            </label>
+            <span class="text-checkbox">Oferece carona para colaboradores</span>
+          </div>
+        </div>
+        <div class="content-checkbox">
+          <div class="input-checkbox">
+            <label class="container-checkbox" for="input-trabalho-noturno">
+              <input id="input-trabalho-noturno" type="checkbox" name="trabalhoNoturno"
+                [(ngModel)]="form.trabalhoNoturno" #trabalhoNoturno="ngModel">
+              <span class="span-checkmark"></span>
+            </label>
+            <span class="text-checkbox">Horário não comercial. (Noturno)</span>
+          </div>
+        </div>
+        <div class="separate-buttons"></div>
+        <div class="button-area">
+          <button>Salvar alterações</button>
+        </div>
+      </form>
+      <div id="isloading" *ngIf="isLoading === true" class="isLoading">
+        <isLoading></isLoading>
+      </div>
+    </div>
+  </div>
+</div>

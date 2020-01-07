@@ -28,8 +28,6 @@ export class ModalTermComponent implements OnInit {
         case 500:
           this.messageService.error('Erro interno do servidor.');
           break;
-        default:
-          this.messageService.error('Não foi possivel carregar o termo de locação.')
       }
     });
   }
