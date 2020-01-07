@@ -1,5 +1,5 @@
 <div class="container-locacao">
-  <div class="content-locacao">
+  <div class="content-locacao" *ngIf="authGlobal.authority === 'user'; else acessoNegado">
     <div class="header-content-locacao">
       <h1>Locação de vaga</h1>
     </div>
@@ -85,3 +85,7 @@
     </form>
   </div>
 </div>
+
+<ng-template #acessoNegado>
+  <app-notfound></app-notfound>
+</ng-template>
