@@ -15,7 +15,7 @@ export class MarcaService {
 
   constructor(private http: HttpClient, private alertService: AlertService, private messageService: MessageService) { }
 
-  uploadFile(file: File, tipo: string): Observable<any> {
+  uploadFile(locacao: any, tipo: string): Observable<any> {
     let url = this.urlBase + '/fileupload/' + tipo;
     let formdata: FormData = new FormData();
     formdata.append('file', file);

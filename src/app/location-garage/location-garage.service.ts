@@ -28,4 +28,12 @@ export class LocationGarageService {
     return this.http.get(url);
   }
 
+  locacaoVagaGaragem(vagaGaragemDTO: any): Observable<any> {
+    let url = "http://localhost:8080/api/vagas/cadastrar"
+    let formdata: FormData = new FormData();
+    formdata.append('vagaGaragemDTO', vagaGaragemDTO);
+    return this.http.post(url, formdata);
+  }
+
+
 }

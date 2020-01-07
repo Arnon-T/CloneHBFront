@@ -83,14 +83,13 @@ export class LocationGarageComponent implements OnInit {
       color: this.corSelecionada,
       vehiclePlate: this.form.placaVehicle,
       period: this.periodo,
-      registragion: this.form.matricula,
-      city: this.form.cidade,
-      termAccepted: this.form.aceitoTermo,
+      registragion: this.form.matricula      
     }
 
-    console.log(locacao);
+    this.locationGarageService.locacaoVagaGaragem(locacao);
 
-    // INTEGRAR COM API AQUI
+    console.log(locacao);
+    
   }
 
   validate() {
