@@ -34,14 +34,19 @@ export class GlobalAuth implements OnInit {
           return true;
         });
       }, error => {
-        this.logout();
-        return this.route.navigate(['/login']);
+        switch (error.status) {
+          case 0:
+            this.logout();
+            this.route.navigate(['/login']);
+            break;
+        }
       });
     }
     this.isLogged = false;
   }
 
   logout() {
+    this.messageService.clear();
     this.tokenStorage.signOut();
     this.isLogged = false;
     this.authorities = [];

@@ -1,3 +1,7 @@
+/* #dropdown-modelos {
+  display: block;
+} */
+
 .container-locacao {
     display: flex;
     justify-content: space-between;
@@ -201,6 +205,60 @@ h1, label, input, span, select {
 
 .container-locacao .content-locacao .form-locacao .content-checkbox-termo label:checked {
   background: #0082BF !important;
+}
+
+/* DROPDOWN Modelo */
+
+.container-locacao .content-locacao .form-locacao .content-input .content-modelos {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .content-modelos .container-dropdown-modelos {
+  position: absolute;
+  top: 45px;
+  left: 4px;
+
+  width: calc(100% - 8px);
+  min-height: 50px;
+  max-height: 195px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 9999;
+  padding: 5px 0;
+  background: #FFF;
+  border: 1px solid #ebeced;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.09);
+  transition: 0.2s height;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .content-modelos .container-dropdown-modelos .card-modelo-vehicle {
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  outline: 0;
+  user-select: none;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .content-modelos .container-dropdown-modelos .card-modelo-vehicle span {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 15.5px;
+  color: #1D285A;
+  outline: none;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .content-modelos .container-dropdown-modelos .card-modelo-vehicle:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transition: 0.2s background;
 }
 
 @media only screen and (max-width: 500px) and (min-width: 0px) {

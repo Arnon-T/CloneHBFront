@@ -11,6 +11,12 @@ span, p {
   font-family: 'Poppins', sans-serif;
 }
 
+strong {
+  color: #0082BF;
+  outline: none;
+  padding: 0;
+}
+
 .table-container {
   display: flex;
   flex-direction: column;

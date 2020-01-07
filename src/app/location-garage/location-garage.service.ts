@@ -9,14 +9,21 @@ export class LocationGarageService {
 
   constructor(private http: HttpClient) { }
 
-  
-  getNomeModelo(writed: string, idMarca: any): Observable<any>{
-    var url = "http://localhost:8080/api/model/findModel/"+idMarca+"/"+writed
-    console.log(url)
+
+  getNomeModelo(writed: string, idMarca: any): Observable<any> {
+    if (writed === undefined || writed === '') {
+      return;
+    }
+
+    var url = "http://localhost:8080/api/model/findModel/" + idMarca + "/" + writed
     return this.http.get(url);
   }
 
-  getPeriodos(tipo: string){
+  getPeriodos(tipo: string): Observable<any> {
+    if (tipo === undefined || tipo === '') {
+      return;
+    }
+
     var url = "http://localhost:8080/api/periodo/buscar-tipo/" + tipo
     return this.http.get(url);
   }

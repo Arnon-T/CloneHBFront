@@ -5,6 +5,7 @@ import { MarcaService } from '../marca/marca.service';
 import { LocationGarageService } from "./location-garage.service"
 
 import { TokenStorage } from '../auth/token-storage';
+import { AlertService } from '../_alert';
 import { MessageService } from '../_message';
 import { GlobalAuth } from '../global-auth';
 import { Router } from '@angular/router';
@@ -17,22 +18,37 @@ import { Router } from '@angular/router';
 export class LocationGarageComponent implements OnInit {
 
   form: any = {};
-  marcaInfo;
-  errorMessage = '';
   LocationForm: FormGroup;
-  tipos = ['SELECIONAR TIPO', 'CARRO', 'MOTO', 'PATINETE', 'BICICLETA']
-  tipo: string = 'SELECIONAR TIPO';
-  config: any;
-  vehicleHasOption: boolean;
-  listaMarcas: Observable<any>[] = [];
-  listaAllMarcas: any;
-  listaPeriodos: any;
-  selectedMarca: any;
-  marca: 'SELECIONAR MARCA';
-  cores = ['SELECIONAR COR', 'BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
-  constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) {
 
-  }
+  selectedMarca: {
+    id: number,
+    tipoVeiculo: string,
+    nome: string,
+    listAllMarcasIndex: number,
+  };
+  tipo: string;
+  modelo: string;
+  periodo: {
+    id: number,
+    vehicleType: string,
+    dataInicial: string,
+    dataFinal: string,
+    descricao: string
+  };
+  corSelecionada: string;
+
+  config: any;
+  marca: 'SELECIONAR MARCA';
+  tipos = ['CARRO', 'MOTO', 'PATINETE', 'BICICLETA']
+  modelosSearched: any[];
+  cores = ['BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS'];
+
+  vehicleHasOption: boolean;
+  listaMarcas: any[];
+  listaAllMarcas: any[];
+  listaPeriodos: any[];
+
+  constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private messageService: MessageService, private alertService: AlertService, private route: Router, private marcaService: MarcaService, private locationGarageService: LocationGarageService) { }
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
@@ -43,7 +59,6 @@ export class LocationGarageComponent implements OnInit {
       });
     }
 
-    this.selectedMarca = 0
     this.initLocationForm();
   }
 
@@ -52,54 +67,180 @@ export class LocationGarageComponent implements OnInit {
   }
 
   selectOption(tipo) {
+    this.selectedMarca = undefined;
+    this.modelo = undefined;
     this.tipo = tipo;
+  }
+
+  onSubmit() {
+    this.alertService.clear();
+    this.validate();
+
+    const locacao = {
+      vehicleType: this.tipo,
+      brand: this.selectedMarca,
+      vehicleModel: this.modelo,
+      color: this.corSelecionada,
+      vehiclePlate: this.form.placaVehicle,
+      period: this.periodo,
+      registragion: this.form.matricula,
+      city: this.form.cidade,
+      termAccepted: this.form.aceitoTermo,
+    }
+
+    console.log(locacao);
+
+    // INTEGRAR COM API AQUI
+  }
+
+  validate() {
+    if (this.form === undefined || this.form === {}) {
+      throw this.alertService.error("Formulário não pode ser vazio.");
+    }
+
+    if (this.tipo === undefined || this.tipo === '' || this.tipo === 'SELECIONAR TIPO') {
+      throw this.alertService.error("Tipo de veiculo inválido.");
+    }
+
+    if (this.selectedMarca === undefined || this.selectedMarca.nome === 'MARCA' || this.selectedMarca.nome === '') {
+      throw this.alertService.error("Nome da marca é inválida.");
+    }
+
+    if (this.modelo === undefined || this.modelo === '') {
+      throw this.alertService.error("Nome do modelo é inválido.");
+    }
+
+    if (this.corSelecionada === undefined || this.corSelecionada === 'SELECIONAR COR' || this.corSelecionada === '') {
+      this.alertService.error("Cor é inválida. Favor selecionar uma válida.");
+      return;
+    }
+
+    if (this.form.placaVehicle === undefined || this.form.placaVehicle === '' || this.form.placaVehicle.length <= 0) {
+      throw this.alertService.error("Favor informar uma placa válida.");
+    }
+
+    if (this.periodo === undefined || this.periodo.descricao === 'PERÍODO' || this.periodo.descricao === '') {
+      throw this.alertService.error("Um período deve ser selecionado.");
+    }
+
+    if (this.form.matricula === undefined || this.form.matricula === '' || this.form.matricula.length <= 0) {
+      throw this.alertService.error("Informe uma matrícula válida.");
+    }
+
+    if (this.form.cidade === undefined || this.form.cidade === '' || this.form.cidade.length <= 0) {
+      throw this.alertService.error("Necessário informar um nome de cidade válida");
+    }
+
+    if (this.form.aceitoTermo === undefined || this.form.aceitoTermo === false) {
+      throw this.alertService.error("Necessário aceitar o termo de locação da HBParking.");
+    }
   }
 
   setVehicleHasOption() {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
       this.listaAllMarcas = [];
-      this.cores = ['SELECIONAR COR'];
-      if(this.tipo === 'SELECIONAR TIPO'){
+      if (this.tipo === 'SELECIONAR TIPO') {
         this.listaPeriodos = [];
       }
     } else {
       this.vehicleHasOption = false;
-      this.cores = ['SELECIONAR COR', 'BRANCO', 'PRETO', 'PRATA', 'CINZA', 'VERMELHO', 'MARROM', 'BEGE', 'AZUL', 'VERDE', 'AMARELO', 'DOURADO', 'OUTROS']
     }
-    console.log(this.vehicleHasOption + " GSDGFSHJ");
     return this.vehicleHasOption;
   }
 
-  alterarMarca(marcaOption) {
-    this.selectedMarca = marcaOption.selectedIndex
+  searchModelo(event) {
+    if (event.target.value === undefined || event.target.value === '') {
+      this.modelosSearched = undefined;
+      return;
+    }
+
+    if (this.selectedMarca === undefined || this.selectedMarca.listAllMarcasIndex === undefined || this.selectedMarca.listAllMarcasIndex === 0) {
+      this.modelosSearched = undefined;
+      return;
+    }
+
+    if (!this.vehicleHasOption) {
+      this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca.listAllMarcasIndex).subscribe(data => {
+        if (data !== undefined && data.length !== 0) {
+          this.modelosSearched = data;
+        } else {
+          this.modelosSearched = [{ "modelo": 'Nenhum modelo encontrado.' }];
+        }
+      });
+    }
   }
 
-  searchModelo(event) {
-    this.locationGarageService.getNomeModelo(event.target.value, this.selectedMarca).subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i])
-      }
-    })
+  selectModeloOnSearch(nomeModelo: string) {
+    if (nomeModelo === undefined || nomeModelo === '' || nomeModelo === 'Nenhum modelo encontrado.') {
+      return;
+    }
+
+    this.modelo = nomeModelo;
+    this.modelosSearched = undefined;
   }
 
   listarAllMarcas() {
     if (!this.vehicleHasOption) {
       this.marcaService.selectAllMarcas(this.tipo).subscribe(data => {
-        console.log(data);
         this.listaAllMarcas = data;
       });
     }
   }
 
-  selectPeriodos() {
+  getPeriodos() {
     this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
       this.listaPeriodos = data;
-      console.log(this.tipo);
-      console.log(this.listaPeriodos);
-      console.log(data);
     });
   }
 
+  selectPeriodo(periodoOption) {
+    if (periodoOption.selectedIndex === undefined || periodoOption.selectedIndex === 0) {
+      this.periodo = undefined;
+      return;
+    }
+    let periodoObject = this.listaPeriodos[(periodoOption.selectedIndex - 1)];
+    if (periodoObject === undefined || periodoObject === null) {
+      this.alertService.error("Periodo não existe");
+    }
 
+    this.periodo = periodoObject;
+  }
+
+  alterarMarca(marcaOption) {
+    if (marcaOption.selectedIndex === undefined || marcaOption.selectedIndex === 0) {
+      this.selectedMarca = undefined;
+      return;
+    }
+    let marcaObject = this.listaAllMarcas[(marcaOption.selectedIndex - 1)];
+    if (marcaObject === undefined || marcaObject === null) {
+      this.alertService.error("Marca não existe");
+    }
+
+    this.selectedMarca = marcaObject;
+    this.selectedMarca.listAllMarcasIndex = marcaOption.selectedIndex;
+  }
+
+  selectCor(corOption) {
+    if (corOption.selectedIndex === undefined || corOption.selectedIndex === 0) {
+      this.corSelecionada = '';
+      return;
+    }
+    let corString = this.cores[(corOption.selectedIndex - 1)];
+    if (corString === undefined || corString === null || corString === '') {
+      this.alertService.error("Cor não existe");
+    }
+
+    this.corSelecionada = corString;
+  }
+
+  // Method to open modal
+  openModalTermo() {
+    let modal = document.getElementById('modal-termo');
+    if (modal.style.display === 'block') {
+      modal.style.display = 'none';
+    } else {
+      modal.style.display = 'block';
+    }
+  }
 }
