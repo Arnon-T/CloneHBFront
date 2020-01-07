@@ -29,6 +29,8 @@ import { FunctionalityButtonAreaComponent } from './functionality-button-area/fu
 import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
 import { AprovaPageComponent } from './aprova-page/aprova-page.component';
 import { ModalTermComponent } from './modal-term/modal-term.component';
+import { ProfileComponent } from './profile/profile.component';
+import { IsLoadingComponent } from './is-loading/is-loading.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { ModalTermComponent } from './modal-term/modal-term.component';
     FuncionalityPageComponent,
     AprovaPageComponent,
     ModalTermComponent,
+    ProfileComponent,
+    IsLoadingComponent,
   ],
   imports: [
     BrowserModule,
