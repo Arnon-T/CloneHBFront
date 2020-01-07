@@ -189,9 +189,11 @@ export class LocationGarageComponent implements OnInit {
   }
 
   getPeriodos() {
-    this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
-      this.listaPeriodos = data;
-    });
+    if (!this.vehicleHasOption) {
+      this.locationGarageService.getPeriodos(this.tipo).subscribe(data => {
+        this.listaPeriodos = data;
+      });
+    }
   }
 
   selectPeriodo(periodoOption) {
