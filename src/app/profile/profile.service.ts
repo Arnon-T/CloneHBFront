@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Colaborador } from './Colaborador';
-import { TokenStorage } from '../auth/token-storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { TokenStorage } from '../auth/token-storage';
 export class ProfileService {
   private url = "http://localhost:8080/api";
 
-  constructor(private http: HttpClient, private tokenService: TokenStorage) { }
+  constructor(private http: HttpClient) { }
 
   getInfoFromUserLogged(): Observable<Colaborador> {
     let url = this.url + "/colaborador";
