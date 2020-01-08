@@ -32,7 +32,7 @@
           </div>
           <div class="container-dropdown-modelos" *ngIf="modelosSearched !== undefined" id="dropdown-modelos">
             <div *ngFor="let modelo of modelosSearched" class="card-modelo-vehicle"
-              (click)="selectModeloOnSearch(modelo.modelo)">
+              (click)="selectModeloOnSearch(modelo)">
               <span>{{modelo.modelo}}</span>
             </div>
           </div>

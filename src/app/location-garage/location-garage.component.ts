@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { MarcaService } from '../marca/marca.service';
+import { VagaGaragemDTO } from './vagaGaragemDTO';
 import { LocationGarageService } from "./location-garage.service"
 
 import { TokenStorage } from '../auth/token-storage';
@@ -20,6 +21,8 @@ export class LocationGarageComponent implements OnInit {
   form: any = {};
   LocationForm: FormGroup;
 
+  vagaGaragem : any;
+
   selectedMarca: {
     id: number,
     tipoVeiculo: string,
@@ -28,6 +31,11 @@ export class LocationGarageComponent implements OnInit {
   };
   tipo: string;
   modelo: string;
+  modeloCompleto: {
+    id: number;
+    idMarca: number;
+    modelo: string;
+  }
   periodo: {
     id: number,
     vehicleType: string,
@@ -77,19 +85,31 @@ export class LocationGarageComponent implements OnInit {
     this.validate();
 
     const locacao = {
-      vehicleType: this.tipo,
-      brand: this.selectedMarca,
-      vehicleModel: this.modelo,
+      tipoVeiculo: this.tipo,
+      marca: this.selectedMarca.id,
+      vehicleModel: this.modeloCompleto.id,
       color: this.corSelecionada,
-      vehiclePlate: this.form.placaVehicle,
-      period: this.periodo,
-      registragion: this.form.matricula      
+      placa: this.form.placaVehicle,
+      periodo: this.periodo.id,
+      colaborador: +this.form.matricula
     }
 
-    this.locationGarageService.locacaoVagaGaragem(locacao);
+    this.locationGarageService.locacaoVagaGaragem(locacao).subscribe(data => {
+      this.alertService.info("Infomações salvas com sucesso!");      
+      this.vagaGaragem = data;
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+      }
+    });
 
-    console.log(locacao);
-    
+    console.log(this.vagaGaragem);
+
   }
 
   validate() {
@@ -170,13 +190,15 @@ export class LocationGarageComponent implements OnInit {
     }
   }
 
-  selectModeloOnSearch(nomeModelo: string) {
+  selectModeloOnSearch(nomeModelo: any) {
     if (nomeModelo === undefined || nomeModelo === '' || nomeModelo === 'Nenhum modelo encontrado.') {
       return;
     }
 
-    this.modelo = nomeModelo;
+    this.modelo = nomeModelo.modelo;
+    this.modeloCompleto = nomeModelo;
     this.modelosSearched = undefined;
+    console.log(this.modeloCompleto);
   }
 
   listarAllMarcas() {
