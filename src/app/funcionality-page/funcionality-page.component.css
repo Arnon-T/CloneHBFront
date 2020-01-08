@@ -91,4 +91,9 @@
   .container-funcionality .content-funcionality .content-area-funcionality .content-page {
     margin-left: 0;
   }
+
+  .container-funcionality .content-funcionality .content-area-funcionality .content-page {
+    min-width: 0;
+    overflow: hidden;
+  }
 }
