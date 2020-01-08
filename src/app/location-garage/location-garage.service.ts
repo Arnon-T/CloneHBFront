@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { VagaGaragemDTO } from './vagaGaragemDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,12 @@ export class LocationGarageService {
     return this.http.get(url);
   }
 
-  locacaoVagaGaragem(vagaGaragemDTO: any): Observable<any> {
-    let url = "http://localhost:8080/api/vagas/cadastrar"
-    let formdata: FormData = new FormData();
-    formdata.append('vagaGaragemDTO', vagaGaragemDTO);
-    return this.http.post(url, formdata);
+  locacaoVagaGaragem(vagaGaragemDTO: VagaGaragemDTO): Observable<VagaGaragemDTO> {
+    let url = "http://localhost:8080/api/vagas"
+    const response = this.http.post<VagaGaragemDTO>(url, vagaGaragemDTO);
+    console.log("locacaoVagaGaragem");
+    console.log(response);
+    return response;
   }
 
 
