@@ -96,6 +96,14 @@
                             <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)"
                                 (pageChange)="listarLocatarios()"></pagination-controls>
                         </div>
+                        <div class="buttons">
+                            <div class="items-page-area">
+                              <select (change)="selectItemsPerPage($event.target.value)" (change)="listarLocatarios()" class="items-page">
+                                <span>{{itemsPage}}</span>
+                                <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
+                              </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

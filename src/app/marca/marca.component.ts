@@ -32,11 +32,21 @@ export class MarcaComponent implements OnInit {
 
   constructor(private authGlobal: GlobalAuth, private marcaService: MarcaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private route: Router) {
     this.config = {
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: 0
     }
   }
+
+  itemsPageDefaultNumber = 10;
+   itemsPage: number = this.itemsPageDefaultNumber;
+   itemsPageDefaultNumbers = [10, 25, 50, 100];
+
+   selectItemsPerPage(quantity) {
+     this.config.itemsPerPage = quantity;
+     
+   }
+   
   ngOnInit() {
     this.authGlobal.ngOnInit();
     if (!this.tokenService.getToken()) {

@@ -41,6 +41,7 @@
 
           <div id="lista" class="list-types">
             <div class="table-container">
+
               <table class="table-default">
                 <thead>
                   <tr>
@@ -57,6 +58,15 @@
               </table>
               <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)" (pageChange)="listarMarcas(tipo)"></pagination-controls>
             </div>
+
+            <div class="buttons">
+              <div class="items-page-area">
+                <select (change)="selectItemsPerPage($event.target.value)" (change)="listarMarcas(tipo)" class="items-page">
+                  <span>{{itemsPage}}</span>
+                  <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
+                </select>
+              </div>
+          </div>
           </div>
         </div>
       </div>
