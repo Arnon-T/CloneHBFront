@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { TokenStorage } from '../auth/token-storage';
 import { AprovaService } from './aprova.service';
 import { VagaGaragemPageable } from './VagaGararemPageable';
+import { VagaGaragem } from './VagaGaragem';
+import { Periodo } from './Periodo';
 
 @Component({
   selector: 'app-aprova-page',
@@ -26,20 +28,21 @@ export class AprovaPageComponent implements OnInit {
 
   selectItemsPerPage(quantity) {
     this.itemsPage = quantity;
+    this.getAllVagaGaragens(this.tipo.toUpperCase(), 0, this.itemsPage);
   }
 
   form: any = {};
 
   isLoading: boolean = false;
 
-  tipoDefaultName = 'Veículo';
+  tipoDefaultName = 'Carro';
   tipo: string = this.tipoDefaultName;
-  tipos = ['Carro', 'Moto', 'Patinete e Bicicleta'];
+  tipos = ['Moto', 'Patinete e Bicicleta'];
 
 
   periodoDefaultName: string = 'Período';
-  periodo: any;
-  periodos: any[];
+  periodo: Periodo;
+  periodos: Periodo[];
 
   moreColaboradorThanVagas: boolean = false;
   vagaGaragemPageable: VagaGaragemPageable;
@@ -57,8 +60,19 @@ export class AprovaPageComponent implements OnInit {
     this.alertService.info('Buscando colaboradores..');
 
     this.isLoading = true;
+    this.getAllVagaGaragens('CARRO', 0, this.itemsPage);
+    this.getAllPeriodos('CARRO');
+    this.setPeriodoDefaultThings();
+  }
 
-    this.aprovaService.findAllColaboradoresToApprove('CARRO', 0, this.itemsPage).subscribe(data => {
+  setPeriodoDefaultThings() {
+    const periodoNewer = new Periodo();
+    periodoNewer.descricao = 'Período';
+    this.periodo = periodoNewer;
+  }
+
+  getAllVagaGaragens(type: string, page: number, size: number) {
+    this.aprovaService.findAllColaboradoresToApprove(type, page, size).subscribe(data => {
       this.isLoading = false;
       this.vagaGaragemPageable = data;
     }, error => {
@@ -76,9 +90,43 @@ export class AprovaPageComponent implements OnInit {
     });
   }
 
+  getAllPeriodos(type: string) {
+    this.aprovaService.getPeriodos(type).subscribe(data => {
+      this.isLoading = false;
+      this.periodos = data;
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        default:
+          this.messageService.error("Não foi possivel buscar períodos.");
+          break;
+      }
+    });
+  }
+
+  aprovarTodos() {
+    // INTEGRAR PARA APROVAR TODOS
+  }
+
+  sortearTodasVagas() {
+    // INTEGRAR PARA SORTEAR TODAS AS VAGAS
+    console.log("sdggdsdgs")
+    this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.form.trabalhoNoturno);
+  }
+
+  aprovarSingular(vaga: VagaGaragem) {
+    // CRIAR INTEGRACAO COM API de aprovar
+    console.log(vaga)
+  }
+
   selectTipoOnDropdown(tipo: string) {
     this.tipos = this.tipos.filter(type => type !== tipo);
-    if (this.tipo !== undefined && this.tipo !== this.tipoDefaultName) {
+    if (this.tipo !== undefined) {
       let tiposArray = [this.tipo, ...this.tipos];
       this.tipos = tiposArray;
     }
@@ -92,13 +140,8 @@ export class AprovaPageComponent implements OnInit {
     });
   }
 
-  selectPrioridadeOnDropdown(periodo: string) {
-    this.periodos = this.periodos.filter(type => type !== periodo);
-    if (this.periodo !== undefined && this.periodo.descricao !== this.periodoDefaultName) {
-      let periodosArray = [this.periodo, ...this.periodos];
-      this.periodos = periodosArray;
-    }
-    this.periodo.descricao = periodo;
+  selectPrioridadeOnDropdown(periodo: Periodo) {
+    this.periodo = periodo;
     this.openDropdown('dropdown-prioridade');
   }
 
@@ -123,17 +166,11 @@ export class AprovaPageComponent implements OnInit {
     divDropdown.classList.toggle('openDropdown');
   }
 
-  checkTrabalhoNoturno(boolean: boolean) {  
-    if(boolean){
+  checkTrabalhoNoturno(boolean: boolean) {
+    if (boolean) {
       this.form.trabalhoNoturno = "NOTURNO";
     } else {
       this.form.trabalhoNoturno = "INTEGRAL"
     }
   }
-
-  vagasSorteadas() {
-    this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.form.trabalhoNoturno);
-  }
-  
-
 }
