@@ -31,10 +31,7 @@ export class LocationGarageService {
 
   locacaoVagaGaragem(vagaGaragemDTO: VagaGaragemDTO): Observable<VagaGaragemDTO> {
     let url = "http://localhost:8080/api/vagas"
-    const response = this.http.post<VagaGaragemDTO>(url, vagaGaragemDTO);
-    console.log("locacaoVagaGaragem");
-    console.log(response);
-    return response;
+    return this.http.post<VagaGaragemDTO>(url, vagaGaragemDTO);
   }
 
 

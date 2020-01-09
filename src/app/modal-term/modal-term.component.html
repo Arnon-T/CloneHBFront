@@ -13,11 +13,14 @@
     <div class="content-modal-term" [innerHTML]="fileContentStringHtml">
     </div>
     <div class="button-actions">
-      <div class="button" (click)="cancelAndClose()">
-        <span>Cancelar</span>
-      </div>
-      <div class="button button-accept" (click)="acceptAndClose()">
+      <!-- <div class="button" (click)="cancelAndClose()">
+      <span>Cancelar</span>
+      </div> -->
+      <!-- <div class="button button-accept" (click)="acceptAndClose()">
         <label>Aceitar Termo</label>
+      </div> -->
+      <div class="button button-accept" (click)="closeModal()">
+        <label>Fechar</label>
       </div>
     </div>
   </div>

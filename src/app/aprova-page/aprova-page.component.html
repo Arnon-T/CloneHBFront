@@ -7,7 +7,7 @@
           <div class="header-aprovacao">
             <h2>Gerenciamento de Aprovação de Locação</h2>
           </div>
-          <div class="content-actions">
+          <div *ngIf="isLoading === false; else loading" class="content-actions">
             <div class="alert-area">
               <alert></alert>
             </div>
@@ -28,15 +28,15 @@
               </div>
               <div class="dropdown-area">
                 <div class="container-area" (click)="openDropdown('dropdown-prioridade')">
-                  <span class="tipo-text">{{periodo}}</span>
+                  <span *ngIf="isLoading === false" class="tipo-text">{{periodo.descricao}}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="#0082BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 9l6 6 6-6" /></svg>
                 </div>
                 <div id="dropdown-prioridade" class="container-area-dropped">
-                  <div class="select-option" *ngFor="let periodoString of periodos"
-                    (click)="selectPrioridadeOnDropdown(periodoString)">
-                    <span>{{periodoString}}</span>
+                  <div class="select-option" *ngFor="let periodoObj of periodos"
+                    (click)="selectPrioridadeOnDropdown(periodoObj)">
+                    <span>{{periodoObj.descricao}}</span>
                   </div>
                 </div>
               </div>
@@ -53,47 +53,35 @@
                 </div>
               </div>
             </div>
-
-
-
             <div class="table-area">
               <div class="table-head">
                 <div class="content-head">
                   <div class="column colaborador"><span>Colaborador</span></div>
                   <div class="column status">Status</div>
                 </div>
-              </div>              
+              </div>
               <div class="table-body">
-                <div class="content-body">
-                  <div *ngIf="isLoading === false; else isloading" class="content-line">
-                    <div *ngFor="let vaga of vagas" class="content-user">
-
-
+                <div *ngIf="isLoading === false; else isloading" class="content-body">
+                  <div *ngFor="let vaga of vagaGaragemPageable.content" class="content-line">
+                    <div class="content-user">
                       <div class="nome-colaborador">
                         <span class="nome-completo">{{vaga.colaborador.nome}}</span>
                         <span class="email">{{vaga.colaborador.email}}</span>
                       </div>
-
-
                       <div class="status">
                         <span>Em Aprovação</span>
                       </div>
                     </div>
-                    <div *ngIf="moreColaboradorThanVagas === false" class="aprovar-button-single">
+                    <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarSingular(vaga)" class="aprovar-button-single">
                       <button>Aprovar</button>
                     </div>
                   </div>
-                  <div id="isloading" *ngIf="isLoading === true">
-                    <isLoading></isLoading>
-                  </div>
+                </div>
+                <div id="isloading" *ngIf="isLoading === true" class="isloading-table">
+                  <isLoading></isLoading>
                 </div>
               </div>
             </div>
-
-
-
-
-
             <div class="buttons">
               <div class="items-page-area">
                 <select (change)="selectItemsPerPage($event.target.value)" class="items-page">
@@ -101,13 +89,16 @@
                   <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
                 </select>
               </div>
-              <div *ngIf="moreColaboradorThanVagas === false" class="button-aprove">
+              <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarTodos()" class="button-aprove">
                 <button>Aprovar todos</button>
               </div>
-              <div *ngIf="moreColaboradorThanVagas === true" class="button-sort">
-                <button (click)="vagasSorteadas()">Sortear vagas</button>
+              <div *ngIf="moreColaboradorThanVagas === true" (click)="sortearTodasVagas()" class="button-sort">
+                <button>Sortear vagas</button>
               </div>
             </div>
+          </div>
+          <div id="loading" *ngIf="isLoading === true" class="isloading-table">
+            <isLoading></isLoading>
           </div>
         </div>
       </div>

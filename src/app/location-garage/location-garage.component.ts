@@ -21,7 +21,7 @@ export class LocationGarageComponent implements OnInit {
   form: any = {};
   LocationForm: FormGroup;
 
-  vagaGaragem : any;
+  vagaGaragem: any;
 
   selectedMarca: {
     id: number,
@@ -95,8 +95,9 @@ export class LocationGarageComponent implements OnInit {
     }
 
     this.locationGarageService.locacaoVagaGaragem(locacao).subscribe(data => {
-      this.alertService.info("Infomações salvas com sucesso!");      
+      this.alertService.info("Infomações salvas com sucesso!");
       this.vagaGaragem = data;
+      this.form = {};
     }, error => {
       switch (error.status) {
         case 0:
@@ -105,11 +106,11 @@ export class LocationGarageComponent implements OnInit {
         case 500:
           this.messageService.error('Erro interno do servidor.');
           break;
+        case 302:
+          this.alertService.error('Essa placa já foi cadastrada.');
+          break;
       }
     });
-
-    console.log(this.vagaGaragem);
-
   }
 
   validate() {
@@ -198,7 +199,6 @@ export class LocationGarageComponent implements OnInit {
     this.modelo = nomeModelo.modelo;
     this.modeloCompleto = nomeModelo;
     this.modelosSearched = undefined;
-    console.log(this.modeloCompleto);
   }
 
   listarAllMarcas() {

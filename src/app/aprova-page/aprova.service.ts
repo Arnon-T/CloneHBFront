@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VagaGaragemPageable } from './VagaGararemPageable';
+import { Periodo } from './Periodo';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AprovaService {
 
   constructor(private http: HttpClient) { }
 
-  findAllColaboradoresToApprove(tipo: string, page: number, itemsPage: number): Observable<VagaGaragemPageable> {
+  findAllColaboradoresToApprove(tipo: string, page: number, itemsPage): Observable<VagaGaragemPageable> {
     if (tipo === undefined || tipo === '') {
       tipo = 'CARRO';
     }
@@ -31,12 +32,12 @@ export class AprovaService {
   }
 
 
-  getPeriodos(tipo: string): Observable<any> {
+  getPeriodos(tipo: string): Observable<Periodo[]> {
     if (tipo === undefined || tipo === '') {
       return;
     }
 
     var url =  this.urlBase + "/periodo/buscar-tipo/" + tipo;
-    return this.http.get(url);
+    return this.http.get<Periodo[]>(url);
   }
 }
