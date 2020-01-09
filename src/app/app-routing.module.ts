@@ -9,6 +9,7 @@ import { VehicleModelComponent } from './import-model/import-model.component';
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
+import { InformacoesLocatarioComponent } from './informacoes-locatario/informacoes-locatario.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "gerenciar/marcas", component: MarcaComponent },
   { path: "gerenciar/modelos", component: VehicleModelComponent },
   { path: "gerenciar/colaboradores", component: CadastroColaboradoresComponent },
+  { path: "gerenciar/locatarios", component: InformacoesLocatarioComponent },
   { path: "login", component: LoginComponent },
   { path: "locacao-vaga", component: LocationGarageComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },

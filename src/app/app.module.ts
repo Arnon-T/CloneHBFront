@@ -27,6 +27,7 @@ import { httpInterceptorProvider } from './auth/auth-interceptor';
 import { GlobalAuth } from './global-auth';
 import { FunctionalityButtonAreaComponent } from './functionality-button-area/functionality-button-area.component';
 import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
+import { InformacoesLocatarioComponent } from './informacoes-locatario/informacoes-locatario.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FuncionalityPageComponent } from './funcionality-page/funcionality-page
     NotfoundComponent,
     FunctionalityButtonAreaComponent,
     FuncionalityPageComponent,
+    InformacoesLocatarioComponent,
   ],
   imports: [
     BrowserModule,
