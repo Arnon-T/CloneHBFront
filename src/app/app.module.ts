@@ -17,7 +17,7 @@ import { VehicleModelComponent } from './import-model/import-model.component';
 import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
-import { AprovaPageService } from './aprova-page/aprova-page.service';
+import { AprovaService } from './aprova-page/aprova.service';
 
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
@@ -70,7 +70,7 @@ import { LocationGarageService } from './location-garage/location-garage.service
     RentalTermService,
     MarcaService,
     ModelService,
-    AprovaPageService,    
+    AprovaService,    
     httpInterceptorProvider,
     GlobalAuth,
     LocationGarageService

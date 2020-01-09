@@ -18,7 +18,7 @@ import { VagaGaragemPageable } from './VagaGararemPageable';
 })
 export class AprovaPageComponent implements OnInit {
 
-  constructor(private aprovaService: AprovaService,private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
+  constructor(private aprovaService: AprovaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
 
   itemsPageDefaultNumber = 10;
   itemsPage: number = this.itemsPageDefaultNumber;
@@ -28,6 +28,8 @@ export class AprovaPageComponent implements OnInit {
     this.itemsPage = quantity;
   }
 
+  form: any = {};
+
   isLoading: boolean = false;
 
   tipoDefaultName = 'Veículo';
@@ -35,9 +37,9 @@ export class AprovaPageComponent implements OnInit {
   tipos = ['Carro', 'Moto', 'Patinete e Bicicleta'];
 
 
-  periodoDefaultName = 'Período';
-  periodo: string = this.periodoDefaultName;
-  periodos = ['De 05/12/2019 Até 06/01/2020', 'De 07/01/2020 Até 08/02/2020', 'De 09/02/2020 Até 10/03/2020', 'De 11/03/2020 Até 12/04/2020'];
+  periodoDefaultName: string = 'Período';
+  periodo: any;
+  periodos: any[];
 
   moreColaboradorThanVagas: boolean = false;
   vagaGaragemPageable: VagaGaragemPageable;
@@ -56,7 +58,7 @@ export class AprovaPageComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.aprovaService.findAllColaboradoresToApprove('CARRO', this.itemsPage).subscribe(data => {
+    this.aprovaService.findAllColaboradoresToApprove('CARRO', 0, this.itemsPage).subscribe(data => {
       this.isLoading = false;
       this.vagaGaragemPageable = data;
     }, error => {
@@ -84,13 +86,19 @@ export class AprovaPageComponent implements OnInit {
     this.openDropdown('dropdown-tipo-veiculo');
   }
 
+  getPeriodos() {
+    this.aprovaService.getPeriodos(this.tipo).subscribe(data => {
+      this.periodos = data;
+    });
+  }
+
   selectPrioridadeOnDropdown(periodo: string) {
     this.periodos = this.periodos.filter(type => type !== periodo);
-    if (this.periodo !== undefined && this.periodo !== this.periodoDefaultName) {
+    if (this.periodo !== undefined && this.periodo.descricao !== this.periodoDefaultName) {
       let periodosArray = [this.periodo, ...this.periodos];
       this.periodos = periodosArray;
     }
-    this.periodo = periodo;
+    this.periodo.descricao = periodo;
     this.openDropdown('dropdown-prioridade');
   }
 
@@ -115,8 +123,17 @@ export class AprovaPageComponent implements OnInit {
     divDropdown.classList.toggle('openDropdown');
   }
 
-  vagasSorteadas(){
-    this.apr
+  checkTrabalhoNoturno(boolean: boolean) {  
+    if(boolean){
+      this.form.trabalhoNoturno = "NOTURNO";
+    } else {
+      this.form.trabalhoNoturno = "INTEGRAL"
+    }
   }
+
+  vagasSorteadas() {
+    this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.form.trabalhoNoturno);
+  }
+  
 
 }
