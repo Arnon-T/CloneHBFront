@@ -34,7 +34,14 @@ export class InformacoesLocatarioComponent implements OnInit {
       currentPage: 1,
       totalItems: 0
     }
+   }
 
+   itemsPageDefaultNumber = 10;
+   itemsPage: number = this.itemsPageDefaultNumber;
+   itemsPageDefaultNumbers = [10, 25, 50, 100];
+
+   selectItemsPerPage(quantity) {
+     this.itemsPage = quantity;
    }
 
   ngOnInit() {
@@ -61,7 +68,7 @@ export class InformacoesLocatarioComponent implements OnInit {
       this.messageService.warn("Selecione um periodo para listar");
       return;
     }
-     
+
     this.informacoesLocatario.getLocatarios(this.periodo, this.config.currentPage, this.config.itemsPerPage).subscribe((data) =>  {
         this.listaLocatarios = data;
         this.config.totalItems = data.totalElements;
@@ -85,4 +92,5 @@ export class InformacoesLocatarioComponent implements OnInit {
       console.log(error);
     };
   }
+
 }
