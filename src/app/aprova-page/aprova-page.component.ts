@@ -81,4 +81,9 @@ export class AprovaPageComponent implements OnInit {
     let divDropdown = document.getElementById(divId);
     divDropdown.classList.toggle('openDropdown');
   }
+
+  vagasSorteadas(){
+    this.apr
+  }
+
 }
