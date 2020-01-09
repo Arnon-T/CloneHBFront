@@ -17,6 +17,7 @@ import { VehicleModelComponent } from './import-model/import-model.component';
 import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
+
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
 import { LocationGarageComponent } from './location-garage/location-garage.component';
@@ -28,6 +29,11 @@ import { GlobalAuth } from './global-auth';
 import { FunctionalityButtonAreaComponent } from './functionality-button-area/functionality-button-area.component';
 import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
 import { InformacoesLocatarioComponent } from './informacoes-locatario/informacoes-locatario.component';
+import { AprovaPageComponent } from './aprova-page/aprova-page.component';
+import { ModalTermComponent } from './modal-term/modal-term.component';
+import { ProfileComponent } from './profile/profile.component';
+import { IsLoadingComponent } from './is-loading/is-loading.component';
+import { LocationGarageService } from './location-garage/location-garage.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +50,11 @@ import { InformacoesLocatarioComponent } from './informacoes-locatario/informaco
     FunctionalityButtonAreaComponent,
     FuncionalityPageComponent,
     InformacoesLocatarioComponent,
+    AprovaPageComponent,
+    ModalTermComponent,
+    ProfileComponent,
+    IsLoadingComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -57,9 +68,10 @@ import { InformacoesLocatarioComponent } from './informacoes-locatario/informaco
   providers: [
     RentalTermService,
     MarcaService,
-    ModelService,
+    ModelService,    
     httpInterceptorProvider,
-    GlobalAuth
+    GlobalAuth,
+    LocationGarageService
   ],
   bootstrap: [AppComponent]
 })

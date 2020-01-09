@@ -37,7 +37,7 @@
           </div>
         </div>
       </a>
-      <a routerLink="/gerenciar/colaboradores" class="card-function">
+      <a routerLink="/gerenciar/colaboradores" *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'" class="card-function">
         <div class="card-content">
           <div class="image-area-function">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"

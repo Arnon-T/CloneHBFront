@@ -1,13 +1,18 @@
 <div class="container-locacao">
-  <div class="content-locacao">
+  <div class="content-locacao" *ngIf="authGlobal.authority === 'user'; else acessoNegado">
     <div class="header-content-locacao">
       <h1>Locação de vaga</h1>
     </div>
-    <form class="form-locacao" autocomplete="off">
+    <form class="form-locacao" autocomplete="on" name="form" (ngSubmit)="onSubmit()" #formLocacao="ngForm">
+      <modal-term></modal-term>
+      <div>
+        <alert></alert>
+      </div>
       <div class="content-input">
         <div class="input-area">
           <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
-          (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="selectPeriodos()">
+            (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="getPeriodos()">
+            <option>SELECIONAR TIPO</option>
             <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
           </select>
         </div>
@@ -20,23 +25,34 @@
         </div>
       </div>
       <div class="content-input">
-        <div class="input-area">
-          <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos"
-          [disabled]="vehicleHasOption">
+        <div class="content-modelos">
+          <div class="input-area">
+            <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos"
+              [disabled]="selectedMarca === undefined" value={{modelo}}>
+          </div>
+          <div class="container-dropdown-modelos" *ngIf="modelosSearched !== undefined" id="dropdown-modelos">
+            <div *ngFor="let modelo of modelosSearched" class="card-modelo-vehicle"
+              (click)="selectModeloOnSearch(modelo)">
+              <span>{{modelo.modelo}}</span>
+            </div>
+          </div>
         </div>
         <div class="input-area">
-          <select name="codigo-cor" id="codigo-cor" [disabled]="vehicleHasOption">
-            <option *ngFor="let cor of cores" [value]="corSelecionada">{{cor}}</option>
+          <select (change)="selectCor($event.target)" name="codigo-cor" id="codigo-cor"
+            [disabled]="tipo === undefined || tipo === 'SELECIONAR TIPO'">
+            <option>SELECIONAR COR</option>
+            <option *ngFor="let cor of cores" value="{{corSelecionada}}">{{cor}}</option>
           </select>
         </div>
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input type="text" name="placa-veiculo" placeholder="Placa do veículo">
+          <input type="text" name="placa-veiculo" placeholder="Placa do veículo" [(ngModel)]="form.placaVehicle"
+            #plate="ngModel">
         </div>
         <div class="input-area">
-          <select name="codigo-periodo" id="codigo-periodo"
-          [disabled]="tipo === 'SELECIONAR TIPO'">
+          <select (change)="selectPeriodo($event.target)" name="codigo-periodo" id="codigo-periodo"
+            [disabled]="tipo === 'SELECIONAR TIPO'">
             <option>PERÍODO</option>
             <option *ngFor="let periodo of listaPeriodos" [value]="periodo" id="periodo">{{periodo.descricao}}</option>
           </select>
@@ -44,19 +60,23 @@
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input type="text" name="codigo-usuario" placeholder="Matrícula do usuário">
+          <input type="text" name="codigo-usuario" placeholder="Matrícula do usuário" [(ngModel)]="form.matricula"
+            #matricula="ngModel">
         </div>
         <div class="input-area">
-          <input type="text" name="moradia" placeholder="Cidade">
+          <input type="text" name="moradia" placeholder="Cidade" [(ngModel)]="form.cidade" #cidade="ngModel">
         </div>
       </div>
       <div class="content-checkbox-termo">
         <div class="input-checkbox">
           <label class="container-checkbox" for="input-termo-locacao">
-            <input id="input-termo-locacao" type="checkbox" name="aceito-termo">
+            <input id="input-termo-locacao" type="checkbox" name="aceito-termo" [(ngModel)]="form.aceitoTermo"
+              #termo="ngModel">
             <span class="span-checkmark"></span>
           </label>
-          <span class="text-aceitar-termo">Aceito o <strong>Termo de Locação HBSIS</strong>. Ao aceitar você concorda com os requisitos proposto no termo.</span>
+          <span class="text-aceitar-termo">Aceito o <strong (click)="openModalTermo($event)">Termo de Locação
+              HBSIS</strong>. Ao aceitar você concorda
+            com os requisitos proposto no termo.</span>
         </div>
       </div>
       <div class="area-button-signup">
@@ -65,3 +85,7 @@
     </form>
   </div>
 </div>
+
+<ng-template #acessoNegado>
+  <app-notfound></app-notfound>
+</ng-template>

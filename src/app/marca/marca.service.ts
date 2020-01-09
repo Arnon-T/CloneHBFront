@@ -26,14 +26,14 @@ export class MarcaService {
     let headers = new HttpHeaders();
 
     const options: {
-        headers?: HttpHeaders;
-        observe?: 'body';
-        params?: HttpParams;
-        reportProgress?: boolean;
-        responseType: 'arraybuffer';
-        withCredentials?: boolean;
+      headers?: HttpHeaders;
+      observe?: 'body';
+      params?: HttpParams;
+      reportProgress?: boolean;
+      responseType: 'arraybuffer';
+      withCredentials?: boolean;
     } = {
-        responseType: 'arraybuffer'
+      responseType: 'arraybuffer'
     };
 
     let url = this.urlBase + '/export-marcas/' + tipo;
@@ -45,12 +45,12 @@ export class MarcaService {
 
   selectMarcas(tipo: string, page: any, limit: any): Observable<any> {
     page = page - 1;
-    let url = this.urlBase + '/allByTipo/' + tipo  + "/" + page + '/' + limit;
+    let url = this.urlBase + '/allByTipo/' + tipo + "/" + page + '/' + limit;
 
     return this.http.get(url);
   }
 
-  selectAllMarcas(tipo: string){
+  selectAllMarcas(tipo: string): Observable<any> {
     let url = this.urlBase + '/allByTipo/' + tipo;
 
     return this.http.get(url);

@@ -1,0 +1,24 @@
+<div id="modal-termo" class="container-modal-termo" (click)="closeModalIfOutOfBounds($event)">
+  <div id="card-termo-modal" class="card-modal-termo">
+    <div class="header-modal">
+      <h2>{{ title }}</h2>
+      <div class="close-button" (click)="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0082BF"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
+    </div>
+    <div class="content-modal-term" [innerHTML]="fileContentStringHtml">
+    </div>
+    <div class="button-actions">
+      <div class="button" (click)="cancelAndClose()">
+        <span>Cancelar</span>
+      </div>
+      <div class="button button-accept" (click)="acceptAndClose()">
+        <label>Aceitar Termo</label>
+      </div>
+    </div>
+  </div>
+</div>

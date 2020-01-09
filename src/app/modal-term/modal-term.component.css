@@ -1,0 +1,123 @@
+.container-modal-termo {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.1);
+}
+
+.container-modal-termo .card-modal-termo {
+  max-width: 550px;
+  width: 100%;
+  background: #FFF;
+  margin: 0 auto;
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  z-index: 2;
+}
+
+.container-modal-termo .card-modal-termo .header-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 65px;
+  padding: 5px 15px;
+  border-bottom: 1px solid #ecebed;
+  overflow: hidden;
+}
+
+.container-modal-termo .card-modal-termo .header-modal h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: #19458D;
+  overflow: hidden;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.container-modal-termo .card-modal-termo .header-modal .close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.container-modal-termo .card-modal-termo .content-modal-term {
+  min-height: 100px;
+  max-height: 445px;
+  overflow-y: auto;
+  margin: 5px 0;
+  padding: 5px 15px;
+  font-size: 16px;
+  color: #7d7d7d;
+  cursor: text;
+}
+
+.container-modal-termo .card-modal-termo .content-modal-term p strong {
+  font-size: 20px;
+  color: #0082BF !important;
+}
+
+.container-modal-termo .card-modal-termo .content-modal-term p {
+  font-size: 16px;
+  color: #7d7d7d !important;
+}
+
+.container-modal-termo .card-modal-termo .button-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  border-top: 1px solid #ecebed;
+}
+
+.container-modal-termo .card-modal-termo .button-actions .button {
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  color: #0082BF;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-modal-termo .card-modal-termo .button-actions .button:hover {
+  transform: translateY(-1px);
+  transition: 0.2s transform;
+}
+
+.container-modal-termo .card-modal-termo .button-actions .button-accept {
+  background: #0082BF;
+  color: #FFF;
+}
+
+.container-modal-termo .card-modal-termo .button-actions .button-accept label {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+}
+
+.container-modal-termo .card-modal-termo .button-actions .button-accept:hover {
+  background: #006da1;
+  transition: 0.2s background;
+}
