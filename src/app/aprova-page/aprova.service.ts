@@ -12,16 +12,31 @@ export class AprovaService {
 
   constructor(private http: HttpClient) { }
 
-  findAllColaboradoresToApprove(type: string, itemsPage: number): Observable<VagaGaragemPageable> {
-    if (type === undefined || type === '') {
-      type = 'CARRO';
+  findAllColaboradoresToApprove(tipo: string, page: number, itemsPage: number): Observable<VagaGaragemPageable> {
+    if (tipo === undefined || tipo === '') {
+      tipo = 'CARRO';
     }
 
     if (itemsPage === undefined || itemsPage === 0) {
       itemsPage = 10;
     }
 
-    let urlToGetAll = this.urlBase + '/colaboradores/' + type + '/' + itemsPage;
+    let urlToGetAll = this.urlBase + '/vagas/findby/' + tipo + '/' + page + "/" + itemsPage;
     return this.http.get<VagaGaragemPageable>(urlToGetAll);
+  }
+
+  sorteioVagas(periodoId: number, tipoVeiculo: string, turno: string): Observable<any>{
+    let url = this.urlBase + "/sort/" + periodoId + "/" + tipoVeiculo +  "/" + turno;
+    return this.http.get(url);
+  }
+
+
+  getPeriodos(tipo: string): Observable<any> {
+    if (tipo === undefined || tipo === '') {
+      return;
+    }
+
+    var url =  this.urlBase + "/periodo/buscar-tipo/" + tipo;
+    return this.http.get(url);
   }
 }

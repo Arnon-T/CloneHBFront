@@ -41,21 +41,40 @@
                 </div>
               </div>
             </div>
+            <div class="checkboxes">
+              <div class="content-checkbox">
+                <div class="input-checkbox">
+                  <label class="container-checkbox" for="input-trabalho-noturno">
+                    <input id="input-trabalho-noturno" type="checkbox" name="trabalhoNoturno"
+                      [(ngModel)]="form.trabalhoNoturno" #trabalhoNoturno="ngModel">
+                    <span class="span-checkmark"></span>
+                  </label>
+                  <span class="text-checkbox">Horário não comercial. (Noturno)</span>
+                </div>
+              </div>
+            </div>
+
+
+
             <div class="table-area">
               <div class="table-head">
                 <div class="content-head">
                   <div class="column colaborador"><span>Colaborador</span></div>
                   <div class="column status">Status</div>
                 </div>
-              </div>
+              </div>              
               <div class="table-body">
                 <div class="content-body">
                   <div *ngIf="isLoading === false; else isloading" class="content-line">
-                    <div class="content-user">
+                    <div *ngFor="let vaga of vagas" class="content-user">
+
+
                       <div class="nome-colaborador">
-                        <span class="nome-completo">Rubens Kleinschmidt Júnior</span>
-                        <span class="email">rubenskleinschmidtjr@gmail.com</span>
+                        <span class="nome-completo">{{vaga.colaborador.nome}}</span>
+                        <span class="email">{{vaga.colaborador.email}}</span>
                       </div>
+
+
                       <div class="status">
                         <span>Em Aprovação</span>
                       </div>
@@ -70,6 +89,11 @@
                 </div>
               </div>
             </div>
+
+
+
+
+
             <div class="buttons">
               <div class="items-page-area">
                 <select (change)="selectItemsPerPage($event.target.value)" class="items-page">
@@ -81,7 +105,7 @@
                 <button>Aprovar todos</button>
               </div>
               <div *ngIf="moreColaboradorThanVagas === true" class="button-sort">
-                <button>Sortear vagas</button>
+                <button (click)="vagasSorteadas()">Sortear vagas</button>
               </div>
             </div>
           </div>
