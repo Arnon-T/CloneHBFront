@@ -29,6 +29,7 @@ import { httpInterceptorProvider } from './auth/auth-interceptor';
 import { GlobalAuth } from './global-auth';
 import { FunctionalityButtonAreaComponent } from './functionality-button-area/functionality-button-area.component';
 import { FuncionalityPageComponent } from './funcionality-page/funcionality-page.component';
+import { InformacoesLocatarioComponent } from './informacoes-locatario/informacoes-locatario.component';
 import { AprovaPageComponent } from './aprova-page/aprova-page.component';
 import { ModalTermComponent } from './modal-term/modal-term.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -49,6 +50,7 @@ import { LocationGarageService } from './location-garage/location-garage.service
     NotfoundComponent,
     FunctionalityButtonAreaComponent,
     FuncionalityPageComponent,
+    InformacoesLocatarioComponent,
     AprovaPageComponent,
     ModalTermComponent,
     ProfileComponent,

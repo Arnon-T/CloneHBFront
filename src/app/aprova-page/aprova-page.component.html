@@ -28,15 +28,15 @@
               </div>
               <div class="dropdown-area">
                 <div class="container-area" (click)="openDropdown('dropdown-prioridade')">
-                  <span class="tipo-text">{{prioridade}}</span>
+                  <span class="tipo-text">{{periodo}}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="#0082BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 9l6 6 6-6" /></svg>
                 </div>
                 <div id="dropdown-prioridade" class="container-area-dropped">
-                  <div class="select-option" *ngFor="let prioridadeString of prioridades"
-                    (click)="selectPrioridadeOnDropdown(prioridadeString)">
-                    <span>{{prioridadeString}}</span>
+                  <div class="select-option" *ngFor="let periodoString of periodos"
+                    (click)="selectPrioridadeOnDropdown(periodoString)">
+                    <span>{{periodoString}}</span>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               </div>
               <div class="table-body">
                 <div class="content-body">
-                  <div class="content-line">
+                  <div *ngIf="isLoading === false; else isloading" class="content-line">
                     <div class="content-user">
                       <div class="nome-colaborador">
                         <span class="nome-completo">Rubens Kleinschmidt Júnior</span>
@@ -60,103 +60,33 @@
                         <span>Em Aprovação</span>
                       </div>
                     </div>
-                    <div class="aprovar-button-single">
+                    <div *ngIf="moreColaboradorThanVagas === false" class="aprovar-button-single">
                       <button>Aprovar</button>
                     </div>
                   </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Gustavo Francisco Martins</span>
-                        <span class="email">gustavofrmartins@hbsis.com.br</span>
-                      </div>
-                      <div class="status">
-                        <span>Vigente</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
-                  </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Arnon Henrique Tillmann da Silva</span>
-                        <span class="email">arnonhenriquetillmannsilva@hbsis.com.br</span>
-                      </div>
-                      <div class="status">
-                        <span>Reprovado</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
-                  </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Matheus Tonitti Batista</span>
-                        <span class="email">matheustonibastista@gmail.com</span>
-                      </div>
-                      <div class="status">
-                        <span>Em Aprovação</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
-                  </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Marino Gonçalves Neto</span>
-                        <span class="email">marirogoncalvesneto@hbsis.com.br</span>
-                      </div>
-                      <div class="status">
-                        <span>Em Aprovação</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
-                  </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Efraim Thomaz do Nascimento Ferreira</span>
-                        <span class="email">efraimnascimento@gmail.com</span>
-                      </div>
-                      <div class="status">
-                        <span>Vencido</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
-                  </div>
-                  <div class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">Carlos Eduardo Lopes</span>
-                        <span class="email">cadulospes@gmail.com</span>
-                      </div>
-                      <div class="status">
-                        <span>Fila de Espera</span>
-                      </div>
-                    </div>
-                    <div class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
+                  <div id="isloading" *ngIf="isLoading === true">
+                    <isLoading></isLoading>
                   </div>
                 </div>
               </div>
             </div>
             <div class="buttons">
-              <div class="button-aprove">
+              <div class="items-page-area">
+                <select (change)="selectItemsPerPage($event.target.value)" class="items-page">
+                  <span>{{itemsPage}}</span>
+                  <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
+                </select>
+              </div>
+              <div *ngIf="moreColaboradorThanVagas === false" class="button-aprove">
                 <button>Aprovar todos</button>
               </div>
+<<<<<<< HEAD
               <div class="button-sort">
                 <button (click)="vagasSorteadas()" >Sortear vagas</button>
+=======
+              <div *ngIf="moreColaboradorThanVagas === true" class="button-sort">
+                <button>Sortear vagas</button>
+>>>>>>> bba24f156b6b13a722e747711b06c10ea7c7b604
               </div>
             </div>
           </div>
@@ -165,5 +95,3 @@
     </div>
   </div>
 </div>
-
-<button (click)="alert()">CLICK</button>

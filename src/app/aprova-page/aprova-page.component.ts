@@ -5,6 +5,8 @@ import { AlertService } from '../_alert'
 import { MessageService } from '../_message'
 import { Router } from '@angular/router';
 import { TokenStorage } from '../auth/token-storage';
+import { AprovaService } from './aprova.service';
+import { VagaGaragemPageable } from './VagaGararemPageable';
 
 @Component({
   selector: 'app-aprova-page',
@@ -16,29 +18,60 @@ import { TokenStorage } from '../auth/token-storage';
 })
 export class AprovaPageComponent implements OnInit {
 
-  constructor(private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
+  constructor(private aprovaService: AprovaService,private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private authGlobal: GlobalAuth, private route: Router) { }
+
+  itemsPageDefaultNumber = 10;
+  itemsPage: number = this.itemsPageDefaultNumber;
+  itemsPageDefaultNumbers = [10, 25, 50, 100];
+
+  selectItemsPerPage(quantity) {
+    this.itemsPage = quantity;
+  }
+
+  isLoading: boolean = false;
 
   tipoDefaultName = 'Veículo';
   tipo: string = this.tipoDefaultName;
   tipos = ['Carro', 'Moto', 'Patinete e Bicicleta'];
 
 
-  priodadeDefaultName = 'Prioridade';
-  prioridade: string = this.priodadeDefaultName;
-  prioridades = ['PCD', 'Idoso', 'Reside Fora', 'Orefere carona'];
+  periodoDefaultName = 'Período';
+  periodo: string = this.periodoDefaultName;
+  periodos = ['De 05/12/2019 Até 06/01/2020', 'De 07/01/2020 Até 08/02/2020', 'De 09/02/2020 Até 10/03/2020', 'De 11/03/2020 Até 12/04/2020'];
+
+  moreColaboradorThanVagas: boolean = false;
+  vagaGaragemPageable: VagaGaragemPageable;
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
+
 
     if (!this.tokenService.getToken()) {
       return this.route.navigate(['/login']).then(() => {
         this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
       });
     }
-  }
 
-  alert() {
-    this.alertService.info("TESTANDO INFORMACAO");
+    this.alertService.info('Buscando colaboradores..');
+
+    this.isLoading = true;
+
+    this.aprovaService.findAllColaboradoresToApprove('CARRO', this.itemsPage).subscribe(data => {
+      this.isLoading = false;
+      this.vagaGaragemPageable = data;
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        default:
+          this.messageService.error("Não foi possivel buscar os colaboradores para aprovar.");
+          break;
+      }
+    });
   }
 
   selectTipoOnDropdown(tipo: string) {
@@ -51,13 +84,13 @@ export class AprovaPageComponent implements OnInit {
     this.openDropdown('dropdown-tipo-veiculo');
   }
 
-  selectPrioridadeOnDropdown(prioridade: string) {
-    this.prioridades = this.prioridades.filter(type => type !== prioridade);
-    if (this.prioridade !== undefined && this.prioridade !== this.priodadeDefaultName) {
-      let tiposArray = [this.prioridade, ...this.prioridades];
-      this.prioridades = tiposArray;
+  selectPrioridadeOnDropdown(periodo: string) {
+    this.periodos = this.periodos.filter(type => type !== periodo);
+    if (this.periodo !== undefined && this.periodo !== this.periodoDefaultName) {
+      let periodosArray = [this.periodo, ...this.periodos];
+      this.periodos = periodosArray;
     }
-    this.prioridade = prioridade;
+    this.periodo = periodo;
     this.openDropdown('dropdown-prioridade');
   }
 
