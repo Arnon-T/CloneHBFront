@@ -134,6 +134,7 @@
   border-radius: 5px;
   overflow: hidden;
   transition: 0.2s height;
+  z-index: 5;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area-dropped .select-option {
