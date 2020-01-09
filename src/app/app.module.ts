@@ -34,6 +34,7 @@ import { ModalTermComponent } from './modal-term/modal-term.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { LocationGarageService } from './location-garage/location-garage.service';
+import { CadastroVagaInfoComponent } from './cadastro-vaga-info/cadastro-vaga-info.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { LocationGarageService } from './location-garage/location-garage.service
     AprovaPageComponent,
     ModalTermComponent,
     ProfileComponent,
-    IsLoadingComponent
+    IsLoadingComponent,
+    CadastroVagaInfoComponent
     
   ],
   imports: [

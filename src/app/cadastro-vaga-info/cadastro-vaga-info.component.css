@@ -1,0 +1,167 @@
+.container-vaga-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1036px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-vaga-info .content-vaga-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info {
+  display: flex;
+  width: 100%;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page {
+  border: 1px solid #ecebed;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .header-vaga-info {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ecebed;
+  padding: 15px 15px;
+  width: 100%;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .header-vaga-info h2 {
+  font-size: 22px;
+  color: #1D285A;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  max-width: 565px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form {
+  width: 100%;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-inputs {
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .dropdowns-select {
+  position: relative;
+  user-select: none;
+  margin-bottom: 15px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .dropdowns-select select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  padding: 0 10px;
+  height: 45px;
+  margin-right: 10px;
+  cursor: pointer;
+  outline: 0;
+  width: 100%;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .dropdowns-select select option {
+  font-size: 15px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-input span, .container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .dropdowns-select span {
+  color: #2d2d2d;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-input .input-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  border-radius: 5px;
+  padding: 0 10px;
+  border: 1px solid #ebeced;
+  outline: none;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-input .input-area input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 16px;
+  color: #1D285A;
+  outline: none;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0082BF;
+  width: 100%;
+  height: 38px;
+  border-radius: 5px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .button button {
+  background: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: #FFF;
+}
+
+.container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .button:hover {
+  background: #006da1;
+  transition: 0.2s background;
+}
+
+@media only screen and (max-width: 750px) and (min-width: 0px) {
+  .container-vaga-info .content-vaga-info .content-area-vaga-info {
+    flex-direction: column;
+  }
+
+  .container-vaga-info .content-vaga-info .content-area-vaga-info .content-page {
+    margin-left: 0;
+  }
+
+  .container-vaga-info .content-vaga-info .content-area-vaga-info .content-page .content-actions form .container-inputs  {
+    padding: 0 8px;
+    transition: 0.2s padding;
+  }
+}
