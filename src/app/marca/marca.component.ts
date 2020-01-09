@@ -32,7 +32,7 @@ export class MarcaComponent implements OnInit {
 
   constructor(private authGlobal: GlobalAuth, private marcaService: MarcaService, private tokenService: TokenStorage, private alertService: AlertService, private messageService: MessageService, private route: Router) {
     this.config = {
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: 0
     }
@@ -43,7 +43,8 @@ export class MarcaComponent implements OnInit {
    itemsPageDefaultNumbers = [10, 25, 50, 100];
 
    selectItemsPerPage(quantity) {
-     this.itemsPage = quantity;
+     this.config.itemsPerPage = quantity;
+     
    }
    
   ngOnInit() {

@@ -30,7 +30,7 @@ export class InformacoesLocatarioComponent implements OnInit {
 
   constructor(private authGlobal: GlobalAuth, private tokenService: TokenStorage, private route: Router, private alertService: AlertService, private messageService: MessageService, private informacoesLocatario: InformacoesLocatarioService) {
     this.config = {
-      itemsPerPage: 2,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: 0
     }
@@ -41,7 +41,7 @@ export class InformacoesLocatarioComponent implements OnInit {
    itemsPageDefaultNumbers = [10, 25, 50, 100];
 
    selectItemsPerPage(quantity) {
-     this.itemsPage = quantity;
+     this.config.itemsPerPage = quantity;
    }
 
   ngOnInit() {
