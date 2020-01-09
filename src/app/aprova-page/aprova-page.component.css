@@ -2,6 +2,35 @@
   display: block !important;
 }
 
+/* Itens por página */
+
+.items-page-area {
+  position: relative;
+  user-select: none;
+}
+
+.items-page-area .items-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  outline: 0;
+}
+
+.items-page-area .items-page {
+  color: #0082BF;
+}
+
+.items-page-area .items-page option {
+  color: #212529;
+  font-size: 15px;
+  outline: none;
+}
+
 .container-aprovacao {
   display: flex;
   justify-content: center;
@@ -32,6 +61,7 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
   border-radius: 10px;
   margin-left: 25px;
+  margin-bottom: 25px;
   width: 100%;
   height: 100%;
   transition: all 0.2s;
@@ -248,11 +278,12 @@
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   min-height: 60px;
   height: 100%;
+  padding: 0 30px;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove {
@@ -375,3 +406,5 @@
     margin-bottom: 5px;
   }
 }
+
+
