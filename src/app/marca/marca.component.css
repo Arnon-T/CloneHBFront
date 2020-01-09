@@ -211,6 +211,7 @@
 
 .container-marcas .content-marcas .content-area-marcas .content-page .list-types .items-page-area {
   display: block !important;
+  margin-bottom: 20px;
 }
 
 .container-marcas .content-marcas .content-area-marcas .content-page .list-types .items-page-area .items-page {
