@@ -85,6 +85,7 @@ export class LocationGarageComponent implements OnInit {
     this.validate();
 
     const locacao = {
+      id: 0,
       tipoVeiculo: this.tipo,
       marca: this.selectedMarca.id,
       vehicleModel: this.modeloCompleto.id,
