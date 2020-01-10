@@ -39,14 +39,14 @@ export class MarcaComponent implements OnInit {
   }
 
   itemsPageDefaultNumber = 10;
-   itemsPage: number = this.itemsPageDefaultNumber;
-   itemsPageDefaultNumbers = [10, 25, 50, 100];
+  itemsPage: number = this.itemsPageDefaultNumber;
+  itemsPageDefaultNumbers = [10, 25, 50, 100];
 
-   selectItemsPerPage(quantity) {
-     this.config.itemsPerPage = quantity;
-     
-   }
-   
+  selectItemsPerPage(quantity) {
+    this.config.itemsPerPage = quantity;
+
+  }
+
   ngOnInit() {
     this.authGlobal.ngOnInit();
     if (!this.tokenService.getToken()) {
