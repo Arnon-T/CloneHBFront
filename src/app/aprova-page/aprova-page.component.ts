@@ -245,7 +245,6 @@ export class AprovaPageComponent implements OnInit {
   getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number, status: string) {
     this.aprovaService.getTotalElementsFiltrados(turno.toUpperCase(), tipo.toUpperCase(), idPeriodo, status).subscribe(data => {
       this.totalElementsFromListAppear = data;
-      console.log(data);
     }, error => {
       switch (error.status) {
         case 0:
