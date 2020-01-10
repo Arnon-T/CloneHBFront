@@ -29,11 +29,12 @@ export class AprovaService {
     return this.http.get<VagaGaragemPageable>(urlToGetAll);
   }
 
-  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number): Observable<number> {
+  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number, status: string): Observable<number> {
     turno = turno.toUpperCase();
     tipo = tipo.toUpperCase();
+    status = status.toUpperCase();
 
-    let url = this.urlBase + '/vaga-info/findAll/' + turno + '/' + tipo + '/' + idPeriodo;
+    let url = this.urlBase + '/vaga-info/findAll/' + turno + '/' + tipo + '/' + idPeriodo + '/' + status;
 
     return this.http.get<number>(url);
   }
@@ -41,7 +42,7 @@ export class AprovaService {
   sorteioVagas(periodoId: number, tipoVeiculo: string, turno: string): Observable<any> {
     turno = turno.toUpperCase();
     tipoVeiculo = tipoVeiculo.toUpperCase();
-    let url = this.urlBase + "/sort/" + periodoId + "/" + tipoVeiculo + "/" + turno;
+    let url = this.urlBase + "/vagas/sort/" + periodoId + "/" + tipoVeiculo + "/" + turno;
     return this.http.get(url);
   }
 

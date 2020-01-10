@@ -219,7 +219,7 @@ export class AprovaPageComponent implements OnInit {
       return;
     }
     this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id).filter(vaga => vaga.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
-    this.getTotalElementsFiltrados(this.turno.toUpperCase(), this.tipo.toUpperCase(), this.periodo.id);
+    this.getTotalElementsFiltrados(this.turno.toUpperCase(), this.tipo.toUpperCase(), this.periodo.id, 'EMAPROVACAO');
     this.aprovaService.getVagaInfo(this.turno, this.tipo, periodo.id).subscribe(data => {
       this.vagaInfo = data;
       if (this.totalElementsFromListAppear >= data.quantidade) {
@@ -242,8 +242,8 @@ export class AprovaPageComponent implements OnInit {
     });
   }
 
-  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number) {
-    this.aprovaService.getTotalElementsFiltrados(turno.toUpperCase(), tipo.toUpperCase(), idPeriodo).subscribe(data => {
+  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number, status: string) {
+    this.aprovaService.getTotalElementsFiltrados(turno.toUpperCase(), tipo.toUpperCase(), idPeriodo, status).subscribe(data => {
       this.totalElementsFromListAppear = data;
       console.log(data);
     }, error => {
