@@ -46,6 +46,7 @@ export class AprovaPageComponent implements OnInit {
 
   moreColaboradorThanVagas: boolean = false;
   vagaGaragemPageable: VagaGaragemPageable;
+  listaVagas: VagaGaragem[];
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
@@ -63,6 +64,8 @@ export class AprovaPageComponent implements OnInit {
     this.getAllVagaGaragens('CARRO', 0, this.itemsPage);
     this.getAllPeriodos('CARRO');
     this.setPeriodoDefaultThings();
+
+    console.log(this.periodo);
   }
 
   setPeriodoDefaultThings() {
@@ -75,6 +78,7 @@ export class AprovaPageComponent implements OnInit {
     this.aprovaService.findAllColaboradoresToApprove(type, page, size).subscribe(data => {
       this.isLoading = false;
       this.vagaGaragemPageable = data;
+      this.listaVagas = data.content;
     }, error => {
       switch (error.status) {
         case 0:
@@ -93,7 +97,10 @@ export class AprovaPageComponent implements OnInit {
   getAllPeriodos(type: string) {
     this.aprovaService.getPeriodos(type).subscribe(data => {
       this.isLoading = false;
-      this.periodos = data;
+      const newPeriodo = new Periodo();
+
+      newPeriodo.descricao = "Período"; 
+      this.periodos = [newPeriodo, ...data];
     }, error => {
       switch (error.status) {
         case 0:
@@ -110,18 +117,23 @@ export class AprovaPageComponent implements OnInit {
   }
 
   aprovarTodos() {
-    // INTEGRAR PARA APROVAR TODOS
+    this.aprovaService.postAprovarTodos('INTEGRAL', this.listaVagas).subscribe(data => {});
+  }
+
+  buscarQuantidadeVagas() {
+
   }
 
   sortearTodasVagas() {
     // INTEGRAR PARA SORTEAR TODAS AS VAGAS
-    console.log("sdggdsdgs")
+
     this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.form.trabalhoNoturno);
   }
 
   aprovarSingular(vaga: VagaGaragem) {
     // CRIAR INTEGRACAO COM API de aprovar
-    console.log(vaga)
+    this.aprovaService.postAprovarSingular("INTEGRAL", vaga).subscribe(data => {
+    });
   }
 
   selectTipoOnDropdown(tipo: string) {
@@ -142,7 +154,14 @@ export class AprovaPageComponent implements OnInit {
 
   selectPrioridadeOnDropdown(periodo: Periodo) {
     this.periodo = periodo;
+    console.log(periodo.id);
     this.openDropdown('dropdown-prioridade');
+    if(periodo.descricao === 'Período') {
+      this.listaVagas = this.vagaGaragemPageable.content;
+      return;
+    }
+    this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id );
+    console.log(this.vagaGaragemPageable.content);
   }
 
   closeDropdown(event) {
