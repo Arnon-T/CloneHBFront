@@ -24,6 +24,7 @@ export class VagaGaragem {
     tipoVeiculo: string;
     dataInicial: [number];
     dataFinal: [number];
+    descricao: string;
   };
   colaborador: Colaborador;
   statusVaga: string;

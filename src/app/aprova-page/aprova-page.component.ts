@@ -37,8 +37,10 @@ export class AprovaPageComponent implements OnInit {
 
   tipoDefaultName = 'Carro';
   tipo: string = this.tipoDefaultName;
-  tipos = ['Moto', 'Patinete e Bicicleta'];
+  tipos = ['Moto', 'Patinete', 'Bicicleta'];
 
+  turno: string = 'INTEGRAL';
+  turnoBoolean: boolean = false;
 
   periodoDefaultName: string = 'Período';
   periodo: Periodo;
@@ -64,8 +66,6 @@ export class AprovaPageComponent implements OnInit {
     this.getAllVagaGaragens('CARRO', 0, this.itemsPage);
     this.getAllPeriodos('CARRO');
     this.setPeriodoDefaultThings();
-
-    console.log(this.periodo);
   }
 
   setPeriodoDefaultThings() {
@@ -78,7 +78,7 @@ export class AprovaPageComponent implements OnInit {
     this.aprovaService.findAllColaboradoresToApprove(type, page, size).subscribe(data => {
       this.isLoading = false;
       this.vagaGaragemPageable = data;
-      this.listaVagas = data.content;
+      this.listaVagas = data.content.filter(vagaGaragem => vagaGaragem.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
     }, error => {
       switch (error.status) {
         case 0:
@@ -97,10 +97,13 @@ export class AprovaPageComponent implements OnInit {
   getAllPeriodos(type: string) {
     this.aprovaService.getPeriodos(type).subscribe(data => {
       this.isLoading = false;
-      const newPeriodo = new Periodo();
-
-      newPeriodo.descricao = "Período"; 
-      this.periodos = [newPeriodo, ...data];
+      if (data !== undefined && data.length >= 1) {
+        this.periodos = [...data];
+      } else {
+        const newPeriodo = new Periodo();
+        newPeriodo.descricao = "Nenhum período encontrado.";
+        this.periodos = [newPeriodo];
+      }
     }, error => {
       switch (error.status) {
         case 0:
@@ -117,22 +120,47 @@ export class AprovaPageComponent implements OnInit {
   }
 
   aprovarTodos() {
-    this.aprovaService.postAprovarTodos('INTEGRAL', this.listaVagas).subscribe(data => {});
+    this.aprovaService.postAprovarTodos(this.turno.toUpperCase(), this.listaVagas).subscribe(data => {
+      this.alertService.success('Todos os colaboradores foram aprovados.');
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        case 404:
+          this.alertService.error("Não foi possivel devido a não haver nenhuma informação de vaga para este período.");
+          break;
+      }
+    });
   }
 
   buscarQuantidadeVagas() {
-
   }
 
   sortearTodasVagas() {
-    // INTEGRAR PARA SORTEAR TODAS AS VAGAS
-
     this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.form.trabalhoNoturno);
   }
 
   aprovarSingular(vaga: VagaGaragem) {
     // CRIAR INTEGRACAO COM API de aprovar
-    this.aprovaService.postAprovarSingular("INTEGRAL", vaga).subscribe(data => {
+    this.aprovaService.postAprovarSingular(this.turno.toUpperCase(), vaga).subscribe(data => {
+      this.alertService.success('Colaborador aprovado com sucesso!');
+      this.listaVagas = this.listaVagas.filter(vagaGaragem => vagaGaragem.id !== data.id);
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        default:
+          this.messageService.error("Não foi possivel aprovar o colaborador.");
+          break;
+      }
     });
   }
 
@@ -143,25 +171,47 @@ export class AprovaPageComponent implements OnInit {
       this.tipos = tiposArray;
     }
     this.tipo = tipo;
+    this.listaVagas = this.vagaGaragemPageable.content;
+    this.getAllVagaGaragens(this.tipo.toUpperCase(), 0, this.itemsPage);
+    this.getPeriodos();
     this.openDropdown('dropdown-tipo-veiculo');
   }
 
   getPeriodos() {
-    this.aprovaService.getPeriodos(this.tipo).subscribe(data => {
-      this.periodos = data;
+    this.aprovaService.getPeriodos(this.tipo.toUpperCase()).subscribe(data => {
+      let periodoNewer = new Periodo();
+      if (data !== undefined && data.length >= 1) {
+        periodoNewer.descricao = 'Período';
+        this.periodo = periodoNewer;
+        this.periodos = data;
+      } else {
+        periodoNewer.descricao = 'Não há nenhum período';
+        this.periodo = periodoNewer;
+        this.periodos = [periodoNewer];
+      }
+    }, error => {
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        default:
+          this.messageService.error("Não foi possivel buscar os períodos ao trocar o tipo de veículo.");
+          break;
+      }
     });
   }
 
-  selectPrioridadeOnDropdown(periodo: Periodo) {
+  selectPeriodoOnDropdown(periodo: Periodo) {
     this.periodo = periodo;
-    console.log(periodo.id);
     this.openDropdown('dropdown-prioridade');
-    if(periodo.descricao === 'Período') {
+    if (periodo.descricao === 'Período') {
       this.listaVagas = this.vagaGaragemPageable.content;
       return;
     }
-    this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id );
-    console.log(this.vagaGaragemPageable.content);
+    this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id).filter(vaga => vaga.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
   }
 
   closeDropdown(event) {
@@ -185,11 +235,14 @@ export class AprovaPageComponent implements OnInit {
     divDropdown.classList.toggle('openDropdown');
   }
 
-  checkTrabalhoNoturno(boolean: boolean) {
-    if (boolean) {
-      this.form.trabalhoNoturno = "NOTURNO";
+  checkTrabalhoNoturno(event) {
+    this.turnoBoolean = event.target.checked;
+    if (this.turnoBoolean) {
+      this.turno = 'NOTURNO';
     } else {
-      this.form.trabalhoNoturno = "INTEGRAL"
+      this.turno = 'INTEGRAL';
     }
+
+    this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean).filter(vaga => vaga.statusVaga !== 'APROVADA');
   }
 }
