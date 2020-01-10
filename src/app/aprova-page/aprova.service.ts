@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VagaGaragemPageable } from './VagaGararemPageable';
 import { Periodo } from './Periodo';
+import { VagaGaragem } from './VagaGaragem';
+import { VagaGaragemDTO } from '../location-garage/vagaGaragemDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,20 @@ export class AprovaService {
 
     var url =  this.urlBase + "/periodo/buscar-tipo/" + tipo;
     return this.http.get<Periodo[]>(url);
+  }
+
+  postAprovarSingular(turno: string, vaga: VagaGaragem): Observable<VagaGaragemDTO> {
+    let url =  this.urlBase + "/vagas/approve/" + turno;
+    return this.http.post<VagaGaragemDTO>(url, vaga);
+  }
+
+  getQuantidadeVagas() {
+
+  }
+
+  postAprovarTodos(turno: string, listaVagas: VagaGaragem[]) {
+    let url = this.urlBase + "/vagas/approveAll/" + turno;
+
+    return this.http.post(url, listaVagas);
   }
 }

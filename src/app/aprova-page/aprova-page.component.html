@@ -62,14 +62,14 @@
               </div>
               <div class="table-body">
                 <div *ngIf="isLoading === false; else isloading" class="content-body">
-                  <div *ngFor="let vaga of vagaGaragemPageable.content" class="content-line">
+                  <div *ngFor="let vaga of listaVagas" class="content-line">
                     <div class="content-user">
                       <div class="nome-colaborador">
                         <span class="nome-completo">{{vaga.colaborador.nome}}</span>
                         <span class="email">{{vaga.colaborador.email}}</span>
                       </div>
                       <div class="status">
-                        <span>Em Aprovação</span>
+                        <span>{{vaga.statusVaga}}</span>
                       </div>
                     </div>
                     <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarSingular(vaga)" class="aprovar-button-single">
