@@ -13,6 +13,7 @@ import { InformacoesLocatarioComponent } from './informacoes-locatario/informaco
 import { AprovaPageComponent } from './aprova-page/aprova-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CadastroVagaInfoComponent } from './cadastro-vaga-info/cadastro-vaga-info.component';
+import { CadastrarPeriodoComponent } from './cadastrar-periodo/cadastrar-periodo.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: "gerenciar/locatarios", component: InformacoesLocatarioComponent },
   { path: "gerenciar/aprovacao", component: AprovaPageComponent },
   { path: "gerenciar/info-vaga", component: CadastroVagaInfoComponent },
+  { path: "gerenciar/periodo", component: CadastrarPeriodoComponent },
   { path: "login", component: LoginComponent },
   { path: "locacao-vaga", component: LocationGarageComponent },
   { path: "perfil", component: ProfileComponent },
