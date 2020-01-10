@@ -40,17 +40,14 @@ export class CadastroColaboradoresComponent implements OnInit {
     this.fileToUpload = this.selectedFiles.item(0);
 
     this.cadastrarColaboradoresService.uploadFile(this.fileToUpload).subscribe(data => {
-      this.alertService.info("Importando arquivo com os colaboradores.");
+      this.alertService.success("Colaboradores importados com sucesso!");
     }, error => {
-      if (error.error.message !== undefined) {
-        this.alertService.error(error.error.message);
-      }
       switch (error.status) {
         case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponível.');
           break;
         case 500:
-          this.messageService.error('O nome do termo não deve ser igual ao termo atual.');
+          this.messageService.error('Erro de servidor');
           break;
         case 406:
           this.alertService.error('Extensão do arquivo é inválida.');

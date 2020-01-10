@@ -18,6 +18,7 @@ export class CadastroColaboradoresService {
 
     formData.append('file',file);
 
+    console.log(this.http.post(url, formData));
     return this.http.post(url, formData);
   }
 }

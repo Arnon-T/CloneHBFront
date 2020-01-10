@@ -53,23 +53,5 @@
         <span>Clique para gerenciar os colaboradores do HB Parking</span>
       </div>
     </div>
-    <div routerLink="/gerenciar/aprovacao"
-      *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'" class="funcionality-button">
-      <div class="header-button">
-        <h1>Aprovar Locações</h1>
-      </div>
-      <div class="text-area">
-        <span>Clique para gerenciar as locações feitas pelos colaboradores do HB Parking</span>
-      </div>
-    </div>
-    <div routerLink="/gerenciar/locatarios"
-    *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'" class="funcionality-button">
-      <div class="header-button">
-        <h1>Gerenciar Locatários</h1>
-      </div>
-      <div class="text-area">
-        <span>Clique para gerenciar os locatários e suas informações</span>
-      </div>
-    </div>
   </div>
 </div>

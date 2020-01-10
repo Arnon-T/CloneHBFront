@@ -43,8 +43,10 @@ export class InformacoesLocatarioComponent implements OnInit {
    selectItemsPerPage(quantity) {
      this.config.itemsPerPage = quantity;
    }
-
+   
   ngOnInit() {
+
+    
     this.authGlobal.ngOnInit();
     this.informacoesLocatario.getPeriodos().subscribe((data) => {
       console.log(data);

@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
     }, error => {
       switch (error.status) {
         case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponível.');
           break;
         case 500:
           this.messageService.error('Erro interno do servidor.');

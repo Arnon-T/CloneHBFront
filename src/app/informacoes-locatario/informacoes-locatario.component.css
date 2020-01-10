@@ -228,6 +228,7 @@
 .container-locatario .content-locatario .list-locatarios .table-container {
     overflow-x: auto;
     max-width: 500px;
+    
 }
 
 .container-locatario .content-locatario .list-locatarios .table-container .table-default {
@@ -306,5 +307,3 @@
         margin-left: 0;
     }
 }
-
-
