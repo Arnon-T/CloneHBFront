@@ -10,18 +10,18 @@
         </svg>
       </div>
     </div>
-    <div class="content-modal-term" [innerHTML]="fileContentStringHtml">
+    <div class="content-modal-term" (scroll)="acceptByScrollAll($event)" [innerHTML]="fileContentStringHtml">
     </div>
     <div class="button-actions">
       <!-- <div class="button" (click)="cancelAndClose()">
       <span>Cancelar</span>
       </div> -->
-      <!-- <div class="button button-accept" (click)="acceptAndClose()">
-        <label>Aceitar Termo</label>
-      </div> -->
-      <div class="button button-accept" (click)="closeModal()">
+      <div class="button" (click)="closeModal()">
         <label>Fechar</label>
       </div>
+      <button class="button button-accept" [disabled]="acceptTermButtonIsDisable" (click)="acceptAndClose()">
+        <label>Aceitar Termo</label>
+      </button>
     </div>
   </div>
 </div>

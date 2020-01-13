@@ -150,7 +150,9 @@ export class LocationGarageComponent implements OnInit {
       throw this.alertService.error("Necessário informar um nome de cidade válida");
     }
 
-    if (this.form.aceitoTermo === undefined || this.form.aceitoTermo === false) {
+    const aceitoTermo = document.getElementById('input-termo-locacao') as HTMLInputElement;
+
+    if (aceitoTermo === undefined || !aceitoTermo.checked) {
       throw this.alertService.error("Necessário aceitar o termo de locação da HBParking.");
     }
   }
