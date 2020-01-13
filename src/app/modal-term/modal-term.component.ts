@@ -14,6 +14,7 @@ export class ModalTermComponent implements OnInit {
   title: string = 'Título não carregado.';
   fileContentStringHtml: string = 'Não foi possivel pegar o conteúdo do termo no servidor...';
   status: string;
+  acceptTermButtonIsDisable: boolean = true;
 
   ngOnInit() {
     this.modalService.getLastRentalTerm().subscribe(data => {
@@ -30,6 +31,16 @@ export class ModalTermComponent implements OnInit {
           break;
       }
     });
+  }
+
+  acceptByScrollAll(event) {
+    let scrollAtEnd = event.srcElement.scrollTop - event.srcElement.scrollHeight;
+
+    if (scrollAtEnd >= -480) {
+      this.acceptTermButtonIsDisable = false;
+    } else {
+      this.acceptTermButtonIsDisable = true;
+    }
   }
 
   closeModalIfOutOfBounds(event) {
