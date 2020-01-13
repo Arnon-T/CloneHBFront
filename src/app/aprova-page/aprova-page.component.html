@@ -35,7 +35,7 @@
                 </div>
                 <div id="dropdown-prioridade" class="container-area-dropped">
                   <div class="select-option" *ngFor="let periodoObj of periodos"
-                    (click)="selectPrioridadeOnDropdown(periodoObj)">
+                    (click)="selectPeriodoOnDropdown(periodoObj)">
                     <span>{{periodoObj.descricao}}</span>
                   </div>
                 </div>
@@ -45,8 +45,7 @@
               <div class="content-checkbox">
                 <div class="input-checkbox">
                   <label class="container-checkbox" for="input-trabalho-noturno">
-                    <input id="input-trabalho-noturno" type="checkbox" name="trabalhoNoturno"
-                      [(ngModel)]="form.trabalhoNoturno" #trabalhoNoturno="ngModel">
+                    <input id="input-trabalho-noturno" type="checkbox" (change)="checkTrabalhoNoturno($event)">
                     <span class="span-checkmark"></span>
                   </label>
                   <span class="text-checkbox">Horário não comercial. (Noturno)</span>
@@ -62,14 +61,14 @@
               </div>
               <div class="table-body">
                 <div *ngIf="isLoading === false; else isloading" class="content-body">
-                  <div *ngFor="let vaga of vagaGaragemPageable.content" class="content-line">
+                  <div *ngFor="let vaga of listaVagas" class="content-line">
                     <div class="content-user">
                       <div class="nome-colaborador">
                         <span class="nome-completo">{{vaga.colaborador.nome}}</span>
                         <span class="email">{{vaga.colaborador.email}}</span>
                       </div>
                       <div class="status">
-                        <span>Em Aprovação</span>
+                        <span>{{vaga.statusVaga}}</span>
                       </div>
                     </div>
                     <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarSingular(vaga)" class="aprovar-button-single">

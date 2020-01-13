@@ -73,8 +73,6 @@ export class CadastroVagaInfoComponent implements OnInit {
       turno: this.turnoSelected,
     }
 
-    console.log(vagaInfoToApi);
-
     this.vagaInfoService.createVagaInfo(vagaInfoToApi).subscribe(data => {
       this.alertService.success('Informações de vaga foram criadas com sucesso!');
       this.form = {};

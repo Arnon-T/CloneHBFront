@@ -1,35 +1,36 @@
 <div *ngIf="authGlobal.authority === 'sistema' || authGlobal.authority === 'gestor'; else acessoNegado">
-    <div class="container-locatario">
-        <div class="content-locatario">
-            <div class="content-area-locatario">
-                <app-functionality-button-area></app-functionality-button-area>
-                <div class="content-page">
-                    <div class="header-locatario">
-                        <h2>Gerenciamento de Locatários</h2>
-                    </div>
-                    <form name="form" #f='ngForm' novalidate enctype="multipart/form-data">
-                        <div class="alert-area">
-                            <alert></alert>
-                        </div>
-                        <div class="dropdown-area">
-                            <div class="dropdown">
-                                <div class="form-group">
-                                    <select class="form-control" (change)="selectOption($event)" id="mes" required>
-                                        <option>Selecione o período</option>
-                                        <option *ngFor="let periodos of listaAllPeriodos" [value]="periodo" id>
-                                            {{periodos.descricao}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="listar-button">
-                                <button type="button" (click)="listarLocatarios()">Listar</button>
-                            </div>
-                        </div>
-                        <div class="button-export">
-                            <button type="button" (click)="export()" class="button-export">Exportar</button>
-                        </div>
-                    </form>
+  <div class="container-locatario">
+    <div class="content-locatario">
+      <div class="content-area-locatario">
+        <app-functionality-button-area></app-functionality-button-area>
+        <div class="content-page">
+          <div class="header-locatario">
+            <h2>Gerenciamento de Locatários</h2>
+          </div>
+          <form name="form" #f='ngForm' novalidate enctype="multipart/form-data">
+            <div class="alert-area">
+              <alert></alert>
+            </div>
+            <div class="dropdown-area">
+              <div class="dropdown">
+                <div class="form-group">
+                  <select class="form-control" (change)="selectOption($event)" id="mes" required>
+                    <option>Selecione o período</option>
+                    <option *ngFor="let periodos of listaAllPeriodos" [value]="periodo" id>
+                      {{periodos.descricao}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="listar-button">
+                <button type="button" (click)="listarLocatarios()">Listar</button>
+              </div>
+            </div>
+            <div class="button-export">
+              <button type="button" (click)="export()" class="button-export">Exportar</button>
+            </div>
+          </form>
 
+<<<<<<< HEAD
                     <div class="content-checkbox">
                         <div class="input-checkbox">
 
@@ -109,11 +110,82 @@
                         </div>
                     </div>
                 </div>
+=======
+          <div class="content-checkbox">
+            <div class="input-checkbox">
+              <label class="container-checkbox" for="input-add-marca">
+                <input id="input-add-marca" type="checkbox" name="add-marca"
+                  (change)="isMarcaChecked = !isMarcaChecked">
+                <span class="span-checkmark"></span>
+              </label>
+              <span class="text-checkbox">Exibir Marca</span>
+              <label class="container-checkbox" for="input-add-email">
+                <input id="input-add-email" type="checkbox" name="add-email"
+                  (change)="isEmailChecked = !isEmailChecked">
+                <span class="span-checkmark"></span>
+              </label>
+              <span class="text-checkbox">Exibir E-mail</span>
+              <label class="container-checkbox" for="input-add-tipo">
+                <input id="input-add-tipo" type="checkbox" name="add-tipo" (change)="isTipoChecked = !isTipoChecked">
+                <span class="span-checkmark"></span>
+              </label>
+              <span class="text-checkbox">Exibir Tipo de veículo</span>
+              <label class="container-checkbox" for="input-add-cor">
+                <input id="input-add-cor" type="checkbox" name="add-cor" (change)="isCorChecked = !isCorChecked">
+                <span class="span-checkmark"></span>
+              </label>
+              <span class="text-checkbox">Exibir Coloração</span>
             </div>
+          </div>
+
+          <div id="lista" class="list-locatarios">
+            <div class="table-container">
+              <table class="table-default">
+                <thead>
+                  <tr>
+                    <th class="name">Nome</th>
+                    <th class="modelo">Modelo</th>
+                    <th class="placa">Placa</th>
+                    <th class="status">Status</th>
+                    <th class="marca" *ngIf="isMarcaChecked === true">Marca</th>
+                    <th class="email" *ngIf="isEmailChecked === true">E-mail</th>
+                    <th class="veiculo" *ngIf="isTipoChecked === true">Veículo</th>
+                    <th class="cor" *ngIf="isCorChecked === true">Cor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let locatario of listaLocatarios.content | paginate: config">
+                    <td class="result-name">{{locatario.colaborador.nome}}</td>
+                    <td class="result-modelo">{{locatario.vehicleModel.modelo}}</td>
+                    <td class="result-placa">{{locatario.placa}}</td>
+                    <td class="result-status">{{locatario.statusVaga}}</td>
+                    <td class="result-marca" *ngIf="isMarcaChecked === true">{{locatario.marca.nome}}</td>
+                    <td class="result-email" *ngIf="isEmailChecked === true">{{locatario.colaborador.email}}</td>
+                    <td class="result-tipo" *ngIf="isTipoChecked === true">{{locatario.tipoVeiculo}}</td>
+                    <td class="result-color" *ngIf="isCorChecked === true">{{locatario.color}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls class="pagination-buttons" (pageChange)="pageChanged($event)"
+                (pageChange)="listarLocatarios()"></pagination-controls>
+            </div>
+            <div class="buttons">
+              <div class="items-page-area">
+                <select (change)="selectItemsPerPage($event.target.value)" (change)="listarLocatarios()"
+                  class="items-page">
+                  <span>{{itemsPage}}</span>
+                  <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
+                </select>
+              </div>
+>>>>>>> 37d5a72e2c97cdaa21df7c4e6dcfa5d7463484ff
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <ng-template #acessoNegado>
-    <app-notfound></app-notfound>
+  <app-notfound></app-notfound>
 </ng-template>
