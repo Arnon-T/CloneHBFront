@@ -136,9 +136,7 @@ export class LocationGarageComponent implements OnInit {
       return;
     }
 
-    if (this.form.placaVehicle === undefined || this.form.placaVehicle === '' || this.form.placaVehicle.length <= 0) {
-      throw this.alertService.error("Favor informar uma placa válida.");
-    }
+    this.validatePlaca(this.form.placaVehicle);
 
     if (this.periodo === undefined || this.periodo.descricao === 'PERÍODO' || this.periodo.descricao === '') {
       throw this.alertService.error("Um período deve ser selecionado.");
@@ -154,6 +152,36 @@ export class LocationGarageComponent implements OnInit {
 
     if (this.form.aceitoTermo === undefined || this.form.aceitoTermo === false) {
       throw this.alertService.error("Necessário aceitar o termo de locação da HBParking.");
+    }
+  }
+
+  validatePlaca(placa: string) {
+    if (placa === undefined || placa === '' || placa.length <= 0) {
+      throw this.alertService.error("Favor informar uma placa válida.");
+    }
+
+    let validationMercoSul = new RegExp("[A-Z]{3}[0-9][A-Z][0-9]{2}|[A-Z]{3}[0-9]{4}");
+
+    if (placa.includes('-')) {
+      placa = placa.replace('-', '');
+    }
+
+    if (!(validationMercoSul.test(placa))) {
+      throw this.alertService.error("Formato de placa é inválido.");
+    }
+  }
+
+  formatPlacaLettersToUppercase(event) {
+    let value = event.target.value as string;
+    if (value.includes('-') || value.includes('=')) {
+      value = value.replace('-', '');
+      value = value.replace('=', '');
+    }
+
+
+    if (value !== undefined || value !== '' || value.length >= 7) {
+      this.form.placaVehicle = value.substring(0, 7).toUpperCase();
+      return;
     }
   }
 

@@ -47,7 +47,7 @@
       </div>
       <div class="content-input">
         <div class="input-area">
-          <input type="text" name="placa-veiculo" placeholder="Placa do veículo" [(ngModel)]="form.placaVehicle"
+          <input type="text" (paste)="formatPlacaLettersToUppercase($event)" (keyup)="formatPlacaLettersToUppercase($event)" (keypress)="formatPlacaLettersToUppercase($event)" name="placa-veiculo" placeholder="Placa do veículo" [(ngModel)]="form.placaVehicle"
             #plate="ngModel">
         </div>
         <div class="input-area">
