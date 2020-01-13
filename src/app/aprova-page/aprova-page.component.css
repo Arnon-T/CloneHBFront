@@ -95,7 +95,7 @@
   align-items: center;
   height: 46px;
   padding: 0 15px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area {
@@ -134,6 +134,7 @@
   border-radius: 5px;
   overflow: hidden;
   transition: 0.2s height;
+  z-index: 5;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area-dropped .select-option {
@@ -144,6 +145,95 @@
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area-dropped .select-option:hover {
   background: rgba(0, 0, 0, 0.05);
   transition: 0.2s background;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  margin: 20px 0;
+  user-select: none;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .input-checkbox {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox {
+  min-width: 21px;
+  max-width: 21px;
+  width: 100%;
+  min-height: 20px;
+  max-height: 20px;
+  width: 100%;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  background: #fafafa;
+  border: 1px solid #ebeced;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .text-checkbox {
+  font-size: 15px;
+  margin-left: 10px;
+  color: #2d2d2d;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox .span-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .span-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid #0082BF;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox input:checked ~ .span-checkmark:after {
+  display: block;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox label:checked {
+  background: #0082BF !important;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .alert-area {

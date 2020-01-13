@@ -34,23 +34,22 @@ export class InformacoesLocatarioComponent implements OnInit {
       currentPage: 1,
       totalItems: 0
     }
-   }
+  }
 
-   itemsPageDefaultNumber = 10;
-   itemsPage: number = this.itemsPageDefaultNumber;
-   itemsPageDefaultNumbers = [10, 25, 50, 100];
+  itemsPageDefaultNumber = 10;
+  itemsPage: number = this.itemsPageDefaultNumber;
+  itemsPageDefaultNumbers = [10, 25, 50, 100];
 
-   selectItemsPerPage(quantity) {
-     this.config.itemsPerPage = quantity;
-   }
-   
+  selectItemsPerPage(quantity) {
+    this.config.itemsPerPage = quantity;
+  }
+
   ngOnInit() {
 
     
     this.authGlobal.ngOnInit();
     this.informacoesLocatario.getPeriodos().subscribe((data) => {
-      console.log(data);
-        this.listaAllPeriodos = data;
+      this.listaAllPeriodos = data;
     });
 
     if (!this.tokenService.getToken()) {
@@ -71,10 +70,10 @@ export class InformacoesLocatarioComponent implements OnInit {
       return;
     }
 
-    this.informacoesLocatario.getLocatarios(this.periodo, this.config.currentPage, this.config.itemsPerPage).subscribe((data) =>  {
-        this.listaLocatarios = data;
-        this.config.totalItems = data.totalElements;
-        console.log(this.listaLocatarios)
+    this.informacoesLocatario.getLocatarios(this.periodo, this.config.currentPage, this.config.itemsPerPage).subscribe((data) => {
+      this.listaLocatarios = data;
+      this.config.totalItems = data.totalElements;
+      console.log(this.listaLocatarios)
     });
   }
 
@@ -87,9 +86,9 @@ export class InformacoesLocatarioComponent implements OnInit {
       this.messageService.warn("Selecione um periodo para exportar");
       return;
     }
-     
+
     this.informacoesLocatario.getExportCSV(this.periodo).subscribe(data => {
-        saveAs(new Blob([data], { type: 'multipart/form-data' }), 'locatarios.csv');
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'locatarios.csv');
     }), error => {
       console.log(error);
     };

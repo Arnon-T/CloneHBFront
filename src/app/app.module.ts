@@ -17,6 +17,7 @@ import { VehicleModelComponent } from './import-model/import-model.component';
 import { RentalTermService } from './rental-term/rental-term.service';
 import { MarcaService } from './marca/marca.service';
 import { ModelService } from './import-model/import-model.service';
+import { AprovaService } from './aprova-page/aprova.service';
 
 import { CadastroColaboradoresComponent } from './cadastro-colaboradores/cadastro-colaboradores.component';
 import { LoginComponent } from './login/login.component';
@@ -34,6 +35,8 @@ import { ModalTermComponent } from './modal-term/modal-term.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { LocationGarageService } from './location-garage/location-garage.service';
+import { CadastroVagaInfoComponent } from './cadastro-vaga-info/cadastro-vaga-info.component';
+import { CadastrarPeriodoComponent } from './cadastrar-periodo/cadastrar-periodo.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { LocationGarageService } from './location-garage/location-garage.service
     AprovaPageComponent,
     ModalTermComponent,
     ProfileComponent,
-    IsLoadingComponent
+    IsLoadingComponent,
+    CadastroVagaInfoComponent,
+    CadastrarPeriodoComponent
     
   ],
   imports: [
@@ -68,7 +73,8 @@ import { LocationGarageService } from './location-garage/location-garage.service
   providers: [
     RentalTermService,
     MarcaService,
-    ModelService,    
+    ModelService,
+    AprovaService,    
     httpInterceptorProvider,
     GlobalAuth,
     LocationGarageService
