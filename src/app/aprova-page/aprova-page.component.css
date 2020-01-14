@@ -424,6 +424,15 @@
   transition: 0.2s background;
 }
 
+
+.vagas-candidatos {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  text-align: right;
+  padding: 5px 30px;  
+}
+
 @media only screen and (max-width: 870px) and (min-width: 0px) {
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .table-area .table-body .content-body .content-line  {
     flex-direction: column;
@@ -495,6 +504,8 @@
     padding: 0;
     margin-bottom: 5px;
   }
+
+
 }
 
 

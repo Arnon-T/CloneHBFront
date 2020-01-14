@@ -54,6 +54,10 @@ export class AprovaPageComponent implements OnInit {
   totalElementsFromListAppear: number = 0;
   listaVagas: VagaGaragem[];
 
+  vagasLivres: number = 0;
+  pessoasConcorrendo: number = 0;
+  vagasEPessoas: number[];
+
   ngOnInit() {
     this.authGlobal.ngOnInit();
 
@@ -139,6 +143,7 @@ export class AprovaPageComponent implements OnInit {
       if (data.length !== this.listaVagas.length) {
         throw this.alertService.error("Não foi possivel devido a não haver nenhuma informação de vaga para este período.");
       }
+      this.getQuantidadeVagaAndConcorrentes(this.periodo.id);
 
       this.alertService.success('Todos os colaboradores foram aprovados.');
       data.map(vaga => {
@@ -181,6 +186,7 @@ export class AprovaPageComponent implements OnInit {
     this.aprovaService.postAprovarSingular(this.turno.toUpperCase(), vaga).subscribe(data => {
       this.alertService.success('Colaborador aprovado com sucesso!');
       this.listaVagas = this.listaVagas.filter(vagaGaragem => vagaGaragem.id !== data.id);
+      this.getQuantidadeVagaAndConcorrentes(this.periodo.id);
     }, error => {
       switch (error.status) {
         case 0:
@@ -220,6 +226,7 @@ export class AprovaPageComponent implements OnInit {
     }
     this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id).filter(vaga => vaga.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
     this.getTotalElementsFiltrados(this.turno.toUpperCase(), this.tipo.toUpperCase(), this.periodo.id, 'EMAPROVACAO');
+    this.getQuantidadeVagaAndConcorrentes(periodo.id);
     this.aprovaService.getVagaInfo(this.turno, this.tipo, periodo.id).subscribe(data => {
       this.vagaInfo = data;
       if (this.totalElementsFromListAppear >= data.quantidade) {
@@ -325,5 +332,18 @@ export class AprovaPageComponent implements OnInit {
     } else {
       this.moreColaboradorThanVagas = false;
     }
+  }
+
+  getQuantidadeVagaAndConcorrentes(idPeriodo: number){
+    this.aprovaService.getQuantidadeVagaAndConcorrentes(idPeriodo).subscribe(data =>{
+      this.vagasEPessoas = data;
+
+      this.vagasLivres = this.vagasEPessoas[0];
+      this.pessoasConcorrendo = this.vagasEPessoas[1];
+
+      }
+    );
+
+
   }
 }
