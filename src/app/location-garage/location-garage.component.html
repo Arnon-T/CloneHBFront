@@ -16,9 +16,9 @@
             <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
           </select>
         </div>
-        <div class="input-area">
-          <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca"
-            [disabled]="vehicleHasOption">
+        <div class="input-area input-area-marca" id="input-area-marca">
+          <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca" class="input-area-marca"
+            [disabled]="vehicleHasOption || tipo === undefined">
             <option>MARCA</option>
             <option *ngFor="let marca of listaAllMarcas" [value]="marca" id="marca">{{marca.nome}}</option>
           </select>
@@ -26,9 +26,9 @@
       </div>
       <div class="content-input">
         <div class="content-modelos">
-          <div class="input-area">
+          <div class="input-area input-area-modelo" id="input-area-modelo">
             <input (keyup)="searchModelo($event)" type="search" placeholder="Pesquisar modelos"
-              [disabled]="selectedMarca === undefined" value={{modelo}}>
+              [disabled]="selectedMarca === undefined" value={{modelo}} id="input-modelo">
           </div>
           <div class="container-dropdown-modelos" *ngIf="modelosSearched !== undefined" id="dropdown-modelos">
             <div *ngFor="let modelo of modelosSearched" class="card-modelo-vehicle"
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="input-area">
+        <div class="input-area" id="input-area-cor">
           <select (change)="selectCor($event.target)" name="codigo-cor" id="codigo-cor"
             [disabled]="tipo === undefined || tipo === 'SELECIONAR TIPO'">
             <option>SELECIONAR COR</option>
@@ -46,13 +46,13 @@
         </div>
       </div>
       <div class="content-input">
-        <div class="input-area">
+        <div class="input-area" id="input-area-placa">
           <input type="text" (paste)="formatPlacaLettersToUppercase($event)" (keyup)="formatPlacaLettersToUppercase($event)" (keypress)="formatPlacaLettersToUppercase($event)" name="placa-veiculo" placeholder="Placa do veículo" [(ngModel)]="form.placaVehicle"
-            #plate="ngModel">
+            #plate="ngModel" id="input-placa" [disabled]="vehicleHasOption || tipo === undefined">
         </div>
-        <div class="input-area">
+        <div class="input-area" id="input-area-periodo">
           <select (change)="selectPeriodo($event.target)" name="codigo-periodo" id="codigo-periodo"
-            [disabled]="tipo === 'SELECIONAR TIPO'">
+            [disabled]="tipo === undefined || tipo === 'SELECIONAR TIPO'">
             <option>PERÍODO</option>
             <option *ngFor="let periodo of listaPeriodos" [value]="periodo" id="periodo">{{periodo.descricao}}</option>
           </select>

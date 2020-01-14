@@ -89,6 +89,51 @@ h1, label, input, span, select {
     outline: none;
 }
 
+.container-locacao .content-locacao .form-locacao .content-input #input-area-modelo {
+  background: #ebeced;
+  cursor: not-allowed;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-marca #codigo-marca {
+  cursor: not-allowed;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-marca {
+  background: #ebeced;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-modelo {
+  background: #ebeced;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-modelo {
+  cursor: not-allowed;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-cor {
+  background: #ebeced;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-cor #codigo-cor {
+  cursor: not-allowed;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-periodo {
+  background: #ebeced;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-periodo #codigo-periodo {
+  cursor: not-allowed;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-placa {
+  background: #ebeced;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input #input-area-placa #input-placa {
+  cursor: not-allowed;
+}
+
 .container-locacao .content-locacao .form-locacao .area-button-signup {
     display: flex;
     justify-content: center;
