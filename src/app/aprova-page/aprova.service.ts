@@ -74,13 +74,4 @@ export class AprovaService {
 
     return this.http.post<VagaGaragemDTO[]>(url, listaVagas);
   }
-
-
-  getQuantidadeVagaAndConcorrentes(periodoId: number): Observable<any> {
-    let url = this.urlBase + "/vaga-info/findByPeriodo/"  + periodoId;
-
-    return this.http.get(url);
-  }
-
-
 }

@@ -26,7 +26,7 @@ export class CadastroVagaInfoComponent implements OnInit {
   periodoIndexInList: number;
   periodos: PeriodoDTO[];
 
-  turnoSelected: string;
+  turnoSelected: string = 'Selecionar turno';
   turnos = ['INTEGRAL', 'NOTURNO'];
 
   ngOnInit() {
