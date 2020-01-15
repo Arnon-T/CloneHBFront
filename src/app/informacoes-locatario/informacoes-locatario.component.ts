@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { LocationGarageService } from '../location-garage/location-garage.service';
 import { InformacoesLocatarioService } from './informacoes-locatario.service';
 import { saveAs } from 'file-saver';
+import { PeriodoDTO } from '../aprova-page/PeriodoDTO';
 
 @Component({
   selector: 'app-informacoes-locatario',
@@ -17,8 +18,9 @@ import { saveAs } from 'file-saver';
 })
 export class InformacoesLocatarioComponent implements OnInit {
 
-  listaAllPeriodos: any;
-  periodo: number = 0;
+  listaAllPeriodos: any;  
+  periodoDTO: PeriodoDTO; 
+  periodo: number; 
   listaLocatarios: Observable<any>[] = [];
   config: any;
   isValorChecked: boolean = false;
@@ -57,8 +59,11 @@ export class InformacoesLocatarioComponent implements OnInit {
     }
   }
 
-  selectOption(event) {
-    this.periodo = event.target.selectedIndex;
+  selectOption(periodo: PeriodoDTO) {    
+    this.periodo = periodo.id;
+    this.periodoDTO = periodo;
+    console.log(periodo);
+    console.log(this.periodo);
     console.log(this.isValorChecked);
   }
 
@@ -86,6 +91,18 @@ export class InformacoesLocatarioComponent implements OnInit {
     }
 
     this.informacoesLocatario.getExportCSV(this.periodo).subscribe(data => {
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'locatarios.csv');
+    }), error => {
+      console.log(error);
+    };
+  }
+
+  exportByColumns(){
+    if (this.periodo === 0) {
+      this.messageService.warn("Selecione um periodo para exportar");
+      return;
+    }    
+    this.informacoesLocatario.getExportByColumns(this.periodoDTO.id, this.isMarcaChecked, this.isEmailChecked, this.isTipoChecked, this.isCorChecked).subscribe(data => {
       saveAs(new Blob([data], { type: 'multipart/form-data' }), 'locatarios.csv');
     }), error => {
       console.log(error);

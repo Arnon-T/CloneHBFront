@@ -40,4 +40,22 @@ export class InformacoesLocatarioService {
     }));
   }
 
+  getExportByColumns(periodoId: number, marca: boolean, email: boolean, tipo: boolean, cor: boolean): Observable<ArrayBuffer> {
+    const options: {
+      headers?: HttpHeaders;
+      observe?: 'body';
+      params?: HttpParams;
+      reportProgress?: boolean;
+      responseType: 'arraybuffer';
+      withCredentials?: boolean;
+    } = {
+      responseType: 'arraybuffer'
+    };
+    let url = "http://localhost:8080/api/reports/locatarios/export/columns/" + periodoId + "/" + marca + "/" + email + "/" + tipo + "/" + cor;
+    
+    return this.http.get(url, options).pipe(map((file:ArrayBuffer) => {
+      return file;
+    }))
+  }
+
 }

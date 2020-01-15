@@ -14,9 +14,9 @@
             <div class="dropdown-area">
               <div class="dropdown">
                 <div class="form-group">
-                  <select class="form-control" (change)="selectOption($event)" id="mes" required>
+                  <select class="form-control"  id="mes" required>
                     <option>Selecione o período</option>
-                    <option *ngFor="let periodos of listaAllPeriodos" [value]="periodo" id>
+                    <option *ngFor="let periodos of listaAllPeriodos" [value]="periodo" (click)="selectOption(periodos)">
                       {{periodos.descricao}}</option>
                   </select>
                 </div>
@@ -26,14 +26,14 @@
               </div>
             </div>
             <div class="button-export">
-              <button type="button" (click)="export()" class="button-export">Exportar</button>
+              <button type="button" (click)="exportByColumns()" class="button-export">Exportar colunas selecionadas</button>
             </div>
           </form>
 
           <div class="content-checkbox">
             <div class="input-checkbox">
               <label class="container-checkbox" for="input-add-marca">
-                <input id="input-add-marca" type="checkbox" name="add-marca"
+                <input id="input-add-marca" type="checkbox" value="marca" name="add-marca"
                   (change)="isMarcaChecked = !isMarcaChecked">
                 <span class="span-checkmark"></span>
               </label>
