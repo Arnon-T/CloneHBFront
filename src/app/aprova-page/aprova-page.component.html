@@ -28,7 +28,7 @@
               </div>
               <div class="dropdown-area">
                 <div class="container-area" (click)="openDropdown('dropdown-prioridade')">
-                  <span *ngIf="isLoading === false" class="tipo-text">{{periodo.descricao}}</span>
+                  <span *ngIf="isLoading === false && periodo !== undefined" class="tipo-text">{{periodo.descricao}}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="#0082BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 9l6 6 6-6" /></svg>
@@ -70,7 +70,7 @@
               </div>
               <div class="table-body">
                 <div *ngIf="isLoading === false; else isloading" class="content-body">
-                  <ng-container *ngIf="listaVagas.length >= 1; else noContentOnList">
+                  <ng-container *ngIf="listaVagas.length > 0; else noContentOnList">
                     <div *ngFor="let vaga of listaVagas" class="content-line">
                       <div class="content-user">
                         <div class="nome-colaborador">
@@ -92,7 +92,13 @@
                       </ng-container>
                     </div>
                   </ng-container>
-                  <div id="noContentOnList" *ngIf="1 >= listaVagas.length" class="noContentArea">
+                  <div class="button-area-pagination">
+                    <button *ngIf="totalPages > actualPageWithOnePlusJustUseInHTML && listaVagas.length > 0"
+                      (click)="paginationList((actualPageToPagination + 1))" class="button-pagination">
+                      <span>Carregar mais colaboradores</span>
+                    </button>
+                  </div>
+                  <div id="noContentOnList" *ngIf="0 >= listaVagas.length" class="noContentArea">
                     <span>Não foi encontrado nenhum colaborador nesse período.</span>
                   </div>
                 </div>
@@ -115,6 +121,8 @@
                   <span>Aprovar todos</span>
                 </button>
                 <div class="tooltipgeral tooltip-aproveall">
+                  <span *ngIf="periodo.descricao === 'Nenhum período encontrado.'">Precisa criar um período para este
+                    tipo de veículo.</span>
                   <span *ngIf="vagaInfo === null || vagaInfo === undefined">Necessário cadastrar informações da vaga
                     para este
                     período.</span>

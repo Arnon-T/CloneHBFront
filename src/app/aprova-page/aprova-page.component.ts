@@ -28,8 +28,13 @@ export class AprovaPageComponent implements OnInit {
   itemsPageDefaultNumbers = [10, 25, 50, 100];
 
   selectItemsPerPage(quantity) {
+    this.alertService.clear();
     this.itemsPage = quantity;
-    this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), 0, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
+    if (this.periodo !== undefined && this.periodo.id !== undefined) {
+      this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), 0, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
+    } else {
+      this.alertService.warn('Não existe período nesse tipo de veículo.');
+    }
   }
 
   form: any = {};
@@ -53,6 +58,9 @@ export class AprovaPageComponent implements OnInit {
   listaVagasSelecionadas: VagaGaragem[] = [];
 
   actualPage: number = 0;
+  actualPageToPagination: number = 0;
+  actualPageWithOnePlusJustUseInHTML: number = 0;
+  totalPages: number = 0;
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
@@ -72,14 +80,28 @@ export class AprovaPageComponent implements OnInit {
   getVagaContentOnNgInit(type: string, page: number, size: number, turno: string) {
     this.aprovaService.findAllContentOnNgInit(type, page, size, turno).subscribe(data => {
       this.isLoading = false;
+      console.log(data)
       this.vagaContent = data;
       this.listaVagas = data.vagaGaragemPage.content;
-      this.periodo = data.periodoDTO;
-      this.periodos = [...data.periodosDTOOfVehicleType]; { }
+      if (data.periodoDTO !== null || data.periodoDTO !== undefined) {
+        this.periodo = data.periodoDTO;
+        this.periodos = [...data.periodosDTOOfVehicleType]; { }
+      } else {
+        let periodoError = new PeriodoDTO();
+        periodoError.descricao = 'Nenhum período encontrado.';
+
+        this.periodo = periodoError;
+        this.periodos = [periodoError];
+      }
       this.vagaInfo = data.vagaInfoDTO;
       this.listaVagasSelecionadas = [];
+      this.actualPage = data.vagaGaragemPage.number;
+      this.actualPageToPagination = data.vagaGaragemPage.number;
+      this.actualPageWithOnePlusJustUseInHTML = data.vagaGaragemPage.number + 1;
+      this.totalPages = data.vagaGaragemPage.totalPages;
       this.setSortNeeded();
     }, error => {
+      this.resetAll();
       switch (error.status) {
         case 0:
           this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
@@ -91,7 +113,6 @@ export class AprovaPageComponent implements OnInit {
           this.alertService.error(error.error.message);
           break;
       }
-      this.resetAll();
     });
   }
 
@@ -104,8 +125,13 @@ export class AprovaPageComponent implements OnInit {
       this.periodos = [...data.periodosDTOOfVehicleType];
       this.vagaInfo = data.vagaInfoDTO;
       this.listaVagasSelecionadas = [];
+      this.actualPage = data.vagaGaragemPage.number;
+      this.actualPageToPagination = data.vagaGaragemPage.number;
+      this.actualPageWithOnePlusJustUseInHTML = data.vagaGaragemPage.number + 1;
+      this.totalPages = data.vagaGaragemPage.totalPages;
       this.setSortNeeded();
     }, error => {
+      this.resetAll();
       switch (error.status) {
         case 0:
           this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
@@ -117,7 +143,35 @@ export class AprovaPageComponent implements OnInit {
           this.alertService.error(error.error.message);
           break;
       }
+    });
+  }
+
+  getVagaContentWithPeriodoByPaginationButton(type: string, page: number, size: number, turno: string, idPeriodo: number) {
+    this.aprovaService.findAllContentByIdPeriodo(type, page, size, turno, idPeriodo).subscribe(data => {
+      this.isLoading = false;
+      this.vagaContent = data;
+      this.listaVagas = this.listaVagas.concat(data.vagaGaragemPage.content);
+      this.periodo = data.periodoDTO;
+      this.periodos = [...data.periodosDTOOfVehicleType];
+      this.vagaInfo = data.vagaInfoDTO;
+      this.listaVagasSelecionadas = [];
+      this.actualPageToPagination = data.vagaGaragemPage.number;
+      this.actualPageWithOnePlusJustUseInHTML = data.vagaGaragemPage.number + 1;
+      this.totalPages = data.vagaGaragemPage.totalPages;
+      this.setSortNeeded();
+    }, error => {
       this.resetAll();
+      switch (error.status) {
+        case 0:
+          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
+          break;
+        case 500:
+          this.messageService.error('Erro interno do servidor.');
+          break;
+        case 404:
+          this.alertService.error(error.error.message);
+          break;
+      }
     });
   }
 
@@ -141,6 +195,12 @@ export class AprovaPageComponent implements OnInit {
     this.periodo = periodoError;
     this.periodos = [periodoError];
     this.listaVagas = [];
+    this.moreColaboradorThanVagas = false;
+    this.listaVagasSelecionadas = [];
+    this.actualPage = 0;
+    this.actualPageToPagination = 0;
+    this.actualPageWithOnePlusJustUseInHTML = 0;
+    this.totalPages = 0;
   }
 
   aprovarTodos() {
@@ -170,6 +230,19 @@ export class AprovaPageComponent implements OnInit {
   sortearTodasVagas() {
     this.aprovaService.sorteioVagas(this.periodo.id, this.tipo, this.turno).subscribe(data => {
       this.alertService.success('Vagas foram sorteadas com sucesso!');
+      console.log(data);
+      this.isLoading = false;
+      this.vagaContent = data;
+      this.listaVagas = data.vagaGaragemPage.content.filter(vagaGaragem => vagaGaragem.statusVaga !== 'APROVADA');
+      this.periodo = data.periodoDTO;
+      this.periodos = [...data.periodosDTOOfVehicleType];
+      this.vagaInfo = data.vagaInfoDTO;
+      this.listaVagasSelecionadas = [];
+      this.actualPage = data.vagaGaragemPage.number;
+      this.actualPageToPagination = data.vagaGaragemPage.number;
+      this.actualPageWithOnePlusJustUseInHTML = data.vagaGaragemPage.number + 1;
+      this.totalPages = data.vagaGaragemPage.totalPages;
+      this.setSortNeeded();
     }, error => {
       switch (error.status) {
         case 0:
@@ -224,6 +297,15 @@ export class AprovaPageComponent implements OnInit {
       this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), this.actualPage, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
     } else {
       this.alertService.error('Não possui período nesse tipo de veículo.');
+    }
+  }
+
+  paginationList(page: number) {
+    this.alertService.clear();
+    if (page <= this.totalPages) {
+      this.getVagaContentWithPeriodoByPaginationButton(this.tipo.toUpperCase(), page, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
+    } else {
+      this.alertService.warn('Não possui mais colaboradores para ser carregados');
     }
   }
 

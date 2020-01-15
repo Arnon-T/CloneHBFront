@@ -48,11 +48,11 @@ export class AprovaService {
     return this.http.get<VagaContent>(urlToGetAll);
   }
 
-  sorteioVagas(periodoId: number, tipoVeiculo: string, turno: string): Observable<any> {
+  sorteioVagas(periodoId: number, tipoVeiculo: string, turno: string): Observable<VagaContent> {
     turno = turno.toUpperCase();
     tipoVeiculo = tipoVeiculo.toUpperCase();
     let url = this.urlBase + "/vagas/sort/" + periodoId + "/" + tipoVeiculo + "/" + turno;
-    return this.http.get(url);
+    return this.http.get<VagaContent>(url);
   }
 
   postAprovarSingular(turno: string, vaga: VagaGaragem): Observable<VagaGaragemDTO> {
