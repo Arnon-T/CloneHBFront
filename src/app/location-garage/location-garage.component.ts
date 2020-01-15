@@ -77,6 +77,7 @@ export class LocationGarageComponent implements OnInit {
   }
 
   selectOption(tipo) {
+    this.selectedMarca = undefined;
     this.tipo = tipo;
     this.limparCampos();
   }
@@ -100,6 +101,7 @@ export class LocationGarageComponent implements OnInit {
       this.alertService.info("Infomações salvas com sucesso!");
       this.vagaGaragem = data;
       this.form = {};
+      this.listaAllMarcas = [];
       this.limparCampos();
       this.tipo = "SELECIONAR TIPO";
     }, error => {
@@ -266,6 +268,8 @@ export class LocationGarageComponent implements OnInit {
   }
 
   alterarMarca(marcaOption) {
+    this.limparCampos();
+    this.getPeriodos();
     if (marcaOption.selectedIndex === undefined || marcaOption.selectedIndex === 0) {
       this.selectedMarca = undefined;
       return;
@@ -306,11 +310,9 @@ export class LocationGarageComponent implements OnInit {
   }
 
   limparCampos(){
-    this.selectedMarca = undefined;
     this.modelo = undefined;
     this.corSelecionada = "SELECIONAR COR";
     this.form.placaVehicle = '';
-    this.listaAllMarcas = [];
     this.listaPeriodos = [];
   }
 }
