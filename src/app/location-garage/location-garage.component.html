@@ -11,14 +11,14 @@
       <div class="content-input">
         <div class="input-area">
           <select name="codigo-tipo" id="codigo-tipo" (change)="selectOption($event.target.value)"
-            (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="getPeriodos()">
+            (change)="setVehicleHasOption()" (change)="listarAllMarcas()" (change)="getPeriodos()" [(ngModel)]="tipo">
             <option>SELECIONAR TIPO</option>
             <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
           </select>
         </div>
         <div class="input-area input-area-disabled" id="input-area-marca" [ngClass]="{'enable-area':tipo === 'CARRO' || tipo === 'MOTO'}">
           <select (change)="alterarMarca($event.target)" name="codigo-marca" id="codigo-marca" [ngClass]="{'enable-input':tipo === 'CARRO' || tipo === 'MOTO'}"
-            [disabled]="vehicleHasOption || tipo === undefined" class="input-area-disabled">
+            [disabled]="vehicleHasOption || tipo === 'SELECIONAR TIPO'" class="input-area-disabled">
             <option>MARCA</option>
             <option *ngFor="let marca of listaAllMarcas" [value]="marca" id="marca">{{marca.nome}}</option>
           </select>
@@ -39,9 +39,9 @@
         </div>
         <div class="input-area input-area-disabled" id="input-area-cor" [ngClass]="{'enable-area':tipo === 'CARRO' || tipo === 'MOTO' || tipo === 'BICICLETA' || tipo === 'PATINETE'}">
           <select (change)="selectCor($event.target)" name="codigo-cor" id="codigo-cor" [ngClass]="{'enable-input':tipo === 'CARRO' || tipo === 'MOTO' || tipo === 'BICICLETA' || tipo === 'PATINETE'}"
-            [disabled]="tipo === undefined || tipo === 'SELECIONAR TIPO'" class="input-area-disabled">
+            [disabled]="tipo === undefined || tipo === 'SELECIONAR TIPO'" class="input-area-disabled" [(ngModel)]="corSelecionada">
             <option>SELECIONAR COR</option>
-            <option *ngFor="let cor of cores" value="{{corSelecionada}}">{{cor}}</option>
+            <option *ngFor="let cor of cores">{{cor}}</option>
           </select>
         </div>
       </div>

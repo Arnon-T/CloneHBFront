@@ -29,7 +29,7 @@ export class LocationGarageComponent implements OnInit {
     nome: string,
     listAllMarcasIndex: number,
   };
-  tipo: string;
+  tipo: string = "SELECIONAR TIPO";
   modelo: string;
   modeloCompleto: {
     id: number;
@@ -43,7 +43,8 @@ export class LocationGarageComponent implements OnInit {
     dataFinal: string,
     descricao: string
   };
-  corSelecionada: string;
+
+  corSelecionada: string = "SELECIONAR COR";
 
   config: any;
   marca: 'SELECIONAR MARCA';
@@ -61,6 +62,7 @@ export class LocationGarageComponent implements OnInit {
   ngOnInit() {
     this.authGlobal.ngOnInit();
 
+
     if (!this.tokenService.getToken()) {
       return this.route.navigate(['/login']).then(() => {
         this.messageService.warn("Você não está autenticado. Favor fazer o login para acessar a página.");
@@ -75,9 +77,8 @@ export class LocationGarageComponent implements OnInit {
   }
 
   selectOption(tipo) {
-    this.selectedMarca = undefined;
-    this.modelo = undefined;
     this.tipo = tipo;
+    this.limparCampos();
   }
 
   onSubmit() {
@@ -99,6 +100,8 @@ export class LocationGarageComponent implements OnInit {
       this.alertService.info("Infomações salvas com sucesso!");
       this.vagaGaragem = data;
       this.form = {};
+      this.limparCampos();
+      this.tipo = "SELECIONAR TIPO";
     }, error => {
       switch (error.status) {
         case 0:
@@ -272,11 +275,13 @@ export class LocationGarageComponent implements OnInit {
       this.alertService.error("Marca não existe");
     }
 
+    this.modelo = undefined;
     this.selectedMarca = marcaObject;
     this.selectedMarca.listAllMarcasIndex = marcaOption.selectedIndex;
   }
 
   selectCor(corOption) {
+
     if (corOption.selectedIndex === undefined || corOption.selectedIndex === 0) {
       this.corSelecionada = '';
       return;
@@ -287,6 +292,7 @@ export class LocationGarageComponent implements OnInit {
     }
 
     this.corSelecionada = corString;
+
   }
 
   // Method to open modal
@@ -297,5 +303,14 @@ export class LocationGarageComponent implements OnInit {
     } else {
       modal.style.display = 'block';
     }
+  }
+
+  limparCampos(){
+    this.selectedMarca = undefined;
+    this.modelo = undefined;
+    this.corSelecionada = "SELECIONAR COR";
+    this.form.placaVehicle = '';
+    this.listaAllMarcas = [];
+    this.listaPeriodos = [];
   }
 }
