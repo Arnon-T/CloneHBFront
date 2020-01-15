@@ -194,15 +194,16 @@ export class LocationGarageComponent implements OnInit {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
       this.listaAllMarcas = [];
+
       if (this.tipo === 'SELECIONAR TIPO') {
         this.listaPeriodos = [];
       }
     } else {
       this.vehicleHasOption = false;
     }
+    console.log(this.vehicleHasOption)
     return this.vehicleHasOption;
   }
-
   searchModelo(event) {
     if (event.target.value === undefined || event.target.value === '') {
       this.modelosSearched = undefined;

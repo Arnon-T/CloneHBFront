@@ -89,6 +89,20 @@ h1, label, input, span, select {
     outline: none;
 }
 
+.container-locacao .content-locacao .form-locacao .content-input .input-area-disabled {
+  background: #ebeced;
+  cursor: not-allowed!important;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .enable-area {
+  background: transparent!important;
+  cursor: auto!important;
+}
+
+.container-locacao .content-locacao .form-locacao .content-input .enable-area .enable-input {
+  cursor: pointer!important;
+}
+
 .container-locacao .content-locacao .form-locacao .area-button-signup {
     display: flex;
     justify-content: center;
