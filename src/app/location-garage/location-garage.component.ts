@@ -190,46 +190,17 @@ export class LocationGarageComponent implements OnInit {
   setVehicleHasOption() {
     if (this.tipo === 'BICICLETA' || this.tipo === 'PATINETE' || this.tipo === 'SELECIONAR TIPO') {
       this.vehicleHasOption = true;
-      document.getElementById('input-area-marca').style.background = "#ebeced";
-      document.getElementById('codigo-marca').style.cursor = "not-allowed";
-      document.getElementById('input-area-modelo').style.background = "#ebeced";
-      document.getElementById('input-area-modelo').style.cursor = "not-allowed";
-      document.getElementById('input-modelo').style.cursor = "not-allowed";
-      document.getElementById('input-area-placa').style.background = "#ebeced";
-      document.getElementById('input-placa').style.cursor = "not-allowed";
-      document.getElementById('input-area-cor').style.background = "#ebeced";
-      document.getElementById('codigo-cor').style.cursor = "not-allowed";
-      document.getElementById('input-area-cor').style.background = "transparent";
-      document.getElementById('codigo-cor').style.cursor = "pointer";
-      document.getElementById('input-area-periodo').style.background = "transparent";
-      document.getElementById('codigo-periodo').style.cursor = "pointer";
-      
       this.listaAllMarcas = [];
+
       if (this.tipo === 'SELECIONAR TIPO') {
         this.listaPeriodos = [];
-      document.getElementById('input-area-cor').style.background = "#ebeced";
-      document.getElementById('codigo-cor').style.cursor = "not-allowed";
-      document.getElementById('input-area-periodo').style.background = "#ebeced";
-      document.getElementById('codigo-periodo').style.cursor = "not-allowed";
       }
     } else {
       this.vehicleHasOption = false;
-      document.getElementById('input-area-marca').style.background = "transparent";
-      document.getElementById('codigo-marca').style.cursor = "pointer";
-      document.getElementById('input-area-modelo').style.background = "transparent";
-      document.getElementById('input-area-modelo').style.cursor = "auto";
-      document.getElementById('input-modelo').style.cursor = "auto";
-      document.getElementById('input-area-placa').style.background = "transparent";
-      document.getElementById('input-placa').style.cursor = "auto";
-      document.getElementById('input-area-cor').style.background = "transparent";
-      document.getElementById('codigo-cor').style.cursor = "pointer";
-      document.getElementById('input-area-periodo').style.background = "transparent";
-      document.getElementById('codigo-periodo').style.cursor = "pointer";
     }
     console.log(this.vehicleHasOption)
     return this.vehicleHasOption;
   }
-
   searchModelo(event) {
     if (event.target.value === undefined || event.target.value === '') {
       this.modelosSearched = undefined;
