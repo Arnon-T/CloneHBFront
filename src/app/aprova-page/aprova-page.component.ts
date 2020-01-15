@@ -6,9 +6,9 @@ import { MessageService } from '../_message'
 import { Router } from '@angular/router';
 import { TokenStorage } from '../auth/token-storage';
 import { AprovaService } from './aprova.service';
-import { VagaGaragemPageable } from './VagaGararemPageable';
+import { VagaContent } from './VagaContent';
 import { VagaGaragem } from './VagaGaragem';
-import { Periodo } from './Periodo';
+import { PeriodoDTO } from './PeriodoDTO';
 import { VagaInfoDTO } from './VagaInfoDTO';
 
 @Component({
@@ -29,11 +29,10 @@ export class AprovaPageComponent implements OnInit {
 
   selectItemsPerPage(quantity) {
     this.itemsPage = quantity;
-    this.getAllVagaGaragens(this.tipo.toUpperCase(), 0, this.itemsPage);
+    this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), 0, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
   }
 
   form: any = {};
-
   isLoading: boolean = false;
 
   tipoDefaultName = 'Carro';
@@ -44,19 +43,19 @@ export class AprovaPageComponent implements OnInit {
   turnoBoolean: boolean = false;
 
   periodoDefaultName: string = 'Período';
-  periodo: Periodo;
-  periodos: Periodo[];
+  periodo: PeriodoDTO;
+  periodos: PeriodoDTO[];
 
   moreColaboradorThanVagas: boolean = false;
   vagaInfo: VagaInfoDTO;
-  vagaGaragemPageable: VagaGaragemPageable;
-  totalElements: number;
-  totalElementsFromListAppear: number = 0;
-  listaVagas: VagaGaragem[];
+  vagaContent: VagaContent;
+  listaVagas: VagaGaragem[] = [];
+  listaVagasSelecionadas: VagaGaragem[] = [];
+
+  actualPage: number = 0;
 
   ngOnInit() {
     this.authGlobal.ngOnInit();
-
 
     if (!this.tokenService.getToken()) {
       return this.route.navigate(['/login']).then(() => {
@@ -64,36 +63,22 @@ export class AprovaPageComponent implements OnInit {
       });
     }
 
-    this.alertService.info('Buscando colaboradores..');
+    this.messageService.info('Buscando colaboradores..');
 
     this.isLoading = true;
-    this.getAllVagaGaragens('CARRO', 0, this.itemsPage);
-    this.getAllPeriodos('CARRO');
-    this.setDefaultThings();
+    this.getVagaContentOnNgInit('CARRO', 0, this.itemsPage, 'INTEGRAL');
   }
 
-  setDefaultThings() {
-    const periodoNewer = new Periodo();
-    periodoNewer.descricao = 'Período';
-    this.periodo = periodoNewer;
-
-    const vagaInfo = new VagaInfoDTO();
-    vagaInfo.quantidade = 100000000000;
-    this.vagaInfo = vagaInfo;
-  }
-
-  getAllVagaGaragens(type: string, page: number, size: number) {
-    this.aprovaService.findAllColaboradoresToApprove(type, page, size).subscribe(data => {
+  getVagaContentOnNgInit(type: string, page: number, size: number, turno: string) {
+    this.aprovaService.findAllContentOnNgInit(type, page, size, turno).subscribe(data => {
       this.isLoading = false;
-      this.vagaGaragemPageable = data;
-      this.totalElements = data.totalElements;
-      let list = data.content.filter(vagaGaragem => vagaGaragem.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
-      this.listaVagas = list;
-      if ((this.totalElements - list.length) >= this.vagaInfo.quantidade) {
-        this.moreColaboradorThanVagas = true;
-      } else {
-        this.moreColaboradorThanVagas = false;
-      }
+      this.vagaContent = data;
+      this.listaVagas = data.vagaGaragemPage.content;
+      this.periodo = data.periodoDTO;
+      this.periodos = [...data.periodosDTOOfVehicleType]; { }
+      this.vagaInfo = data.vagaInfoDTO;
+      this.listaVagasSelecionadas = [];
+      this.setSortNeeded();
     }, error => {
       switch (error.status) {
         case 0:
@@ -102,23 +87,24 @@ export class AprovaPageComponent implements OnInit {
         case 500:
           this.messageService.error('Erro interno do servidor.');
           break;
-        default:
-          this.messageService.error("Não foi possivel buscar os colaboradores para aprovar.");
+        case 404:
+          this.alertService.error(error.error.message);
           break;
       }
+      this.resetAll();
     });
   }
 
-  getAllPeriodos(type: string) {
-    this.aprovaService.getPeriodos(type).subscribe(data => {
+  getVagaContentWithPeriodo(type: string, page: number, size: number, turno: string, idPeriodo: number) {
+    this.aprovaService.findAllContentByIdPeriodo(type, page, size, turno, idPeriodo).subscribe(data => {
       this.isLoading = false;
-      if (data !== undefined && data.length >= 1) {
-        this.periodos = [...data];
-      } else {
-        const newPeriodo = new Periodo();
-        newPeriodo.descricao = "Nenhum período encontrado.";
-        this.periodos = [newPeriodo];
-      }
+      this.vagaContent = data;
+      this.listaVagas = data.vagaGaragemPage.content;
+      this.periodo = data.periodoDTO;
+      this.periodos = [...data.periodosDTOOfVehicleType];
+      this.vagaInfo = data.vagaInfoDTO;
+      this.listaVagasSelecionadas = [];
+      this.setSortNeeded();
     }, error => {
       switch (error.status) {
         case 0:
@@ -127,11 +113,34 @@ export class AprovaPageComponent implements OnInit {
         case 500:
           this.messageService.error('Erro interno do servidor.');
           break;
-        default:
-          this.messageService.error("Não foi possivel buscar períodos.");
+        case 404:
+          this.alertService.error(error.error.message);
           break;
       }
+      this.resetAll();
     });
+  }
+
+  setSortNeeded() {
+    if (this.vagaInfo !== undefined && this.vagaInfo !== null) {
+      if (this.vagaContent.vagaGaragemPage.totalElements >= this.vagaInfo.quantidade) {
+        return this.moreColaboradorThanVagas = true;
+      } else {
+        return this.moreColaboradorThanVagas = false;
+      }
+    }
+    return this.moreColaboradorThanVagas = false;
+  }
+
+  resetAll() {
+    let periodoError = new PeriodoDTO();
+    periodoError.descricao = 'Nenhum período encontrado.';
+
+    this.vagaContent = undefined;
+    this.vagaInfo = undefined;
+    this.periodo = periodoError;
+    this.periodos = [periodoError];
+    this.listaVagas = [];
   }
 
   aprovarTodos() {
@@ -139,7 +148,6 @@ export class AprovaPageComponent implements OnInit {
       if (data.length !== this.listaVagas.length) {
         throw this.alertService.error("Não foi possivel devido a não haver nenhuma informação de vaga para este período.");
       }
-
       this.alertService.success('Todos os colaboradores foram aprovados.');
       data.map(vaga => {
         this.listaVagas = this.listaVagas.filter(vagaGaragemInList => vagaGaragemInList.id !== vaga.id);
@@ -177,116 +185,46 @@ export class AprovaPageComponent implements OnInit {
     });
   }
 
-  aprovarSingular(vaga: VagaGaragem) {
-    this.aprovaService.postAprovarSingular(this.turno.toUpperCase(), vaga).subscribe(data => {
-      this.alertService.success('Colaborador aprovado com sucesso!');
-      this.listaVagas = this.listaVagas.filter(vagaGaragem => vagaGaragem.id !== data.id);
-    }, error => {
-      switch (error.status) {
-        case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
-          break;
-        case 500:
-          this.messageService.error('Erro interno do servidor.');
-          break;
-        default:
-          this.messageService.error("Não foi possivel aprovar o colaborador.");
-          break;
-      }
-    });
+  addOnList(vaga: VagaGaragem) {
+    if (!this.listaVagasSelecionadas.includes(vaga)) {
+      this.listaVagasSelecionadas.push(vaga);
+    } else {
+      this.listaVagasSelecionadas = this.listaVagasSelecionadas.filter(vagaFromList => vagaFromList.id !== vaga.id);
+    }
   }
 
   selectTipoOnDropdown(tipo: string) {
+    this.getVagaContentOnNgInit(tipo.toUpperCase(), this.actualPage, this.itemsPage, this.turno);
     this.tipos = this.tipos.filter(type => type !== tipo);
     if (this.tipo !== undefined) {
       let tiposArray = [this.tipo, ...this.tipos];
       this.tipos = tiposArray;
     }
     this.tipo = tipo;
-    this.listaVagas = this.vagaGaragemPageable.content;
-    this.getAllVagaGaragens(this.tipo.toUpperCase(), 0, this.itemsPage);
-    this.getPeriodos();
-    this.vagaInfo.quantidade = 100000000000;
     this.openDropdown('dropdown-tipo-veiculo');
   }
 
-  selectPeriodoOnDropdown(periodo: Periodo) {
-    this.alertService.clear();
-    this.periodo = periodo;
-    this.openDropdown('dropdown-prioridade');
-    if (periodo.descricao === 'Período') {
-      this.listaVagas = this.vagaGaragemPageable.content;
-      return;
+  selectPeriodoOnDropdown(periodo: PeriodoDTO) {
+    if (periodo !== undefined && periodo.id !== undefined) {
+      this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), this.actualPage, this.itemsPage, this.turno, periodo.id);
+      this.periodo = periodo;
     }
-    this.listaVagas = this.vagaGaragemPageable.content.filter(vaga => vaga.periodo.id === periodo.id).filter(vaga => vaga.statusVaga !== 'APROVADA').filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean);
-    this.getTotalElementsFiltrados(this.turno.toUpperCase(), this.tipo.toUpperCase(), this.periodo.id, 'EMAPROVACAO');
-    this.aprovaService.getVagaInfo(this.turno, this.tipo, periodo.id).subscribe(data => {
-      this.vagaInfo = data;
-      if (this.totalElementsFromListAppear >= data.quantidade) {
-        this.moreColaboradorThanVagas = true;
-      } else {
-        this.moreColaboradorThanVagas = false;
-      }
-    }, error => {
-      switch (error.status) {
-        case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
-          break;
-        case 500:
-          this.messageService.error('Erro interno do servidor.');
-          break;
-        default:
-          this.alertService.error("Não foi possivel buscar a informação de vaga para ver se possui quantidade necessaria.");
-          break;
-      }
-    });
+    this.openDropdown('dropdown-prioridade');
   }
 
-  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number, status: string) {
-    this.aprovaService.getTotalElementsFiltrados(turno.toUpperCase(), tipo.toUpperCase(), idPeriodo, status).subscribe(data => {
-      this.totalElementsFromListAppear = data;
-    }, error => {
-      switch (error.status) {
-        case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
-          break;
-        case 500:
-          this.messageService.error('Erro interno do servidor.');
-          break;
-        default:
-          this.alertService.error("Não foi possivel buscar a quantidade de elementos nesse período");
-          break;
-      }
-    });
-
-    return this.totalElementsFromListAppear;
-  }
-
-  getPeriodos() {
-    this.aprovaService.getPeriodos(this.tipo.toUpperCase()).subscribe(data => {
-      let periodoNewer = new Periodo();
-      if (data !== undefined && data.length >= 1) {
-        periodoNewer.descricao = 'Período';
-        this.periodo = periodoNewer;
-        this.periodos = data;
+  checkTrabalhoNoturno(event) {
+    this.alertService.clear();
+    if (this.periodo !== undefined && this.periodo.id !== undefined) {
+      this.turnoBoolean = event.target.checked;
+      if (this.turnoBoolean) {
+        this.turno = 'NOTURNO';
       } else {
-        periodoNewer.descricao = 'Não há nenhum período';
-        this.periodo = periodoNewer;
-        this.periodos = [periodoNewer];
+        this.turno = 'INTEGRAL';
       }
-    }, error => {
-      switch (error.status) {
-        case 0:
-          this.messageService.error('Ocorreu algum erro com o servidor. Servidor deve estar indisponivel.');
-          break;
-        case 500:
-          this.messageService.error('Erro interno do servidor.');
-          break;
-        default:
-          this.messageService.error("Não foi possivel buscar os períodos ao trocar o tipo de veículo.");
-          break;
-      }
-    });
+      this.getVagaContentWithPeriodo(this.tipo.toUpperCase(), this.actualPage, this.itemsPage, this.turno.toUpperCase(), this.periodo.id);
+    } else {
+      this.alertService.error('Não possui período nesse tipo de veículo.');
+    }
   }
 
   closeDropdown(event) {
@@ -308,22 +246,5 @@ export class AprovaPageComponent implements OnInit {
   openDropdown(divId: string) {
     let divDropdown = document.getElementById(divId);
     divDropdown.classList.toggle('openDropdown');
-  }
-
-  checkTrabalhoNoturno(event) {
-    this.turnoBoolean = event.target.checked;
-    if (this.turnoBoolean) {
-      this.turno = 'NOTURNO';
-    } else {
-      this.turno = 'INTEGRAL';
-    }
-
-    let list = this.vagaGaragemPageable.content.filter(vaga => vaga.colaborador.trabalhoNoturno === this.turnoBoolean).filter(vaga => vaga.statusVaga !== 'APROVADA');
-    this.listaVagas = list;
-    if (list.length >= this.vagaInfo.quantidade) {
-      this.moreColaboradorThanVagas = true;
-    } else {
-      this.moreColaboradorThanVagas = false;
-    }
   }
 }

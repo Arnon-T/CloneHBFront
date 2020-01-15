@@ -12,7 +12,7 @@
               <alert></alert>
             </div>
             <div class="actions-table">
-              <div class="dropdown-area">
+              <div id="dropdown-vehicle-type" class="dropdown-area">
                 <div class="container-area" (click)="openDropdown('dropdown-tipo-veiculo')">
                   <span>{{tipo}}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -52,6 +52,15 @@
                 </div>
               </div>
             </div>
+            <ng-container *ngIf="vagaInfo !== null && vagaInfo !== undefined; else isNullVagaInfo">
+              <div class="vagas-candidatos">
+                <span>Vagas Livres: {{vagaInfo.quantidade}}</span>
+                <span>Candidatos: {{vagaContent.vagaGaragemPage.totalElements}}</span>
+              </div>
+            </ng-container>
+            <div id="isNullVagaInfo" *ngIf="vagaInfo === null || vagaInfo === undefined" class="vagas-candidatos">
+              <span>Não existe quantidade de vagas para esse período.</span>
+            </div>
             <div class="table-area">
               <div class="table-head">
                 <div class="content-head">
@@ -61,19 +70,30 @@
               </div>
               <div class="table-body">
                 <div *ngIf="isLoading === false; else isloading" class="content-body">
-                  <div *ngFor="let vaga of listaVagas" class="content-line">
-                    <div class="content-user">
-                      <div class="nome-colaborador">
-                        <span class="nome-completo">{{vaga.colaborador.nome}}</span>
-                        <span class="email">{{vaga.colaborador.email}}</span>
+                  <ng-container *ngIf="listaVagas.length >= 1; else noContentOnList">
+                    <div *ngFor="let vaga of listaVagas" class="content-line">
+                      <div class="content-user">
+                        <div class="nome-colaborador">
+                          <span class="nome-completo">{{vaga.colaborador.nome}}</span>
+                          <span class="email">{{vaga.colaborador.email}}</span>
+                        </div>
+                        <div *ngIf="vaga.statusVaga === 'EMAPROVACAO'" class="status">
+                          <span>Em Aprovação</span>
+                        </div>
+                        <div *ngIf="vaga.statusVaga !== 'EMAPROVACAO'" class="status">
+                          <span>{{vaga.statusVaga}}</span>
+                        </div>
                       </div>
-                      <div class="status">
-                        <span>{{vaga.statusVaga}}</span>
-                      </div>
+                      <ng-container *ngIf="moreColaboradorThanVagas === false">
+                        <label class="container-checkbox" for="{{'input-add-list-' + vaga.id}}">
+                          <input id="{{'input-add-list-' + vaga.id}}" type="checkbox" (change)="addOnList(vaga)">
+                          <span class="span-checkmark"></span>
+                        </label>
+                      </ng-container>
                     </div>
-                    <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarSingular(vaga)" class="aprovar-button-single">
-                      <button>Aprovar</button>
-                    </div>
+                  </ng-container>
+                  <div id="noContentOnList" *ngIf="1 >= listaVagas.length" class="noContentArea">
+                    <span>Não foi encontrado nenhum colaborador nesse período.</span>
                   </div>
                 </div>
                 <div id="isloading" *ngIf="isLoading === true" class="isloading-table">
@@ -88,11 +108,54 @@
                   <option *ngFor="let option of itemsPageDefaultNumbers">{{option}}</option>
                 </select>
               </div>
-              <div *ngIf="moreColaboradorThanVagas === false" (click)="aprovarTodos()" class="button-aprove">
-                <button>Aprovar todos</button>
+              <div *ngIf="moreColaboradorThanVagas === false && listaVagasSelecionadas.length === 0"
+                class="button-area">
+                <button [disabled]="vagaInfo === null || vagaInfo === undefined" (click)="aprovarTodos()"
+                  class="button-aprove">
+                  <span>Aprovar todos</span>
+                </button>
+                <div class="tooltipgeral tooltip-aproveall">
+                  <span *ngIf="vagaInfo === null || vagaInfo === undefined">Necessário cadastrar informações da vaga
+                    para este
+                    período.</span>
+                  <span *ngIf="vagaInfo !== null && vagaInfo !== undefined && vagaInfo.quantidade === 0">Não há mais
+                    vagas para este período</span>
+                  <span *ngIf="listaVagas !== null && listaVagas !== undefined && listaVagas.length === 0">Não há
+                    colaboradores para
+                    aprovar.</span>
+                </div>
               </div>
-              <div *ngIf="moreColaboradorThanVagas === true" (click)="sortearTodasVagas()" class="button-sort">
-                <button>Sortear vagas</button>
+              <div *ngIf="moreColaboradorThanVagas === false && listaVagasSelecionadas.length >= 1" class="button-area">
+                <button [disabled]="vagaInfo === null || vagaInfo === undefined" (click)="aprovarTodos()"
+                  class="button-aprove-selecionados">
+                  <span>Aprovar Selecionados</span>
+                </button>
+                <div class="tooltipgeral tooltip-selecteds">
+                  <span *ngIf="vagaInfo === null || vagaInfo === undefined">Necessário cadastrar informações da vaga
+                    para este
+                    período.</span>
+                  <span *ngIf="vagaInfo !== null && vagaInfo !== undefined && vagaInfo.quantidade === 0">Não há mais
+                    vagas para este período</span>
+                  <span *ngIf="listaVagas !== null && listaVagas !== undefined && listaVagas.length === 0">Não há
+                    colaboradores para
+                    aprovar.</span>
+                </div>
+              </div>
+              <div *ngIf="moreColaboradorThanVagas === true && vagaInfo !== null && vagaInfo !== undefined"
+                class="button-area">
+                <button [disabled]="vagaInfo.quantidade === 0" (click)="sortearTodasVagas()" class="button-sort">
+                  <span>Sortear vagas</span>
+                </button>
+                <div class="tooltipgeral tooltip-sortear">
+                  <span *ngIf="vagaInfo === null || vagaInfo === undefined">Necessário cadastrar informações da vaga
+                    para este
+                    período</span>
+                  <span *ngIf="vagaInfo !== null && vagaInfo !== undefined && vagaInfo.quantidade === 0">Não há mais
+                    vagas para este período</span>
+                  <span *ngIf="listaVagas !== null && listaVagas !== undefined && listaVagas.length === 0">Não há
+                    colaboradores para
+                    aprovar.</span>
+                </div>
               </div>
             </div>
           </div>

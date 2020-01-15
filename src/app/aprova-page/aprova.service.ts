@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VagaGaragemPageable } from './VagaGararemPageable';
-import { Periodo } from './Periodo';
+import { VagaContent } from './VagaContent';
 import { VagaGaragem } from './VagaGaragem';
 import { VagaGaragemDTO } from '../location-garage/vagaGaragemDTO';
-import { VagaInfoDTO } from './VagaInfoDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -16,27 +14,38 @@ export class AprovaService {
 
   constructor(private http: HttpClient) { }
 
-  findAllColaboradoresToApprove(tipo: string, page: number, itemsPage): Observable<VagaGaragemPageable> {
+  findAllContentOnNgInit(tipo: string, page: number, itemsPage, turno: string): Observable<VagaContent> {
     if (tipo === undefined || tipo === '') {
       tipo = 'CARRO';
+    }
+
+    if (turno === undefined || turno === '') {
+      turno = 'INTEGRAL';
     }
 
     if (itemsPage === undefined || itemsPage === 0) {
       itemsPage = 10;
     }
 
-    let urlToGetAll = this.urlBase + '/vagas/findby/' + tipo + '/' + page + "/" + itemsPage;
-    return this.http.get<VagaGaragemPageable>(urlToGetAll);
+    let urlToGetAll = this.urlBase + '/vagas/' + tipo + '/' + page + '/' + itemsPage + '/' + turno;
+    return this.http.get<VagaContent>(urlToGetAll);
   }
 
-  getTotalElementsFiltrados(turno: string, tipo: string, idPeriodo: number, status: string): Observable<number> {
-    turno = turno.toUpperCase();
-    tipo = tipo.toUpperCase();
-    status = status.toUpperCase();
+  findAllContentByIdPeriodo(type: string, page: number, size: number, turno: string, idPeriodo: number): Observable<VagaContent> {
+    if (type === undefined || type === '') {
+      type = 'CARRO';
+    }
 
-    let url = this.urlBase + '/vaga-info/findAll/' + turno + '/' + tipo + '/' + idPeriodo + '/' + status;
+    if (turno === undefined || turno === '') {
+      turno = 'INTEGRAL';
+    }
 
-    return this.http.get<number>(url);
+    if (size === undefined || size === 0) {
+      size = 10;
+    }
+
+    let urlToGetAll = this.urlBase + '/vagas/' + type + '/' + page + '/' + size + '/' + turno + '/' + idPeriodo;
+    return this.http.get<VagaContent>(urlToGetAll);
   }
 
   sorteioVagas(periodoId: number, tipoVeiculo: string, turno: string): Observable<any> {
@@ -46,27 +55,9 @@ export class AprovaService {
     return this.http.get(url);
   }
 
-
-  getPeriodos(tipo: string): Observable<Periodo[]> {
-    if (tipo === undefined || tipo === '') {
-      return;
-    }
-
-    var url = this.urlBase + "/periodo/buscar-tipo/" + tipo;
-    return this.http.get<Periodo[]>(url);
-  }
-
   postAprovarSingular(turno: string, vaga: VagaGaragem): Observable<VagaGaragemDTO> {
     let url = this.urlBase + "/vagas/approve/" + turno;
     return this.http.post<VagaGaragemDTO>(url, vaga);
-  }
-
-  getVagaInfo(turno: string, tipo: string, periodoId: number): Observable<VagaInfoDTO> {
-    turno = turno.toUpperCase();
-    tipo = tipo.toUpperCase();
-    let url = this.urlBase + '/vaga-info/findBy/' + turno + '/' + tipo + '/' + periodoId;
-
-    return this.http.get<VagaInfoDTO>(url);
   }
 
   postAprovarTodos(turno: string, listaVagas: VagaGaragem[]): Observable<VagaGaragemDTO[]> {
