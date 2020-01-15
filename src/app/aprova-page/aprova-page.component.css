@@ -1,9 +1,10 @@
+/* DROPDOWN STYLE */
+
 .openDropdown {
   display: block !important;
 }
 
-/* Itens por página */
-
+/* ITEMS PAGE AREA STYLE */
 .items-page-area {
   position: relative;
   user-select: none;
@@ -30,6 +31,109 @@
   font-size: 15px;
   outline: none;
 }
+
+/* LIST NO CONTENT STYLE */
+
+.noContentArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 65px;
+  height: 100%;
+  max-width: 340px;
+}
+
+.noContentArea span {
+  font-size: 15px;
+  margin-left: 10px;
+  color: #0082BF;
+  text-align: center;
+}
+
+/* VAGA INFO AREA STYLE */
+
+.vagas-candidatos {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  text-align: right;
+  padding: 5px 30px;
+  margin-bottom: 15px;
+}
+
+.vagas-candidatos span {
+  font-size: 15px;
+  margin-left: 10px;
+  color: #2d2d2d;
+}
+
+/* CHECKBOXES STYLE */
+
+.container-checkbox {
+  min-width: 21px;
+  max-width: 21px;
+  width: 100%;
+  min-height: 20px;
+  max-height: 20px;
+  width: 100%;
+}
+
+.container-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  background: #fafafa;
+  border: 1px solid #ebeced;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.text-checkbox {
+  font-size: 15px;
+  margin-left: 10px;
+  color: #2d2d2d;
+}
+
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container-checkbox .span-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.span-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid #0082BF;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.container-checkbox input:checked ~ .span-checkmark:after {
+  display: block;
+}
+
+.container-checkbox:checked {
+  background: #0082BF !important;
+}
+
+/* MAIN STYLE */
 
 .container-aprovacao {
   display: flex;
@@ -101,6 +205,7 @@
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area {
   position: relative;
   user-select: none;
+  transition: 0.2s width;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area {
@@ -122,6 +227,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   margin-right: 5px;
+  transition: 0.2s max-width;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area-dropped {
@@ -153,7 +259,6 @@
   justify-content: flex-end;
   align-items: center;
   padding: 0 15px;
-  margin-bottom: 15px;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox {
@@ -170,70 +275,6 @@
   display: flex;
   justify-content: left;
   align-items: center;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox {
-  min-width: 21px;
-  max-width: 21px;
-  width: 100%;
-  min-height: 20px;
-  max-height: 20px;
-  width: 100%;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  font-size: 22px;
-  background: #fafafa;
-  border: 1px solid #ebeced;
-  border-radius: 2px;
-  cursor: pointer;
-  margin: 0;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .text-checkbox {
-  font-size: 15px;
-  margin-left: 10px;
-  color: #2d2d2d;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox .span-checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .span-checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 6px;
-  top: 2px;
-  width: 6px;
-  height: 11px;
-  border: solid #0082BF;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox .container-checkbox input:checked ~ .span-checkmark:after {
-  display: block;
-}
-
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .checkboxes .content-checkbox label:checked {
-  background: #0082BF !important;
 }
 
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .alert-area {
@@ -376,12 +417,33 @@
   padding: 0 30px;
 }
 
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons button {
+  background: transparent;
+  border: none;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove {
   display: flex;
   justify-content: center;
   align-items: center;
   background: #0082BF;
   max-width: 155px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove-selecionados {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0082BF;
+  max-width: 215px;
   width: 100%;
   height: 36px;
   border-radius: 5px;
@@ -398,7 +460,7 @@
   border-radius: 5px;
 }
 
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove button {
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove span, .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-aprove-selecionados span {
   background: none;
   border: none;
   width: 100%;
@@ -406,7 +468,7 @@
   color: #FFF;
 }
 
-.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-sort button {
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-sort span {
   background: none;
   border: none;
   width: 100%;
@@ -422,6 +484,56 @@
 .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-sort:hover {
   background: #707070;
   transition: 0.2s background;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area .tooltipgeral {
+  position: absolute;
+  bottom: 45px;
+  right: -45px;
+  background: #fafafa;
+  border: 1px solid #ecebed;
+  border-radius: 5px;
+  max-width: 300px;
+
+  padding: 5px 15px;
+  z-index: 9;
+  opacity: 0;
+  transition: 0.2s opacity;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area .tooltipgeral span {
+  font-size: 15px;
+  color: #0082BF;
+  word-wrap: break-word;
+  margin-right: 5px;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area button:hover  + .tooltipgeral {
+  opacity: 1 !important;
+}
+
+.container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area .tooltipgeral::after {
+  content: " ";
+  position: absolute;
+  top: 101%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ecebed transparent transparent transparent;
+}
+
+@media only screen and (min-width: 810px) {
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area span {
+    max-width: 147px;
+  }
 }
 
 @media only screen and (max-width: 870px) and (min-width: 0px) {
@@ -452,14 +564,20 @@
   }
 
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area {
-    max-width: 135px;
+    max-width: none;
     width: 100%;
-    margin-right: 5px;
+    margin-right: 0 !important;
+    padding: 0 5px;
   }
 
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area {
     padding: 5px 15px;
     margin-right: 0;
+  }
+
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area span {
+    max-width: none;
+    text-align: center;
   }
 
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area-dropped {
@@ -469,11 +587,32 @@
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-page {
     margin-left: 0;
   }
+
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area .tooltipgeral {
+    right: -35px;
+  }
 }
 
 @media only screen and (max-width: 500px) and (min-width: 0px) {
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table {
     overflow-x: auto;
+    overflow-x: visible;
+    padding: 0 5px;
+    flex-direction: column;
+  }
+
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area {
+    padding: 0;
+    margin-bottom: 5px;
+  }
+
+  #dropdown-vehicle-type {
+    z-index: 9999;
+  }
+
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .actions-table .dropdown-area .container-area span  {
+    max-width: 115px;
+    transition: 0.2s all;
   }
 
   .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .table-area .table-head .content-head {
@@ -494,6 +633,10 @@
     max-width: none;
     padding: 0;
     margin-bottom: 5px;
+  }
+
+  .container-aprovacao .content-aprovacao .content-area-aprovacao .content-actions .buttons .button-area .tooltipgeral {
+    right: -25px;
   }
 }
 
